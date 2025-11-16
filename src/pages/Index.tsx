@@ -131,13 +131,80 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
-      {/* Why Section Premium */}
+      {/* My Story Section - Introduction */}
       <section id="histoire" className="py-32 bg-gradient-to-br from-background via-secondary to-background relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <div className="text-center mb-20">
             <h2 className="text-5xl lg:text-6xl font-black text-gradient mb-8 font-display">
+              Mon Histoire
+            </h2>
+            <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto" />
+          </div>
+
+          {/* Qui suis-je & Pourquoi ce site */}
+          <div className="grid lg:grid-cols-2 gap-8 mb-20">
+            <div className="glass-card rounded-2xl p-10">
+              <div className="flex items-center mb-6">
+                <div className="p-3 bg-gradient-to-br from-primary-red to-dark-red rounded-xl mr-4">
+                  <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-foreground">
+                  Qui suis-je ?
+                </h3>
+              </div>
+              <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
+                <p>
+                  Je suis une patiente qui a fait confiance à la clinique{" "}
+                  <span className="text-primary-red font-semibold">Lema Dental</span> à Istanbul.
+                </p>
+                <p>
+                  Comme beaucoup, j'ai cru aux promesses d'un sourire parfait, à des soins modernes et à une équipe qualifiée.
+                </p>
+                <p>
+                  Mais derrière cette façade séduisante, j'ai découvert une tout autre réalité : celle d'une expérience marquée par la douleur, les manquements et le mépris.
+                </p>
+                <p>
+                  Je suis aujourd'hui une <span className="text-primary-red font-semibold">victime</span>, mais aussi une <span className="text-primary-red font-semibold">voix</span> — celle de toutes les personnes qui ont été trompées ou réduites au silence.
+                </p>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-10">
+              <div className="flex items-center mb-6">
+                <div className="p-3 bg-gradient-to-br from-primary-red to-dark-red rounded-xl mr-4">
+                  <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-foreground">
+                  Pourquoi ce site ?
+                </h3>
+              </div>
+              <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
+                <p>
+                  J'ai créé ce site pour révéler la vérité et prévenir d'autres victimes.
+                </p>
+                <p>
+                  Ce site n'est pas une vengeance : c'est une alerte citoyenne.
+                </p>
+                <p>
+                  Un espace de témoignage, d'enquête et de partage d'informations, construit avec rigueur.
+                </p>
+                <p>
+                  Mon objectif est simple : que plus personne ne se laisse séduire par des promesses mensongères, et que chaque patient retrouve son{" "}
+                  <span className="text-primary-red font-semibold">droit fondamental</span> à la transparence, au respect et à la dignité.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Pourquoi LemaClinic Truth section */}
+          <div className="text-center mb-16" id="victimes">
+            <h2 className="text-4xl lg:text-5xl font-black text-gradient mb-8 font-display">
               Pourquoi LemaClinic Truth ?
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
@@ -147,7 +214,7 @@ Lema Dental Clinic en Turquie.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8" id="victimes">
+          <div className="grid lg:grid-cols-3 gap-8">
             <div className="glass-card rounded-2xl p-10 hover-lift group">
               <div className="flex items-center mb-8">
                 <div className="p-4 bg-gradient-to-br from-primary-red to-dark-red rounded-xl mr-6 group-hover:scale-110 transition-transform duration-300">
