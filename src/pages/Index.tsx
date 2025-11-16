@@ -404,7 +404,7 @@ Lema Dental Clinic en Turquie.
                       Étape 1
                     </div>
                     <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
-                      L'appât commercial
+                      L'appât
                     </h3>
                     <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                       Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
