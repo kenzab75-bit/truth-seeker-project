@@ -172,7 +172,7 @@ All colors MUST be HSL.
 
   /* Gradient pour les titres principaux - blanc vers rose/rouge */
   .text-title-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, #ffffff 40%, #fecaca 65%, #f87171 85%, hsl(var(--primary-red)) 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #fecaca 40%, #f87171 70%, hsl(var(--primary-red)) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
