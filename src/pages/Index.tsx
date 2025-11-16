@@ -70,26 +70,27 @@ const Index = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
-              <button onClick={() => scrollToSection('accueil')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+              <button onClick={() => scrollToSection('accueil')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Accueil
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
-              <button onClick={() => scrollToSection('histoire')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+              <button onClick={() => scrollToSection('histoire')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Mon histoire
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
               
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:text-foreground hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-foreground data-[active]:bg-transparent focus:bg-transparent">
+                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent">
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 bg-black/95 border border-border/20">
+                      <ul className="grid w-[400px] gap-3 p-3 bg-gradient-to-br from-black via-black to-[#1a0000] backdrop-blur-[6px] border border-border/20 rounded-xl shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]">
                         <li>
                           <NavigationMenuLink asChild>
-                            <Link to="/informer/questions-victimes" className="block select-none rounded-md px-3 py-2 text-sm font-medium text-muted-foreground no-underline outline-none transition-colors hover:text-primary-red focus:text-primary-red">
+                            <Link to="/informer/questions-victimes" className="flex items-center gap-2 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616]">
+                              <FileText className="h-4 w-4 opacity-70" />
                               Questions Importantes des Victimes
                             </Link>
                           </NavigationMenuLink>
@@ -100,13 +101,13 @@ const Index = () => {
                 </NavigationMenuList>
               </NavigationMenu>
 
-              <button onClick={() => scrollToSection('victimes')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+              <button onClick={() => scrollToSection('victimes')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Témoignages
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
-              <button onClick={() => scrollToSection('contact')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+              <button onClick={() => scrollToSection('contact')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
             </nav>
 
