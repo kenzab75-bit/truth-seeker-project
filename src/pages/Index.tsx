@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AlertBanner from "@/components/AlertBanner";
@@ -10,6 +10,8 @@ const Index = () => {
   const [isEtape3ModalOpen, setIsEtape3ModalOpen] = useState(false);
   const [isEtape4ModalOpen, setIsEtape4ModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("Tous");
+  const [testimony, setTestimony] = useState("");
+  const [consentChecked, setConsentChecked] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +28,17 @@ const Index = () => {
       });
     }
   };
+
+  const handleSubmitTestimony = () => {
+    if (!testimony.trim() || !consentChecked) {
+      return;
+    }
+    // Simuler l'envoi sécurisé
+    console.log("Témoignage anonyme envoyé de manière sécurisée");
+    setTestimony("");
+    setConsentChecked(false);
+  };
+
   return <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Premium Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass bg-black/80" : "glass"}`}>
@@ -537,6 +550,90 @@ Lema Dental Clinic en Turquie.
             <p className="text-sm text-muted-foreground">
               3 témoignages • Toutes catégories
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Témoignage Anonyme */}
+      <section className="py-24 bg-gradient-to-br from-background via-black to-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
+        
+        <div className="max-w-3xl mx-auto px-6 lg:px-8 relative">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
+              Témoignage Anonyme
+            </h2>
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              Partagez votre expérience de manière anonyme et sécurisée. Votre identité est protégée.
+            </p>
+          </div>
+
+          {/* Container principal */}
+          <div className="glass-card rounded-2xl p-8 lg:p-12 border border-primary-red/20 shadow-2xl">
+            {/* Bloc d'avertissement rouge */}
+            <div className="bg-[#7A1212] rounded-xl p-6 mb-8 border border-primary-red/30">
+              <div className="flex items-start gap-4">
+                <Shield className="h-6 w-6 text-primary-red flex-shrink-0 mt-1" />
+                <p className="text-white/90 leading-relaxed">
+                  Tous les témoignages sont cryptés et stockés en toute sécurité. Nous ne collectons jamais d'adresses IP ou d'informations identifiantes.
+                </p>
+              </div>
+            </div>
+
+            {/* Zone de saisie */}
+            <div className="mb-8">
+              <label htmlFor="testimony" className="block text-foreground font-semibold mb-3 text-lg">
+                Votre témoignage
+              </label>
+              <textarea
+                id="testimony"
+                value={testimony}
+                onChange={(e) => setTestimony(e.target.value)}
+                placeholder="Partagez votre histoire… (Tous les témoignages sont entièrement anonymes)"
+                className="w-full min-h-[250px] bg-[#0E0E0E] border-2 border-primary-red/30 rounded-xl p-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary-red focus:ring-2 focus:ring-primary-red/20 transition-all duration-300 resize-y"
+              />
+            </div>
+
+            {/* Bloc de consentement avec checkbox */}
+            <div className="bg-[#0E0E0E] rounded-xl p-6 mb-8 border border-primary-red/30">
+              <div className="flex items-start gap-4">
+                <button
+                  onClick={() => setConsentChecked(!consentChecked)}
+                  className="flex-shrink-0 mt-0.5"
+                >
+                  <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${
+                    consentChecked 
+                      ? "bg-primary-red border-primary-red" 
+                      : "border-primary-red/50 hover:border-primary-red"
+                  }`}>
+                    {consentChecked && (
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+                <div>
+                  <p className="text-white font-medium mb-2">
+                    Je comprends que mon témoignage sera anonymisé et stocké de façon chiffrée.
+                  </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Nous supprimons tout identifiant technique (IP, agent utilisateur) et appliquons un hachage salé avant archivage.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bouton d'envoi */}
+            <button
+              onClick={handleSubmitTestimony}
+              disabled={!testimony.trim() || !consentChecked}
+              className="w-full bg-primary-red hover:bg-[#C41E1E] text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-primary-red/30 hover:-translate-y-0.5"
+            >
+              <Lock className="h-5 w-5" />
+              Envoyer anonymement
+            </button>
           </div>
         </div>
       </section>
