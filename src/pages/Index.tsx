@@ -198,6 +198,118 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
+      {/* Story Section - Mon expérience */}
+      <section className="py-32 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-red/5 via-transparent to-primary-red/5" />
+        
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl lg:text-6xl font-black text-gradient mb-8 font-display">
+              Mon expérience
+            </h2>
+            <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto" />
+          </div>
+
+          <div className="glass-card rounded-2xl p-12 lg:p-16 space-y-8">
+            <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed">
+              Comme beaucoup d'autres, j'ai été attiré par les promesses alléchantes de Lema Dental Clinic à Istanbul. 
+              Des soins dentaires de qualité à des prix attractifs, une équipe professionnelle, des installations modernes... 
+              La réalité s'est révélée bien différente.
+            </p>
+
+            <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed">
+              Une fois sur place, le cauchemar a commencé. Les diagnostics ont changé, les prix ont explosé, 
+              et les complications sont apparues rapidement. Les promesses se sont évaporées, et je me suis retrouvé 
+              piégé dans un système bien rodé, conçu pour maximiser les profits au détriment de la santé des patients.
+            </p>
+
+            <p className="text-xl lg:text-2xl text-foreground leading-relaxed font-semibold">
+              Aujourd'hui, je me bats pour exposer ces pratiques et aider d'autres victimes. 
+              Ce site est ma voix, et j'espère qu'il deviendra aussi la vôtre.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Story Section - Une mécanique bien rodée */}
+      <section className="py-32 bg-gradient-to-br from-background via-secondary to-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl lg:text-6xl font-black text-gradient mb-8 font-display">
+              Une mécanique bien rodée
+            </h2>
+            <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Un système organisé pour piéger les patients et maximiser les profits.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div className="glass-card rounded-2xl p-10 hover-lift">
+              <div className="mb-6">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-red to-dark-red flex items-center justify-center mb-6">
+                  <span className="text-3xl font-black text-white">1</span>
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  Promesses séduisantes
+                </h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Marketing agressif sur les réseaux sociaux, photos avant/après retouchées, 
+                témoignages fabriqués et prix défiant toute concurrence pour attirer un maximum de patients.
+              </p>
+            </div>
+
+            <div className="glass-card rounded-2xl p-10 hover-lift">
+              <div className="mb-6">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-red to-dark-red flex items-center justify-center mb-6">
+                  <span className="text-3xl font-black text-white">2</span>
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  Changement de plan
+                </h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Une fois sur place, les diagnostics changent miraculeusement. De nouveaux "problèmes" apparaissent, 
+                et les prix augmentent drastiquement sous prétexte de soins "nécessaires".
+              </p>
+            </div>
+
+            <div className="glass-card rounded-2xl p-10 hover-lift">
+              <div className="mb-6">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-red to-dark-red flex items-center justify-center mb-6">
+                  <span className="text-3xl font-black text-white">3</span>
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  Travail bâclé
+                </h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Les soins sont effectués à la va-vite, sans respect des protocoles. Les complications apparaissent 
+                rapidement : douleurs, infections, prothèses mal ajustées, dommages irréversibles.
+              </p>
+            </div>
+
+            <div className="glass-card rounded-2xl p-10 hover-lift">
+              <div className="mb-6">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-red to-dark-red flex items-center justify-center mb-6">
+                  <span className="text-3xl font-black text-white">4</span>
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  Silence et abandon
+                </h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Une fois rentré, plus de nouvelles. Les appels restent sans réponse, les messages ignorés. 
+                Les victimes se retrouvent seules face aux conséquences, obligées de tout refaire dans leur pays.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <footer id="contact" className="bg-gradient-to-br from-background via-black to-background py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
