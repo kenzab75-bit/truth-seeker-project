@@ -86,12 +86,9 @@ const Index = () => {
                           <NavigationMenuLink asChild>
                             <Link
                               to="/informer/questions-victimes"
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-foreground focus:bg-accent focus:text-foreground"
+                              className="block select-none rounded-md px-3 py-2 text-sm font-medium text-muted-foreground no-underline outline-none transition-colors hover:text-primary-red focus:text-primary-red"
                             >
-                              <div className="text-sm font-medium leading-none text-foreground">Questions Importantes des Victimes</div>
-                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                FAQ complète sur vos droits et recours juridiques
-                              </p>
+                              Questions Importantes des Victimes
                             </Link>
                           </NavigationMenuLink>
                         </li>
