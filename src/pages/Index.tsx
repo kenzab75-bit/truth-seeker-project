@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -63,10 +64,26 @@ const Index = () => {
             </div>
 
             <nav className="hidden lg:flex space-x-8">
-              {["Accueil", "Mon histoire", "S'informer", "Témoignages", "Contact"].map(item => <button key={item} onClick={() => scrollToSection(item.toLowerCase().replace('mon ', '').replace("s'informer", 'victimes').replace('témoignages', 'victimes'))} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
-                    {item}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
-                  </button>)}
+              <button onClick={() => scrollToSection('accueil')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+                Accueil
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+              </button>
+              <button onClick={() => scrollToSection('histoire')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+                Mon histoire
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+              </button>
+              <Link to="/informer/questions-victimes" className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+                S'informer
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+              </Link>
+              <button onClick={() => scrollToSection('victimes')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+                Témoignages
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+              </button>
+              <button onClick={() => scrollToSection('contact')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+                Contact
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
+              </button>
             </nav>
           </div>
         </div>
@@ -555,126 +572,6 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
-      {/* Section FAQ - Questions Importantes des Victimes */}
-      <section className="py-24 bg-gradient-to-br from-background via-black to-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
-        
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 relative">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
-              Questions Importantes des Victimes
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Une sélection des questions les plus fréquentes, avec des réponses claires, sécurisées et basées sur les droits des patients.
-            </p>
-          </div>
-
-          {/* Accordéon FAQ */}
-          <Accordion type="single" collapsible className="space-y-4">
-            {/* Question 1 */}
-            <AccordionItem value="item-1" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Quels sont mes droits en cas d'erreur médicale à l'étranger ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Vous disposez des mêmes droits fondamentaux que dans votre pays d'origine : accès à votre dossier, demande de rectification, demande d'explication et possibilité d'engager la responsabilité du professionnel. Les règles varient selon le pays, mais vos droits essentiels restent protégés.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 2 */}
-            <AccordionItem value="item-2" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Comment savoir si j'ai été victime d'un acte médical fautif ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Signes courants : douleurs persistantes, traitements inachevés, devis modifiés sans explication, absence de suivi, complications non traitées, refus de prise en charge…
-                Un avis médical indépendant est fortement recommandé.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 3 */}
-            <AccordionItem value="item-3" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Dois-je faire une radioscopie, un CBCT ou un examen avant d'agir ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Oui. Les examens réalisés dans votre pays d'origine sont essentiels pour documenter la situation et évaluer les erreurs commises. Ils constituent la base d'un dossier solide.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 4 */}
-            <AccordionItem value="item-4" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Comment récupérer mon dossier médical auprès de la clinique à l'étranger ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Toute clinique est légalement tenue de vous fournir : votre dossier complet, vos radios, vos devis, les actes réalisés, sous un délai raisonnable. Si la clinique refuse : cela renforce la suspicion d'une faute.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 5 */}
-            <AccordionItem value="item-5" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Que faire si la clinique ne répond plus ou refuse d'assumer ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                C'est fréquent. Documentez tout : emails, messages, preuves de non-réponse. Votre dossier devient plus solide. Nous expliquons dans nos guides comment procéder étape par étape.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 6 */}
-            <AccordionItem value="item-6" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Est-ce que je peux obtenir une aide juridique ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Oui. Nous mettons en relation les victimes avec des avocats spécialisés (France / Europe) dans les litiges transfrontaliers liés au tourisme dentaire.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 7 */}
-            <AccordionItem value="item-7" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Les preuves que j'envoie seront-elles anonymes ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Oui. Vos pièces sont chiffrées, anonymisées et stockées via notre API sécurisée. Nous ne collectons jamais d'adresse IP ou de données identifiantes.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 8 */}
-            <AccordionItem value="item-8" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Que faire si j'ai payé cash et que je n'ai pas de facture ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Il existe des solutions : témoignages, devis initiaux, échanges WhatsApp, radiographies post-opératoires, preuves indirectes… Un dossier peut être constitué même sans facture.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 9 */}
-            <AccordionItem value="item-9" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Comment savoir si mes implants ou couronnes sont de mauvaise qualité ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Symptômes typiques : douleurs, prothèses mal ajustées, inflammations, changement de couleur, mauvaises odeurs, fractures. Un dentiste local peut vérifier et documenter précisément.
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Question 10 */}
-            <AccordionItem value="item-10" className="glass-card rounded-xl border border-white/5 hover:border-primary-red/30 transition-all duration-300 px-8 py-2">
-              <AccordionTrigger className="text-lg font-semibold text-foreground hover:text-white hover:no-underline">
-                Puis-je agir même plusieurs mois après les soins ?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                Oui. Les recours restent possibles tant qu'un dommage existe et qu'il est lié à l'acte médical initial. Il n'est jamais "trop tard" pour agir.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      </section>
 
       {/* Section Témoignage Anonyme */}
       <section className="py-24 bg-gradient-to-br from-background via-black to-background relative overflow-hidden">
