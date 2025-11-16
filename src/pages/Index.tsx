@@ -106,7 +106,7 @@ const Index = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
             <Button onClick={() => scrollToSection("histoire")} className="btn-premium px-12 py-6 text-xl font-bold rounded-xl text-white min-w-[280px] group h-auto">
-              <span className="relative z-10 flex items-center justify-center">Découvrir min histoire<Shield className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
+              <span className="relative z-10 flex items-center justify-center">Découvrir mon histoire<Shield className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
                 Découvrir l'histoire
               </span>
             </Button>
