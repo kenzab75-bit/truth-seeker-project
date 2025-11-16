@@ -62,7 +62,7 @@ const Index = () => {
             </div>
 
             <nav className="hidden lg:flex space-x-8">
-              {["Accueil", "Mon histoire", "S'informer", "Enquêtes", "Contact"].map(item => <button key={item} onClick={() => scrollToSection(item.toLowerCase().replace('mon ', '').replace("s'informer", 'victimes'))} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
+              {["Accueil", "Mon histoire", "S'informer", "Témoignages", "Contact"].map(item => <button key={item} onClick={() => scrollToSection(item.toLowerCase().replace('mon ', '').replace("s'informer", 'victimes').replace('témoignages', 'victimes'))} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
                     {item}
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
                   </button>)}
