@@ -300,9 +300,7 @@ Lema Dental Clinic en Turquie.
         
         <div className="max-w-5xl mx-auto px-6 lg:px-8 relative">
           <div className="text-center mb-16">
-            <h2 className="text-5xl lg:text-6xl font-black text-gradient mb-8 font-display">
-              Mon expérience
-            </h2>
+            
             <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto" />
           </div>
 
