@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AlertBanner from "@/components/AlertBanner";
@@ -634,6 +634,110 @@ Lema Dental Clinic en Turquie.
               <Lock className="h-5 w-5" />
               Envoyer anonymement
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Section RGPD - Vos données, vos droits */}
+      <section className="py-24 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <AlertTriangle className="h-4 w-4 text-primary-red" />
+              <span className="text-primary-red font-medium tracking-widest text-sm uppercase">
+                Transparence RGPD
+              </span>
+            </div>
+            <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
+              Vos données, vos droits
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Nous respectons le Règlement Général sur la Protection des Données (RGPD) et détaillons clairement la finalité de chaque collecte.
+            </p>
+          </div>
+
+          {/* 3 Cartes principales */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {/* Carte 1 - Chiffrement */}
+            <div className="bg-[#0C0C0C] rounded-2xl p-8 border border-white/5 hover:border-primary-red/30 transition-all duration-300">
+              <ShieldCheck className="h-10 w-10 text-primary-red mb-6" />
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                Chiffrement de bout en bout
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Toutes les données envoyées via nos formulaires transitent par une API HTTPS et sont chiffrées au repos.
+              </p>
+            </div>
+
+            {/* Carte 2 - Consentement */}
+            <div className="bg-[#0C0C0C] rounded-2xl p-8 border border-white/5 hover:border-primary-red/30 transition-all duration-300">
+              <FileText className="h-10 w-10 text-primary-red mb-6" />
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                Consentement explicite
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Nous recueillons uniquement les informations nécessaires à votre demande et vous pouvez retirer votre consentement à tout moment.
+              </p>
+            </div>
+
+            {/* Carte 3 - Conservation */}
+            <div className="bg-[#0C0C0C] rounded-2xl p-8 border border-white/5 hover:border-primary-red/30 transition-all duration-300">
+              <Lock className="h-10 w-10 text-primary-red mb-6" />
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                Conservation limitée
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Les messages sont automatiquement purgés au-delà de 90 jours, sauf obligation légale contraire.
+              </p>
+            </div>
+          </div>
+
+          {/* 2 Grandes cartes */}
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Carte 4 - Vos droits */}
+            <div className="bg-[#0C0C0C] rounded-2xl p-10 border border-white/5 hover:border-primary-red/30 transition-all duration-300">
+              <h3 className="text-2xl font-bold text-foreground mb-8">
+                Vos droits à tout moment
+              </h3>
+              <div className="space-y-6">
+                <div className="flex items-start gap-3">
+                  <span className="text-primary-red font-bold mt-1">•</span>
+                  <p className="text-muted-foreground leading-relaxed">
+                    <span className="text-foreground font-medium">Accéder à vos données :</span> écrivez-nous via le formulaire de contact en précisant l'email utilisé.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-primary-red font-bold mt-1">•</span>
+                  <p className="text-muted-foreground leading-relaxed">
+                    <span className="text-foreground font-medium">Rectifier ou supprimer :</span> nous traitons les demandes sous 72h ouvrées, hors cas de conservation légale.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-primary-red font-bold mt-1">•</span>
+                  <p className="text-muted-foreground leading-relaxed">
+                    <span className="text-foreground font-medium">Obtenir une copie :</span> les exports sont fournis dans un format ouvert (.json) signé pour garantir leur intégrité.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Carte 5 - API Sécurisée */}
+            <div className="bg-[#0C0C0C] rounded-2xl p-10 border border-primary-red/30 hover:border-primary-red/50 transition-all duration-300">
+              <h3 className="text-2xl font-bold text-foreground mb-6">
+                Notre API sécurisée
+              </h3>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Les formulaires sont connectés à l'API sécurisée <span className="text-foreground font-medium">TruthShield</span>, protégée par des jetons d'accès rotatifs et un pare-feu applicatif. Chaque requête est journalisée (horodatage, empreinte SHA-256) afin d'assurer la traçabilité tout en respectant l'anonymat des témoins.
+              </p>
+              <div className="bg-black/40 rounded-lg p-4 border border-white/5">
+                <p className="text-sm text-muted-foreground font-mono">
+                  Base API configurée via <span className="text-primary-red">VITE_API_BASE_URL</span> • Clé d'authentification optionnelle <span className="text-primary-red">VITE_API_TOKEN</span>.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
