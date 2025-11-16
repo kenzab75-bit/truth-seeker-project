@@ -58,7 +58,7 @@ const Index = () => {
             radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
             linear-gradient(135deg, hsl(var(--darker-bg)) 0%, hsl(var(--dark-bg)) 100%)
           `
-        }}>
+    }}>
         {/* Alert Banner */}
         <AlertBanner />
         
@@ -279,7 +279,7 @@ Lema Dental Clinic en Turquie.
             <div className="glass-card rounded-2xl p-10 hover-lift group" id="enquetes">
               <div className="flex items-center mb-8">
                 <div className="p-4 bg-gradient-to-br from-primary-red to-dark-red rounded-xl mr-6 group-hover:scale-110 transition-transform duration-300">
-                  <Scale className="h-12 w-12 text-white" />
+                  
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">
                   Justice implacable
