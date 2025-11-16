@@ -51,9 +51,6 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Alert Banner */}
-      <AlertBanner />
-
       {/* Hero Section Ultra Premium */}
       <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32" style={{
       background: `
@@ -61,7 +58,10 @@ const Index = () => {
             radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
             linear-gradient(135deg, hsl(var(--darker-bg)) 0%, hsl(var(--dark-bg)) 100%)
           `
-    }}>
+        }}>
+        {/* Alert Banner */}
+        <AlertBanner />
+        
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-background/85 to-black/90 z-[1]" />
 
