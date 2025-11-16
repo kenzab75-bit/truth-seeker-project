@@ -1123,9 +1123,9 @@ Lema Dental Clinic en Turquie.
               <h3 className="text-xl font-bold mb-6">Informations légales</h3>
               <ul className="space-y-3">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
+                  <Link to="/mentions-legales" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
                     Mentions légales
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
