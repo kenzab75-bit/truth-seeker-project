@@ -993,7 +993,10 @@ Lema Dental Clinic en Turquie.
                 Votre témoignage est précieux et sera traité avec la plus grande
                 confidentialité.
               </p>
-              <Button className="btn-premium px-8 py-4 rounded-lg font-bold text-white h-auto w-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)]">
+              <Button 
+                onClick={() => scrollToSection('contact')}
+                className="btn-premium px-8 py-4 rounded-lg font-bold text-white h-auto w-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)]"
+              >
                 Nous contacter
               </Button>
             </div>
