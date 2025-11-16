@@ -6,12 +6,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import AlertBanner from "@/components/AlertBanner";
+import ContactForm from "@/components/ContactForm";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isEtape1ModalOpen, setIsEtape1ModalOpen] = useState(false);
@@ -22,12 +19,6 @@ const Index = () => {
   const [testimony, setTestimony] = useState("");
   const [consentChecked, setConsentChecked] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  // Contact form states
-  const [contactName, setContactName] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
-  const [contactMessage, setContactMessage] = useState("");
-  const [contactConsent, setContactConsent] = useState(false);
   const { toast } = useToast();
   
   useEffect(() => {
@@ -54,59 +45,6 @@ const Index = () => {
     console.log("Témoignage anonyme envoyé de manière sécurisée");
     setTestimony("");
     setConsentChecked(false);
-  };
-
-  const handleSubmitContact = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validation
-    if (!contactName.trim() || contactName.length > 100) {
-      toast({
-        title: "Erreur",
-        description: "Le nom est requis et doit contenir moins de 100 caractères",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    if (!contactEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez entrer une adresse email valide",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    if (!contactMessage.trim() || contactMessage.length > 1000) {
-      toast({
-        title: "Erreur",
-        description: "Le message est requis et doit contenir moins de 1000 caractères",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    if (!contactConsent) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez accepter le traitement de vos données",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Success
-    toast({
-      title: "Message envoyé !",
-      description: "Nous avons bien reçu votre message et vous recontacterons rapidement.",
-    });
-    
-    // Reset form
-    setContactName("");
-    setContactEmail("");
-    setContactMessage("");
-    setContactConsent(false);
   };
 
   return <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -926,7 +864,7 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
-      {/* Premium Contact Section */}
+      {/* Contact Section */}
       <section id="contact" className="relative py-32 overflow-hidden">
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-background via-black to-background" />
@@ -936,104 +874,7 @@ Lema Dental Clinic en Turquie.
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary-red/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
         
         <div className="relative max-w-4xl mx-auto px-6 lg:px-8">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-black text-gradient mb-6 font-display">
-              Nous Contacter
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Des questions ou vous souhaitez contribuer ? Contactez-nous en toute sécurité.
-            </p>
-          </div>
-
-          {/* Contact Form */}
-          <form onSubmit={handleSubmitContact} className="glass rounded-2xl p-8 md:p-12 border border-border/50 backdrop-blur-xl">
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              {/* Name Field */}
-              <div className="space-y-2">
-                <Label htmlFor="contact-name" className="text-foreground font-medium">
-                  Nom
-                </Label>
-                <Input
-                  id="contact-name"
-                  value={contactName}
-                  onChange={(e) => setContactName(e.target.value)}
-                  placeholder="Votre nom"
-                  maxLength={100}
-                  className="bg-black/50 border-border/50 focus:border-primary-red/50 text-foreground placeholder:text-muted-foreground h-12"
-                  required
-                />
-              </div>
-
-              {/* Email Field */}
-              <div className="space-y-2">
-                <Label htmlFor="contact-email" className="text-foreground font-medium">
-                  Email
-                </Label>
-                <Input
-                  id="contact-email"
-                  type="email"
-                  value={contactEmail}
-                  onChange={(e) => setContactEmail(e.target.value)}
-                  placeholder="votre@email.com"
-                  maxLength={255}
-                  className="bg-black/50 border-border/50 focus:border-primary-red/50 text-foreground placeholder:text-muted-foreground h-12"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Message Field */}
-            <div className="space-y-2 mb-6">
-              <Label htmlFor="contact-message" className="text-foreground font-medium">
-                Message
-              </Label>
-              <Textarea
-                id="contact-message"
-                value={contactMessage}
-                onChange={(e) => setContactMessage(e.target.value)}
-                placeholder="Comment pouvons-nous vous aider ?"
-                maxLength={1000}
-                rows={6}
-                className="bg-black/50 border-border/50 focus:border-primary-red/50 text-foreground placeholder:text-muted-foreground resize-none"
-                required
-              />
-              <p className="text-xs text-muted-foreground text-right">
-                {contactMessage.length}/1000 caractères
-              </p>
-            </div>
-
-            {/* Consent Checkbox */}
-            <div className="mb-8 p-4 rounded-lg bg-black/30 border border-border/30">
-              <div className="flex items-start space-x-3">
-                <Checkbox
-                  id="contact-consent"
-                  checked={contactConsent}
-                  onCheckedChange={(checked) => setContactConsent(checked as boolean)}
-                  className="mt-1"
-                />
-                <Label
-                  htmlFor="contact-consent"
-                  className="text-sm text-muted-foreground leading-relaxed cursor-pointer"
-                >
-                  J'accepte que mes informations soient traitées pour répondre à ma demande.
-                  Vos données sont stockées pendant 90 jours maximum et jamais partagées sans
-                  votre accord explicite.
-                </Label>
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <Button
-              type="submit"
-              size="lg"
-              className="w-full h-14 bg-primary-red hover:bg-primary-red/90 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary-red/25"
-              disabled={!contactConsent || !contactName.trim() || !contactEmail.trim() || !contactMessage.trim()}
-            >
-              <Mail className="mr-2 h-5 w-5" />
-              Envoyer le message
-            </Button>
-          </form>
+          <ContactForm />
         </div>
       </section>
 
