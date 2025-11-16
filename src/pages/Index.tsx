@@ -918,7 +918,7 @@ Lema Dental Clinic en Turquie.
               </p>
               <div className="bg-black/40 rounded-lg p-4 border border-white/5">
                 <p className="text-sm text-muted-foreground font-mono">
-                  Base API configurée via <span className="text-primary-red">VITE_API_BASE_URL</span> • Clé d'authentification optionnelle <span className="text-primary-red">VITE_API_TOKEN</span>.
+                  •Base API configurée via <span className="text-primary-red">VITE_API_BASE_URL</span>           •Clé d'authentification optionnelle <span className="text-primary-red">VITE_API_TOKEN</span>.
                 </p>
               </div>
             </div>
