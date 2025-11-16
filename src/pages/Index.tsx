@@ -139,11 +139,11 @@ Lema Dental Clinic en Turquie.
       </section>
 
       {/* My Story Section - Introduction */}
-      <section id="histoire" className="py-32 bg-gradient-to-br from-background via-secondary to-background relative overflow-hidden">
+      <section id="histoire" className="py-24 bg-gradient-to-br from-background via-secondary to-background relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="text-center mb-20">
+          <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-black text-gradient mb-8 font-display">
               Mon Histoire
             </h2>
@@ -151,7 +151,7 @@ Lema Dental Clinic en Turquie.
           </div>
 
           {/* Qui suis-je & Pourquoi ce site */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-20">
+          <div className="grid lg:grid-cols-2 gap-8 mb-16">
             <div className="glass-card rounded-2xl p-10">
               <div className="flex items-center mb-6">
                 <div className="p-3 bg-gradient-to-br from-primary-red to-dark-red rounded-xl mr-4">
@@ -210,7 +210,7 @@ Lema Dental Clinic en Turquie.
           </div>
 
           {/* Mon expérience */}
-          <div className="max-w-5xl mx-auto mb-20">
+          <div className="max-w-5xl mx-auto">
             <div className="glass-card rounded-2xl p-10">
               <h3 className="text-2xl font-bold text-foreground mb-6">
                 Mon expérience
@@ -239,19 +239,12 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
-      {/* Story Section - Mon expérience */}
-      <section className="py-32 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-red/5 via-transparent to-primary-red/5" />
-        
-        
-      </section>
-
       {/* Story Section - Une mécanique bien rodée */}
-      <section id="victimes" className="py-32 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
+      <section id="victimes" className="py-24 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="text-center mb-20">
+          <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-black mb-4 font-display">
               <span className="text-foreground block">Une mécanique</span>
               <span className="text-red-gradient block">bien étudiée</span>
@@ -387,7 +380,7 @@ Lema Dental Clinic en Turquie.
       </section>
 
       {/* Contact Section */}
-      <footer id="contact" className="bg-gradient-to-br from-background via-black to-background py-24">
+      <footer id="contact" className="bg-gradient-to-br from-background via-black to-background py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-12">
             <div>
