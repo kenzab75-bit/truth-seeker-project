@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 import AlertBanner from "@/components/AlertBanner";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -14,6 +21,14 @@ const Index = () => {
   const [activeFilter, setActiveFilter] = useState("Tous");
   const [testimony, setTestimony] = useState("");
   const [consentChecked, setConsentChecked] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // Contact form states
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactMessage, setContactMessage] = useState("");
+  const [contactConsent, setContactConsent] = useState(false);
+  const { toast } = useToast();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -41,6 +56,59 @@ const Index = () => {
     setConsentChecked(false);
   };
 
+  const handleSubmitContact = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validation
+    if (!contactName.trim() || contactName.length > 100) {
+      toast({
+        title: "Erreur",
+        description: "Le nom est requis et doit contenir moins de 100 caractères",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    if (!contactEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez entrer une adresse email valide",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    if (!contactMessage.trim() || contactMessage.length > 1000) {
+      toast({
+        title: "Erreur",
+        description: "Le message est requis et doit contenir moins de 1000 caractères",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    if (!contactConsent) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez accepter le traitement de vos données",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Success
+    toast({
+      title: "Message envoyé !",
+      description: "Nous avons bien reçu votre message et vous recontacterons rapidement.",
+    });
+    
+    // Reset form
+    setContactName("");
+    setContactEmail("");
+    setContactMessage("");
+    setContactConsent(false);
+  };
+
   return <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Premium Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass bg-black/80" : "glass"}`}>
@@ -63,7 +131,8 @@ const Index = () => {
               </div>
             </div>
 
-            <nav className="hidden lg:flex space-x-8">
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
               <button onClick={() => scrollToSection('accueil')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
                 Accueil
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
@@ -72,10 +141,31 @@ const Index = () => {
                 Mon histoire
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
               </button>
-              <Link to="/informer/questions-victimes" className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
-                S'informer
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
-              </Link>
+              
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:text-foreground hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-foreground data-[active]:bg-transparent focus:bg-transparent">
+                      S'informer
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 bg-black/95 border border-border/20">
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              to="/informer/questions-victimes"
+                              className="block select-none rounded-md px-3 py-2 text-sm font-medium text-muted-foreground no-underline outline-none transition-colors hover:text-primary-red focus:text-primary-red"
+                            >
+                              Questions Importantes des Victimes
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+
               <button onClick={() => scrollToSection('victimes')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
                 Témoignages
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
@@ -85,6 +175,81 @@ const Index = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
               </button>
             </nav>
+
+            {/* Mobile Navigation */}
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="lg:hidden">
+                  <Menu className="h-6 w-6 text-muted-foreground" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-black/95 border-border/20">
+                <SheetHeader>
+                  <SheetTitle className="text-left">
+                    <div className="flex items-center space-x-2">
+                      <Scale className="h-6 w-6 text-primary-red" />
+                      <span className="text-xl font-bold">
+                        <span className="text-gradient">LemaClinic </span>
+                        <span className="text-red-gradient">Truth</span>
+                      </span>
+                    </div>
+                  </SheetTitle>
+                </SheetHeader>
+                
+                <nav className="flex flex-col space-y-4 mt-8">
+                  <button 
+                    onClick={() => {
+                      scrollToSection('accueil');
+                      setMobileMenuOpen(false);
+                    }} 
+                    className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium"
+                  >
+                    Accueil
+                  </button>
+                  
+                  <button 
+                    onClick={() => {
+                      scrollToSection('histoire');
+                      setMobileMenuOpen(false);
+                    }} 
+                    className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium"
+                  >
+                    Mon histoire
+                  </button>
+                  
+                  <div className="px-4 py-2">
+                    <div className="text-sm font-semibold text-muted-foreground mb-2">S'informer</div>
+                    <Link
+                      to="/informer/questions-victimes"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-4 py-3 text-muted-foreground hover:text-primary-red hover:bg-accent/50 rounded-md transition-all duration-300"
+                    >
+                      Questions Importantes des Victimes
+                    </Link>
+                  </div>
+                  
+                  <button 
+                    onClick={() => {
+                      scrollToSection('victimes');
+                      setMobileMenuOpen(false);
+                    }} 
+                    className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium"
+                  >
+                    Témoignages
+                  </button>
+                  
+                  <button 
+                    onClick={() => {
+                      scrollToSection('contact');
+                      setMobileMenuOpen(false);
+                    }} 
+                    className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium"
+                  >
+                    Contact
+                  </button>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
@@ -279,7 +444,7 @@ Lema Dental Clinic en Turquie.
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-black mb-4 font-display">
               <span className="text-foreground block">Une mécanique</span>
-              <span className="text-red-gradient block">bien étudiée</span>
+              <span className="text-red-gradient block">parfaitement orchestrée</span>
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
             <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -761,59 +926,245 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
-      {/* Contact Section */}
-      <footer id="contact" className="bg-gradient-to-br from-background via-black to-background py-20">
+      {/* Premium Contact Section */}
+      <section id="contact" className="relative py-32 overflow-hidden">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-black to-background" />
+        
+        {/* Decorative Elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary-red/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary-red/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
+        
+        <div className="relative max-w-4xl mx-auto px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-black text-gradient mb-6 font-display">
+              Nous Contacter
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Des questions ou vous souhaitez contribuer ? Contactez-nous en toute sécurité.
+            </p>
+          </div>
+
+          {/* Contact Form */}
+          <form onSubmit={handleSubmitContact} className="glass rounded-2xl p-8 md:p-12 border border-border/50 backdrop-blur-xl">
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              {/* Name Field */}
+              <div className="space-y-2">
+                <Label htmlFor="contact-name" className="text-foreground font-medium">
+                  Nom
+                </Label>
+                <Input
+                  id="contact-name"
+                  value={contactName}
+                  onChange={(e) => setContactName(e.target.value)}
+                  placeholder="Votre nom"
+                  maxLength={100}
+                  className="bg-black/50 border-border/50 focus:border-primary-red/50 text-foreground placeholder:text-muted-foreground h-12"
+                  required
+                />
+              </div>
+
+              {/* Email Field */}
+              <div className="space-y-2">
+                <Label htmlFor="contact-email" className="text-foreground font-medium">
+                  Email
+                </Label>
+                <Input
+                  id="contact-email"
+                  type="email"
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                  placeholder="votre@email.com"
+                  maxLength={255}
+                  className="bg-black/50 border-border/50 focus:border-primary-red/50 text-foreground placeholder:text-muted-foreground h-12"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Message Field */}
+            <div className="space-y-2 mb-6">
+              <Label htmlFor="contact-message" className="text-foreground font-medium">
+                Message
+              </Label>
+              <Textarea
+                id="contact-message"
+                value={contactMessage}
+                onChange={(e) => setContactMessage(e.target.value)}
+                placeholder="Comment pouvons-nous vous aider ?"
+                maxLength={1000}
+                rows={6}
+                className="bg-black/50 border-border/50 focus:border-primary-red/50 text-foreground placeholder:text-muted-foreground resize-none"
+                required
+              />
+              <p className="text-xs text-muted-foreground text-right">
+                {contactMessage.length}/1000 caractères
+              </p>
+            </div>
+
+            {/* Consent Checkbox */}
+            <div className="mb-8 p-4 rounded-lg bg-black/30 border border-border/30">
+              <div className="flex items-start space-x-3">
+                <Checkbox
+                  id="contact-consent"
+                  checked={contactConsent}
+                  onCheckedChange={(checked) => setContactConsent(checked as boolean)}
+                  className="mt-1"
+                />
+                <Label
+                  htmlFor="contact-consent"
+                  className="text-sm text-muted-foreground leading-relaxed cursor-pointer"
+                >
+                  J'accepte que mes informations soient traitées pour répondre à ma demande.
+                  Vos données sont stockées pendant 90 jours maximum et jamais partagées sans
+                  votre accord explicite.
+                </Label>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full h-14 bg-primary-red hover:bg-primary-red/90 text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary-red/25"
+              disabled={!contactConsent || !contactName.trim() || !contactEmail.trim() || !contactMessage.trim()}
+            >
+              <Mail className="mr-2 h-5 w-5" />
+              Envoyer le message
+            </Button>
+          </form>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gradient-to-br from-background via-black to-background py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-12">
-            <div>
-              <div className="flex items-center space-x-3 mb-8">
-                <Scale className="h-8 w-8 text-primary-red" />
+          <div className="grid lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
+            {/* Brand Section */}
+            <div className="lg:col-span-1">
+              <div className="flex items-center space-x-3 mb-6 group">
+                <Scale className="h-8 w-8 text-primary-red transition-transform duration-300 group-hover:scale-110" />
                 <span className="text-2xl font-bold font-display">
                   LemaClinic Truth
                 </span>
               </div>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed mb-8">
                 Un mouvement déterminé pour la vérité, la justice et la protection
                 des patients face aux abus médicaux.
               </p>
+              
+              {/* Social Media */}
+              <div className="flex items-center space-x-4">
+                <a href="#" className="text-muted-foreground hover:text-primary-red transition-all duration-300 hover:scale-110" aria-label="Facebook">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-primary-red transition-all duration-300 hover:scale-110" aria-label="Twitter">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                  </svg>
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-primary-red transition-all duration-300 hover:scale-110" aria-label="LinkedIn">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-primary-red transition-all duration-300 hover:scale-110" aria-label="Instagram">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                  </svg>
+                </a>
+              </div>
             </div>
 
+            {/* Quick Links */}
             <div>
-              <h3 className="text-xl font-bold mb-8">Liens rapides</h3>
-              <ul className="space-y-4 text-muted-foreground">
+              <h3 className="text-xl font-bold mb-6">Liens rapides</h3>
+              <ul className="space-y-3">
                 <li>
-                  <button onClick={() => scrollToSection("histoire")} className="hover:text-foreground transition-colors text-lg">
-                    Notre histoire
+                  <button 
+                    onClick={() => scrollToSection("histoire")} 
+                    className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block"
+                  >
+                    Mon histoire
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollToSection("victimes")} className="hover:text-foreground transition-colors text-lg">
+                  <button 
+                    onClick={() => scrollToSection("victimes")} 
+                    className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block"
+                  >
                     Témoignages
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollToSection("contact")} className="hover:text-foreground transition-colors text-lg">
-                    Contact confidentiel
+                  <button 
+                    onClick={() => scrollToSection("etapes")} 
+                    className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block"
+                  >
+                    Notre mission
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection("support")} 
+                    className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block"
+                  >
+                    Soutenir
                   </button>
                 </li>
               </ul>
             </div>
 
+            {/* Legal Links */}
             <div>
-              <h3 className="text-xl font-bold mb-8">Contact confidentiel</h3>
-              <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
+              <h3 className="text-xl font-bold mb-6">Informations légales</h3>
+              <ul className="space-y-3">
+                <li>
+                  <Link to="/mentions-legales" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
+                    Mentions légales
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/politique-confidentialite" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
+                    Politique de confidentialité
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/conditions-utilisation" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
+                    Conditions d'utilisation
+                  </Link>
+                </li>
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
+                    Gestion des cookies
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact Section */}
+            <div>
+              <h3 className="text-xl font-bold mb-6">Contact confidentiel</h3>
+              <p className="text-muted-foreground mb-6 text-base leading-relaxed">
                 Votre témoignage est précieux et sera traité avec la plus grande
                 confidentialité.
               </p>
-              <Button className="btn-premium px-8 py-4 rounded-lg font-bold text-white h-auto">
+              <Button className="btn-premium px-8 py-4 rounded-lg font-bold text-white h-auto w-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)]">
                 Nous contacter
               </Button>
             </div>
           </div>
 
-          <div className="border-t border-white/10 mt-16 pt-8 text-center text-muted-foreground">
-            <p className="text-lg">
+          {/* Bottom Bar */}
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-muted-foreground text-sm">
               &copy; 2024 LemaClinic Truth. Tous droits réservés.
+            </p>
+            <p className="text-muted-foreground text-sm">
+              Fait avec ❤️ pour la vérité et la justice
             </p>
           </div>
         </div>
