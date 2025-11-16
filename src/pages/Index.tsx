@@ -203,34 +203,6 @@ Lema Dental Clinic en Turquie.
             </div>
           </div>
 
-          {/* Mon expérience */}
-          <div className="max-w-5xl mx-auto mb-20">
-            <div className="glass-card rounded-2xl p-10">
-              <h3 className="text-2xl font-bold text-foreground mb-6">
-                Mon expérience
-              </h3>
-
-              <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
-                <p>
-                  Comme beaucoup d'autres, j'ai été attiré par les promesses alléchantes de Lema Dental Clinic à Istanbul. 
-                  Des soins dentaires de qualité à des prix attractifs, une équipe professionnelle, des installations modernes... 
-                  La réalité s'est révélée bien différente.
-                </p>
-
-                <p>
-                  Une fois sur place, le cauchemar a commencé. Les diagnostics ont changé, les prix ont explosé, 
-                  et les complications sont apparues rapidement. Les promesses se sont évaporées, et je me suis retrouvé 
-                  piégé dans un système bien rodé, conçu pour maximiser les profits au détriment de la santé des patients.
-                </p>
-
-                <p>
-                  Aujourd'hui, je me bats pour exposer ces pratiques et aider d'autres victimes. 
-                  Ce site est ma voix, et j'espère qu'il deviendra aussi la vôtre.
-                </p>
-              </div>
-            </div>
-          </div>
-
           {/* Pourquoi LemaClinic Truth section */}
           <div className="text-center mb-16" id="victimes">
             <h2 className="text-4xl lg:text-5xl font-black text-gradient mb-8 font-display">
