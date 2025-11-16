@@ -3,7 +3,7 @@ import { AlertTriangle } from "lucide-react";
 const AlertBanner = () => {
   return (
     <div className="fixed top-20 left-0 right-0 z-40 animate-fade-in">
-      <div className="max-w-5xl mx-auto px-6 lg:px-8 py-2">
+      <div className="max-w-4xl mx-auto px-6 lg:px-8 py-2">
         <div className="glass-card rounded-xl border border-primary-red/30 px-5 py-3 group relative overflow-hidden">
           {/* Glow effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-primary-red/10 to-primary-red/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
