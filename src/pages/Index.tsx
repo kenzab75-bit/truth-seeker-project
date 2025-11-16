@@ -247,7 +247,7 @@ Lema Dental Clinic en Turquie.
 
           {/* CTA Buttons */}
           <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
-            <Button onClick={() => scrollToSection("histoire")} className="btn-premium px-12 py-6 text-xl font-bold rounded-xl text-white min-w-[280px] group h-auto">
+            <Button onClick={() => scrollToSection("histoire")} className="btn-premium px-8 py-6 text-xl font-bold rounded-xl text-white group h-auto">
               <span className="relative z-10 flex items-center justify-center">
                 <Shield className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
                 Découvrir mon histoire
