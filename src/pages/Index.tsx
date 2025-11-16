@@ -333,12 +333,13 @@ Lema Dental Clinic en Turquie.
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-black text-gradient mb-8 font-display">
-              Une mécanique bien rodée
+            <h2 className="text-5xl lg:text-6xl font-black mb-4 font-display">
+              <span className="text-foreground block">Une mécanique</span>
+              <span className="text-red-gradient block">bien étudiée</span>
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
             <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Un système organisé pour piéger les patients et maximiser les profits.
+              Découvrez comment un système bien rodé transforme la confiance des patients en instrument de profit.
             </p>
           </div>
 
