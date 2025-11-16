@@ -77,16 +77,16 @@ const Index = () => {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:text-foreground font-medium transition-all duration-300 data-[state=open]:text-foreground">
+                    <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:text-foreground font-medium transition-all duration-300 data-[state=open]:text-foreground data-[active]:bg-transparent focus:bg-transparent">
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 bg-black/95 border border-primary-red/20">
+                      <ul className="grid w-[400px] gap-3 p-4 bg-black/95 border border-border/20">
                         <li>
                           <NavigationMenuLink asChild>
                             <Link
                               to="/informer/questions-victimes"
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-primary-red/10 hover:text-foreground focus:bg-primary-red/10 focus:text-foreground"
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-foreground focus:bg-accent focus:text-foreground"
                             >
                               <div className="text-sm font-medium leading-none text-foreground">Questions Importantes des Victimes</div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
