@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AlertBanner from "@/components/AlertBanner";
@@ -9,6 +9,7 @@ const Index = () => {
   const [isEtape2ModalOpen, setIsEtape2ModalOpen] = useState(false);
   const [isEtape3ModalOpen, setIsEtape3ModalOpen] = useState(false);
   const [isEtape4ModalOpen, setIsEtape4ModalOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("Tous");
   
   useEffect(() => {
     const handleScroll = () => {
@@ -375,6 +376,167 @@ Lema Dental Clinic en Turquie.
                 <div className="w-3 h-3 bg-white rounded-full" />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Témoignages des Victimes Section */}
+      <section className="py-24 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
+              Témoignages des Victimes
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Des histoires réelles de personnes affectées par les pratiques de la clinique
+            </p>
+          </div>
+
+          {/* Filtres */}
+          <div className="flex justify-center items-center gap-4 mb-8 flex-wrap">
+            {["Tous", "Complications", "Fraude", "Facturation"].map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-6 py-2.5 rounded-full font-medium transition-all duration-300 ${
+                  activeFilter === filter
+                    ? "bg-primary-red text-white shadow-lg shadow-primary-red/30"
+                    : "bg-background/40 text-muted-foreground border border-white/10 hover:border-primary-red/50 hover:text-foreground"
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
+          {/* Compteur */}
+          <p className="text-center text-muted-foreground mb-12">
+            {(() => {
+              const testimonials = [
+                { category: "Complications" },
+                { category: "Fraude" },
+                { category: "Facturation" }
+              ];
+              const filtered = activeFilter === "Tous" 
+                ? testimonials 
+                : testimonials.filter(t => t.category === activeFilter);
+              return `${filtered.length} témoignage${filtered.length > 1 ? 's' : ''} disponible${filtered.length > 1 ? 's' : ''}.`;
+            })()}
+          </p>
+
+          {/* Cartes de témoignages */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {/* Témoignage 1 - Complications */}
+            {(activeFilter === "Tous" || activeFilter === "Complications") && (
+              <div className="glass-card rounded-2xl p-8 border border-primary-red/20 hover:border-primary-red/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary-red/10 animate-fade-in group">
+                {/* Icône guillemets */}
+                <Quote className="h-12 w-12 text-primary-red mb-6" />
+                
+                {/* Citation */}
+                <p className="text-muted-foreground italic text-lg leading-relaxed mb-6">
+                  Après mon intervention, j'ai souffert de complications qui n'ont jamais été correctement prises en charge. Je me retrouve avec des dommages permanents.
+                </p>
+
+                {/* Séparateur */}
+                <div className="w-full h-px bg-white/10 mb-6" />
+
+                {/* Identité et tag */}
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <p className="font-bold text-foreground">Patient Anonyme</p>
+                    <p className="text-sm text-muted-foreground">France</p>
+                  </div>
+                  <span className="px-3 py-1 bg-primary-red/20 text-primary-red text-xs font-bold rounded-full border border-primary-red/30">
+                    Complications
+                  </span>
+                </div>
+
+                {/* Bouton */}
+                <button className="flex items-center gap-2 text-primary-red hover:text-white font-medium transition-all duration-300 group-hover:-translate-y-0.5">
+                  Consulter la preuve
+                  <ArrowUp className="h-4 w-4" />
+                </button>
+              </div>
+            )}
+
+            {/* Témoignage 2 - Fraude */}
+            {(activeFilter === "Tous" || activeFilter === "Fraude") && (
+              <div className="glass-card rounded-2xl p-8 border border-primary-red/20 hover:border-primary-red/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary-red/10 animate-fade-in group">
+                {/* Icône guillemets */}
+                <Quote className="h-12 w-12 text-primary-red mb-6" />
+                
+                {/* Citation */}
+                <p className="text-muted-foreground italic text-lg leading-relaxed mb-6">
+                  La clinique a menti sur mon diagnostic pour justifier des procédures inutiles qui m'ont laissé dans un état pire.
+                </p>
+
+                {/* Séparateur */}
+                <div className="w-full h-px bg-white/10 mb-6" />
+
+                {/* Identité et tag */}
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <p className="font-bold text-foreground">Marie S.</p>
+                    <p className="text-sm text-muted-foreground">Suisse</p>
+                  </div>
+                  <span className="px-3 py-1 bg-primary-red/20 text-primary-red text-xs font-bold rounded-full border border-primary-red/30">
+                    Fraude
+                  </span>
+                </div>
+
+                {/* Bouton */}
+                <button className="flex items-center gap-2 text-primary-red hover:text-white font-medium transition-all duration-300 group-hover:-translate-y-0.5">
+                  Consulter la preuve
+                  <ArrowUp className="h-4 w-4" />
+                </button>
+              </div>
+            )}
+
+            {/* Témoignage 3 - Facturation */}
+            {(activeFilter === "Tous" || activeFilter === "Facturation") && (
+              <div className="glass-card rounded-2xl p-8 border border-primary-red/20 hover:border-primary-red/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary-red/10 animate-fade-in group">
+                {/* Icône guillemets */}
+                <Quote className="h-12 w-12 text-primary-red mb-6" />
+                
+                {/* Citation */}
+                <p className="text-muted-foreground italic text-lg leading-relaxed mb-6">
+                  Facturations abusives, frais cachés non mentionnés. Le montant final était le double du devis initial.
+                </p>
+
+                {/* Séparateur */}
+                <div className="w-full h-px bg-white/10 mb-6" />
+
+                {/* Identité et tag */}
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <p className="font-bold text-foreground">Sophie M.</p>
+                    <p className="text-sm text-muted-foreground">Luxembourg</p>
+                  </div>
+                  <span className="px-3 py-1 bg-primary-red/20 text-primary-red text-xs font-bold rounded-full border border-primary-red/30">
+                    Facturation
+                  </span>
+                </div>
+
+                {/* Bouton */}
+                <button className="flex items-center gap-2 text-primary-red hover:text-white font-medium transition-all duration-300 group-hover:-translate-y-0.5">
+                  Consulter la preuve
+                  <ArrowUp className="h-4 w-4" />
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Footer note */}
+          <div className="text-center">
+            <p className="text-muted-foreground italic mb-2">
+              Tous les témoignages sont anonymisés et vérifiés avant publication
+            </p>
+            <p className="text-sm text-muted-foreground">
+              3 témoignages • Toutes catégories
+            </p>
           </div>
         </div>
       </section>
