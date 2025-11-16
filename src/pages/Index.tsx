@@ -302,7 +302,7 @@ Lema Dental Clinic en Turquie.
       </section>
 
       {/* Story Section - Une mécanique bien rodée */}
-      <section className="py-32 bg-gradient-to-br from-background via-secondary to-background relative overflow-hidden">
+      <section className="py-32 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
@@ -317,65 +317,97 @@ Lema Dental Clinic en Turquie.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <div className="glass-card rounded-2xl p-10 hover-lift">
-              <div className="mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-red to-dark-red flex items-center justify-center mb-6">
-                  <span className="text-3xl font-black text-white">1</span>
+          {/* Timeline verticale */}
+          <div className="max-w-6xl mx-auto relative">
+            {/* Ligne verticale centrale */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary-red -translate-x-1/2 hidden lg:block" />
+
+            {/* Étape 1 - Gauche */}
+            <div className="relative mb-24 lg:mb-32">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div className="lg:text-right lg:pr-12">
+                  <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
+                    Étape 1
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                    L'appât commercial
+                  </h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  Promesses séduisantes
-                </h3>
+                <div className="hidden lg:block" />
               </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Marketing agressif sur les réseaux sociaux, photos avant/après retouchées, 
-                témoignages fabriqués et prix défiant toute concurrence pour attirer un maximum de patients.
-              </p>
+              {/* Cercle sur la ligne */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10">
+                <div className="w-3 h-3 bg-white rounded-full" />
+              </div>
             </div>
 
-            <div className="glass-card rounded-2xl p-10 hover-lift">
-              <div className="mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-red to-dark-red flex items-center justify-center mb-6">
-                  <span className="text-3xl font-black text-white">2</span>
+            {/* Étape 2 - Droite */}
+            <div className="relative mb-24 lg:mb-32">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div className="hidden lg:block" />
+                <div className="lg:pl-12">
+                  <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
+                    Étape 2
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                    Le piège
+                  </h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Une fois sur place, vous vous retrouvez pris au piège, entièrement dépendants de la clinique, qui exploite cette position de force pour accélérer les procédures. Les consentements sont signés dans la précipitation, sous pression psychologique et logistique. Refuser devient impensable, au risque de perdre les sommes versées et le séjour déjà engagé.
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  Changement de plan
-                </h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Une fois sur place, les diagnostics changent miraculeusement. De nouveaux "problèmes" apparaissent, 
-                et les prix augmentent drastiquement sous prétexte de soins "nécessaires".
-              </p>
+              {/* Cercle sur la ligne */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10">
+                <div className="w-3 h-3 bg-white rounded-full" />
+              </div>
             </div>
 
-            <div className="glass-card rounded-2xl p-10 hover-lift">
-              <div className="mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-red to-dark-red flex items-center justify-center mb-6">
-                  <span className="text-3xl font-black text-white">3</span>
+            {/* Étape 3 - Gauche */}
+            <div className="relative mb-24 lg:mb-32">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div className="lg:text-right lg:pr-12">
+                  <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
+                    Étape 3
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                    L'impasse
+                  </h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  Travail bâclé
-                </h3>
+                <div className="hidden lg:block" />
               </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Les soins sont effectués à la va-vite, sans respect des protocoles. Les complications apparaissent 
-                rapidement : douleurs, infections, prothèses mal ajustées, dommages irréversibles.
-              </p>
+              {/* Cercle sur la ligne */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10">
+                <div className="w-3 h-3 bg-white rounded-full" />
+              </div>
             </div>
 
-            <div className="glass-card rounded-2xl p-10 hover-lift">
-              <div className="mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-red to-dark-red flex items-center justify-center mb-6">
-                  <span className="text-3xl font-black text-white">4</span>
+            {/* Étape 4 - Droite */}
+            <div className="relative">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div className="hidden lg:block" />
+                <div className="lg:pl-12">
+                  <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
+                    Étape 4
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                    La vérité éclate
+                  </h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  Silence et abandon
-                </h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Une fois rentré, plus de nouvelles. Les appels restent sans réponse, les messages ignorés. 
-                Les victimes se retrouvent seules face aux conséquences, obligées de tout refaire dans leur pays.
-              </p>
+              {/* Cercle sur la ligne */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10">
+                <div className="w-3 h-3 bg-white rounded-full" />
+              </div>
             </div>
           </div>
         </div>
