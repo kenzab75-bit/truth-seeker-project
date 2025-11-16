@@ -76,19 +76,11 @@ const Index = () => {
         <div className="relative z-[2] max-w-7xl mx-auto px-6 lg:px-8 text-center pt-20">
           {/* Alert Icon */}
           <div className="flex justify-center mb-12 animate-fade-in">
-            <div className="relative w-40 h-40">
-              {/* Multiple glow layers */}
-              <div className="absolute inset-0 bg-primary-red/20 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-primary-red/30 rounded-full animate-ping" style={{ animationDuration: '2s' }} />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary-red/25 rounded-full animate-ping" style={{ animationDuration: '3s', animationDelay: '0.5s' }} />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-primary-red/40 rounded-full animate-pulse" />
-              
-              {/* Main icon container */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative z-10 p-8 bg-gradient-to-br from-primary-red via-dark-red to-primary-red rounded-full pulse-glow floating shadow-[0_0_60px_rgba(220,38,38,0.6)]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full" />
-                  <AlertTriangle className="h-20 w-20 text-white relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" strokeWidth={2.5} />
-                </div>
+            <div className="relative">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary-red/40 rounded-full animate-ping" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-primary-red/30 rounded-full animate-pulse" />
+              <div className="relative z-10 p-6 bg-gradient-to-br from-primary-red to-dark-red rounded-full pulse-glow floating">
+                <AlertTriangle className="h-16 w-16 text-white" />
               </div>
             </div>
           </div>
