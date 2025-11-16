@@ -341,7 +341,7 @@ Lema Dental Clinic en Turquie.
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <div className="text-center mb-16">
-            <h2 className="text-5xl lg:text-6xl font-black text-gradient mb-8 font-display">
+            <h2 className="text-5xl lg:text-6xl font-black text-title-gradient mb-8 font-display">
               Mon Histoire
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto" />
@@ -443,8 +443,8 @@ Lema Dental Clinic en Turquie.
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-black mb-4 font-display">
-              <span className="text-foreground block">Une mécanique</span>
-              <span className="text-red-gradient block">parfaitement orchestrée</span>
+              <span className="text-title-gradient block">Une mécanique</span>
+              <span className="text-title-gradient block">parfaitement orchestrée</span>
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
             <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -583,7 +583,7 @@ Lema Dental Clinic en Turquie.
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           {/* Header */}
           <div className="text-center mb-12">
-            <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
+            <h2 className="text-5xl lg:text-6xl font-black text-title-gradient mb-6 font-display">
               Témoignages des Victimes
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -745,7 +745,7 @@ Lema Dental Clinic en Turquie.
         <div className="max-w-3xl mx-auto px-6 lg:px-8 relative">
           {/* Header */}
           <div className="text-center mb-12">
-            <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
+            <h2 className="text-5xl lg:text-6xl font-black text-title-gradient mb-6 font-display">
               Témoignage Anonyme
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
@@ -835,7 +835,7 @@ Lema Dental Clinic en Turquie.
                 Transparence RGPD
               </span>
             </div>
-            <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
+            <h2 className="text-5xl lg:text-6xl font-black text-title-gradient mb-6 font-display">
               Vos données, vos droits
             </h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -938,7 +938,7 @@ Lema Dental Clinic en Turquie.
         <div className="relative max-w-4xl mx-auto px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-black text-gradient mb-6 font-display">
+            <h2 className="text-5xl md:text-6xl font-black text-title-gradient mb-6 font-display">
               Nous Contacter
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
