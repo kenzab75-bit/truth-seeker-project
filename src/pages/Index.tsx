@@ -1067,11 +1067,6 @@ Lema Dental Clinic en Turquie.
                     Témoignages
                   </button>
                 </li>
-                <li>
-                  <button onClick={() => scrollToSection("contact")} className="hover:text-foreground transition-colors text-lg">
-                    Contact confidentiel
-                  </button>
-                </li>
               </ul>
             </div>
 
