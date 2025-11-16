@@ -672,6 +672,14 @@ Lema Dental Clinic en Turquie.
                     </div>
                   </div>
                 </div>
+                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-lg font-bold">Export de conversations WhatsApp</h4>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
