@@ -13,7 +13,7 @@ const AlertBanner = () => {
             {/* Alert badge */}
             <div className="flex-shrink-0">
               <div className="bg-gradient-to-br from-primary-red to-dark-red px-3 py-1 rounded-full flex items-center gap-1.5 pulse-glow">
-                <AlertTriangle className="h-3 w-3 text-white animate-pulse" />
+                <AlertTriangle className="h-3 w-3 text-white" />
                 <span className="text-white font-bold text-xs tracking-wider">ALERTE</span>
               </div>
             </div>
