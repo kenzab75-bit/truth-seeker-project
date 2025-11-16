@@ -113,7 +113,7 @@ const QuestionsVictimes = () => {
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-foreground leading-tight">
+            <h1 className="text-4xl md:text-6xl font-display font-bold text-title-gradient leading-tight">
               Questions Importantes des Victimes
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">

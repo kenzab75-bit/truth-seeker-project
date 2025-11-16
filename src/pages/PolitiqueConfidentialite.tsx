@@ -32,7 +32,7 @@ const PolitiqueConfidentialite = () => {
           <div className="mb-12">
             <div className="flex items-center gap-4 mb-4">
               <Shield className="h-12 w-12 text-primary-red" />
-              <h1 className="text-4xl md:text-5xl font-bold font-display bg-gradient-to-r from-white via-white to-primary-red bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-5xl font-bold font-display text-title-gradient">
                 Politique de Confidentialité
               </h1>
             </div>
