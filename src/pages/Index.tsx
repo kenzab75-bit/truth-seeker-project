@@ -1059,7 +1059,7 @@ Lema Dental Clinic en Turquie.
               <ul className="space-y-4 text-muted-foreground">
                 <li>
                   <button onClick={() => scrollToSection("histoire")} className="hover:text-foreground transition-colors text-lg">
-                    Notre histoire
+                    Mon histoire
                   </button>
                 </li>
                 <li>
