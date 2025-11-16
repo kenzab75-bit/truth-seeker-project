@@ -1128,14 +1128,14 @@ Lema Dental Clinic en Turquie.
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
+                  <Link to="/politique-confidentialite" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
                     Politique de confidentialité
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
+                  <Link to="/conditions-utilisation" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
                     Conditions d'utilisation
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
