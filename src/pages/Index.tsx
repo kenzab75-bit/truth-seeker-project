@@ -4,6 +4,7 @@ import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import AlertBanner from "@/components/AlertBanner";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -63,7 +64,7 @@ const Index = () => {
               </div>
             </div>
 
-            <nav className="hidden lg:flex space-x-8">
+            <nav className="hidden lg:flex items-center space-x-8">
               <button onClick={() => scrollToSection('accueil')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
                 Accueil
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
@@ -72,10 +73,34 @@ const Index = () => {
                 Mon histoire
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
               </button>
-              <Link to="/informer/questions-victimes" className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
-                S'informer
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
-              </Link>
+              
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:text-foreground font-medium transition-all duration-300 data-[state=open]:text-foreground">
+                      S'informer
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 bg-black/95 border border-primary-red/20">
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              to="/informer/questions-victimes"
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-primary-red/10 hover:text-foreground focus:bg-primary-red/10 focus:text-foreground"
+                            >
+                              <div className="text-sm font-medium leading-none text-foreground">Questions Importantes des Victimes</div>
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                FAQ complète sur vos droits et recours juridiques
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+
               <button onClick={() => scrollToSection('victimes')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
                 Témoignages
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
