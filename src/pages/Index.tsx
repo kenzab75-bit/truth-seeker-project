@@ -8,6 +8,7 @@ const Index = () => {
   const [isEtape1ModalOpen, setIsEtape1ModalOpen] = useState(false);
   const [isEtape2ModalOpen, setIsEtape2ModalOpen] = useState(false);
   const [isEtape3ModalOpen, setIsEtape3ModalOpen] = useState(false);
+  const [isEtape4ModalOpen, setIsEtape4ModalOpen] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -425,9 +426,16 @@ Lema Dental Clinic en Turquie.
                   <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
                     La vérité éclate
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                     Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.
                   </p>
+                  <button 
+                    onClick={() => setIsEtape4ModalOpen(true)}
+                    className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red/20 px-4 py-2 rounded-lg transition-all duration-300 font-medium group"
+                  >
+                    Cliquer pour voir les détails
+                    <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </button>
                 </div>
               </div>
               {/* Cercle sur la ligne */}
@@ -770,6 +778,105 @@ Lema Dental Clinic en Turquie.
                     <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="text-lg font-bold">Témoignage patient</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal Étape 4 */}
+      <Dialog open={isEtape4ModalOpen} onOpenChange={setIsEtape4ModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
+          <DialogHeader className="relative">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
+                Étape 4
+              </div>
+              <DialogTitle className="text-3xl font-bold">La vérité éclate</DialogTitle>
+            </div>
+            <button
+              onClick={() => setIsEtape4ModalOpen(false)}
+              className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </DialogHeader>
+
+          <div className="mt-6">
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+              Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.
+            </p>
+
+            {/* Détails de l'étape */}
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-6">
+                <FileText className="h-6 w-6 text-primary-red" />
+                <h3 className="text-2xl font-bold">Détails de l'étape</h3>
+              </div>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Création de groupes d'entraide et de témoignages de victimes
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Publication de preuves concrètes : factures, photos, rapports médicaux
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Médiatisation croissante de l'affaire dans les médias européens
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Plaintes déposées auprès des autorités compétentes
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Mobilisation pour alerter les futurs patients et prévenir de nouveaux cas
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Demande d'enquête officielle sur les pratiques de la clinique
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Sources et preuves */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <FileText className="h-6 w-6 text-primary-red" />
+                <h3 className="text-2xl font-bold">Sources et preuves</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-lg font-bold mb-2">Groupe Facebook</h4>
+                      <p className="text-muted-foreground">Nombreux témoignages recensés</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-lg font-bold">Plainte en cours de dépôt</h4>
                     </div>
                   </div>
                 </div>
