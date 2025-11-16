@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { Scale, Shield, FileText, AlertTriangle } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AlertBanner from "@/components/AlertBanner";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isEtape3ModalOpen, setIsEtape3ModalOpen] = useState(false);
+  
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 80);
@@ -376,9 +379,16 @@ Lema Dental Clinic en Turquie.
                   <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
                     L'impasse
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                     Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...
                   </p>
+                  <button 
+                    onClick={() => setIsEtape3ModalOpen(true)}
+                    className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red/20 px-4 py-2 rounded-lg transition-all duration-300 font-medium group"
+                  >
+                    Cliquer pour voir les détails
+                    <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </button>
                 </div>
                 <div className="hidden lg:block" />
               </div>
@@ -470,6 +480,99 @@ Lema Dental Clinic en Turquie.
           </div>
         </div>
       </footer>
+
+      {/* Modal Étape 3 */}
+      <Dialog open={isEtape3ModalOpen} onOpenChange={setIsEtape3ModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
+          <DialogHeader className="relative">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
+                Étape 3
+              </div>
+              <DialogTitle className="text-3xl font-bold">L'impasse</DialogTitle>
+            </div>
+            <button
+              onClick={() => setIsEtape3ModalOpen(false)}
+              className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </DialogHeader>
+
+          <div className="mt-6">
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+              Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...
+            </p>
+
+            {/* Détails de l'étape */}
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-6">
+                <FileText className="h-6 w-6 text-primary-red" />
+                <h3 className="text-2xl font-bold">Détails de l'étape</h3>
+              </div>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Complications post-opératoires graves : douleurs chroniques, pulpite
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Absence totale de suivi médical après le retour en Europe
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Impossibilité de joindre la clinique ou réponses évasives ; isolement
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Refus de prise en charge des complications
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Coûts de réparation en Europe dépassant largement les économies initiales
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Sources et preuves */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <FileText className="h-6 w-6 text-primary-red" />
+                <h3 className="text-2xl font-bold">Sources et preuves</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-lg font-bold mb-2">Rapports et examens médicaux</h4>
+                      <p className="text-muted-foreground">Dentistes français 2025</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-lg font-bold">Témoignage patient</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>;
 };
 export default Index;
