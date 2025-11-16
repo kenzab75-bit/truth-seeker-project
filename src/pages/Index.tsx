@@ -444,7 +444,7 @@ Lema Dental Clinic en Turquie.
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-black mb-4 font-display">
               <span className="text-foreground block">Une mécanique</span>
-              <span className="bg-gradient-to-r from-white via-white to-primary-red bg-clip-text text-transparent block">parfaitement orchestrée</span>
+              <span className="bg-[linear-gradient(to_right,_white_0%,_white_40%,_#ff6b8a_40%,_#ff4466_80%,_hsl(var(--primary-red))_80%,_hsl(var(--primary-red))_100%)] bg-clip-text text-transparent block">parfaitement orchestrée</span>
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
             <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
