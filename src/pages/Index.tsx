@@ -236,67 +236,6 @@ Lema Dental Clinic en Turquie.
               </div>
             </div>
           </div>
-
-          {/* Pourquoi LemaClinic Truth section */}
-          <div className="text-center mb-16" id="victimes">
-            <h2 className="text-4xl lg:text-5xl font-black text-gradient mb-8 font-display">
-              Pourquoi LemaClinic Truth ?
-            </h2>
-            <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
-            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Face aux abus et au silence organisé, nous brisons l'omerta pour que
-              la vérité triomphe.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="glass-card rounded-2xl p-10 hover-lift group">
-              <div className="flex items-center mb-8">
-                <div className="p-4 bg-gradient-to-br from-primary-red to-dark-red rounded-xl mr-6 group-hover:scale-110 transition-transform duration-300">
-                  <Shield className="h-12 w-12 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">
-                  Victimes silencieuses
-                </h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Les victimes de la clinique LEMA Clinic subissent des soins fautifs
-                et un silence organisé. Leurs voix doivent être entendues et leur
-                dignité restaurée.
-              </p>
-            </div>
-
-            <div className="glass-card rounded-2xl p-10 hover-lift group">
-              <div className="flex items-center mb-8">
-                <div className="p-4 bg-gradient-to-br from-primary-red to-dark-red rounded-xl mr-6 group-hover:scale-110 transition-transform duration-300">
-                  <FileText className="h-12 w-12 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">
-                  Preuves irréfutables
-                </h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                LemaClinic Truth centralise témoignages, preuves médicales et
-                expertises pour établir la vérité et construire un dossier
-                irréfutable.
-              </p>
-            </div>
-
-            <div className="glass-card rounded-2xl p-10 hover-lift group" id="enquetes">
-              <div className="flex items-center mb-8">
-                <div className="p-4 bg-gradient-to-br from-primary-red to-dark-red rounded-xl mr-6 group-hover:scale-110 transition-transform duration-300">
-                  
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">
-                  Justice implacable
-                </h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Notre mission : rendre visibles les abus, alerter les futurs
-                patients, protéger et obtenir justice pour toutes les victimes.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -308,7 +247,7 @@ Lema Dental Clinic en Turquie.
       </section>
 
       {/* Story Section - Une mécanique bien rodée */}
-      <section className="py-32 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
+      <section id="victimes" className="py-32 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
