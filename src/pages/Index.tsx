@@ -392,122 +392,130 @@ Lema Dental Clinic en Turquie.
 
           {/* Timeline verticale */}
           <div className="max-w-6xl mx-auto relative">
-            {/* Ligne verticale centrale */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary-red -translate-x-1/2 hidden lg:block" />
+            {/* Ligne verticale centrale avec gradient amélioré */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-red via-primary-red/70 to-primary-red/30 -translate-x-1/2 hidden lg:block" />
 
             {/* Étape 1 - Gauche */}
-            <div className="relative mb-24 lg:mb-32">
+            <div className="relative mb-24 lg:mb-32 animate-fade-in">
               <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
                 <div className="lg:text-right lg:pr-12">
-                  <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
-                    Étape 1
+                  <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
+                    <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
+                      Étape 1
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
+                      L'appât commercial
+                    </h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                      Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
+                    </p>
+                    <button 
+                      onClick={() => setIsEtape1ModalOpen(true)}
+                      className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30"
+                    >
+                      Cliquer pour voir les détails
+                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    </button>
                   </div>
-                  <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                    L'appât commercial
-                  </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                    Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
-                  </p>
-                  <button 
-                    onClick={() => setIsEtape1ModalOpen(true)}
-                    className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red/20 px-4 py-2 rounded-lg transition-all duration-300 font-medium group"
-                  >
-                    Cliquer pour voir les détails
-                    <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </button>
                 </div>
                 <div className="hidden lg:block" />
               </div>
-              {/* Cercle sur la ligne */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10">
-                <div className="w-3 h-3 bg-white rounded-full" />
+              {/* Cercle sur la ligne avec animation pulse */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10 shadow-lg shadow-primary-red/50 animate-pulse">
+                <div className="w-4 h-4 bg-white rounded-full" />
               </div>
             </div>
 
             {/* Étape 2 - Droite */}
-            <div className="relative mb-24 lg:mb-32">
+            <div className="relative mb-24 lg:mb-32 animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
                 <div className="hidden lg:block" />
                 <div className="lg:pl-12">
-                  <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
-                    Étape 2
+                  <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
+                    <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
+                      Étape 2
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
+                      Le piège
+                    </h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                      Une fois sur place, vous vous retrouvez pris au piège, entièrement dépendants de la clinique, qui exploite cette position de force pour accélérer les procédures. Les consentements sont signés dans la précipitation, sous pression psychologique et logistique. Refuser devient impensable, au risque de perdre les sommes versées et le séjour déjà engagé.
+                    </p>
+                    <button 
+                      onClick={() => setIsEtape2ModalOpen(true)}
+                      className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30"
+                    >
+                      Cliquer pour voir les détails
+                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    </button>
                   </div>
-                  <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                    Le piège
-                  </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                    Une fois sur place, vous vous retrouvez pris au piège, entièrement dépendants de la clinique, qui exploite cette position de force pour accélérer les procédures. Les consentements sont signés dans la précipitation, sous pression psychologique et logistique. Refuser devient impensable, au risque de perdre les sommes versées et le séjour déjà engagé.
-                  </p>
-                  <button 
-                    onClick={() => setIsEtape2ModalOpen(true)}
-                    className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red/20 px-4 py-2 rounded-lg transition-all duration-300 font-medium group"
-                  >
-                    Cliquer pour voir les détails
-                    <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </button>
                 </div>
               </div>
-              {/* Cercle sur la ligne */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10">
-                <div className="w-3 h-3 bg-white rounded-full" />
+              {/* Cercle sur la ligne avec animation pulse */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10 shadow-lg shadow-primary-red/50 animate-pulse">
+                <div className="w-4 h-4 bg-white rounded-full" />
               </div>
             </div>
 
             {/* Étape 3 - Gauche */}
-            <div className="relative mb-24 lg:mb-32">
+            <div className="relative mb-24 lg:mb-32 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
                 <div className="lg:text-right lg:pr-12">
-                  <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
-                    Étape 3
+                  <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
+                    <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
+                      Étape 3
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
+                      L'impasse
+                    </h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                      Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...
+                    </p>
+                    <button 
+                      onClick={() => setIsEtape3ModalOpen(true)}
+                      className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30"
+                    >
+                      Cliquer pour voir les détails
+                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    </button>
                   </div>
-                  <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                    L'impasse
-                  </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                    Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...
-                  </p>
-                  <button 
-                    onClick={() => setIsEtape3ModalOpen(true)}
-                    className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red/20 px-4 py-2 rounded-lg transition-all duration-300 font-medium group"
-                  >
-                    Cliquer pour voir les détails
-                    <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </button>
                 </div>
                 <div className="hidden lg:block" />
               </div>
-              {/* Cercle sur la ligne */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10">
-                <div className="w-3 h-3 bg-white rounded-full" />
+              {/* Cercle sur la ligne avec animation pulse */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10 shadow-lg shadow-primary-red/50 animate-pulse">
+                <div className="w-4 h-4 bg-white rounded-full" />
               </div>
             </div>
 
             {/* Étape 4 - Droite */}
-            <div className="relative">
+            <div className="relative animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
                 <div className="hidden lg:block" />
                 <div className="lg:pl-12">
-                  <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
-                    Étape 4
+                  <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
+                    <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
+                      Étape 4
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
+                      La vérité éclate
+                    </h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                      Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.
+                    </p>
+                    <button 
+                      onClick={() => setIsEtape4ModalOpen(true)}
+                      className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30"
+                    >
+                      Cliquer pour voir les détails
+                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    </button>
                   </div>
-                  <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                    La vérité éclate
-                  </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                    Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.
-                  </p>
-                  <button 
-                    onClick={() => setIsEtape4ModalOpen(true)}
-                    className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red/20 px-4 py-2 rounded-lg transition-all duration-300 font-medium group"
-                  >
-                    Cliquer pour voir les détails
-                    <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </button>
                 </div>
               </div>
-              {/* Cercle sur la ligne */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10">
-                <div className="w-3 h-3 bg-white rounded-full" />
+              {/* Cercle sur la ligne avec animation pulse */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10 shadow-lg shadow-primary-red/50 animate-pulse">
+                <div className="w-4 h-4 bg-white rounded-full" />
               </div>
             </div>
           </div>
