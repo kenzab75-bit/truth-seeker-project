@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Scale, Shield, FileText, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AlertBanner from "@/components/AlertBanner";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -50,8 +51,11 @@ const Index = () => {
         </div>
       </header>
 
+      {/* Alert Banner */}
+      <AlertBanner />
+
       {/* Hero Section Ultra Premium */}
-      <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{
+      <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32" style={{
       background: `
             radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
