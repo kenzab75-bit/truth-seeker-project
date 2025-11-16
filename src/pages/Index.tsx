@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import AlertBanner from "@/components/AlertBanner";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isEtape1ModalOpen, setIsEtape1ModalOpen] = useState(false);
   const [isEtape3ModalOpen, setIsEtape3ModalOpen] = useState(false);
   
   useEffect(() => {
@@ -335,9 +336,16 @@ Lema Dental Clinic en Turquie.
                   <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
                     L'appât commercial
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                     Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
                   </p>
+                  <button 
+                    onClick={() => setIsEtape1ModalOpen(true)}
+                    className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red/20 px-4 py-2 rounded-lg transition-all duration-300 font-medium group"
+                  >
+                    Cliquer pour voir les détails
+                    <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </button>
                 </div>
                 <div className="hidden lg:block" />
               </div>
@@ -480,6 +488,93 @@ Lema Dental Clinic en Turquie.
           </div>
         </div>
       </footer>
+
+      {/* Modal Étape 1 */}
+      <Dialog open={isEtape1ModalOpen} onOpenChange={setIsEtape1ModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
+          <DialogHeader className="relative">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
+                Étape 1
+              </div>
+              <DialogTitle className="text-3xl font-bold">L'appât commercial</DialogTitle>
+            </div>
+            <button
+              onClick={() => setIsEtape1ModalOpen(false)}
+              className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </DialogHeader>
+
+          <div className="mt-6">
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+              Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
+            </p>
+
+            {/* Détails de l'étape */}
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-6">
+                <FileText className="h-6 w-6 text-primary-red" />
+                <h3 className="text-2xl font-bold">Détails de l'étape</h3>
+              </div>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Publicités agressives sur les réseaux sociaux Instagram, Facebook
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Promesses de prix 60-70% moins chers avec des 'garanties' attractives (Hôtel 5 étoiles, transfert gratuit etc)
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Communication ultra-réactive et rassurante via WhatsApp et réseaux sociaux
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-lg text-muted-foreground">
+                    Partenariats avec des influenceurs ou stars internationales pour promouvoir la clinique
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Sources et preuves */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <FileText className="h-6 w-6 text-primary-red" />
+                <h3 className="text-2xl font-bold">Sources et preuves</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-lg font-bold mb-2">Témoignage patient #12</h4>
+                      <p className="text-muted-foreground">Devis initial de 3500€ pour 20 facettes et couronnes</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-lg font-bold">Capture écran Facebook, Instagram, site web</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Modal Étape 3 */}
       <Dialog open={isEtape3ModalOpen} onOpenChange={setIsEtape3ModalOpen}>
