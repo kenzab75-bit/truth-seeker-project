@@ -99,7 +99,8 @@ const Index = () => {
           {/* Mission Statement */}
           <div className="max-w-6xl mx-auto mb-16">
             <p className="text-xl lg:text-2xl xl:text-3xl font-bold leading-relaxed text-foreground">
-              Révéler la vérité, défendre les victimes, établir un contre-pouvoir face aux abus de Lema Dental Clinic en Turquie.
+              Révéler la vérité, défendre les victimes face aux abus de 
+Lema Dental Clinic en Turquie.
             </p>
           </div>
 
