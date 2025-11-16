@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import AlertBanner from "@/components/AlertBanner";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -15,6 +16,7 @@ const Index = () => {
   const [activeFilter, setActiveFilter] = useState("Tous");
   const [testimony, setTestimony] = useState("");
   const [consentChecked, setConsentChecked] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -64,6 +66,7 @@ const Index = () => {
               </div>
             </div>
 
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
               <button onClick={() => scrollToSection('accueil')} className="relative text-muted-foreground hover:text-foreground font-medium transition-all duration-300 group">
                 Accueil
@@ -107,6 +110,81 @@ const Index = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-red transition-all duration-300 group-hover:w-full" />
               </button>
             </nav>
+
+            {/* Mobile Navigation */}
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="lg:hidden">
+                  <Menu className="h-6 w-6 text-muted-foreground" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-black/95 border-border/20">
+                <SheetHeader>
+                  <SheetTitle className="text-left">
+                    <div className="flex items-center space-x-2">
+                      <Scale className="h-6 w-6 text-primary-red" />
+                      <span className="text-xl font-bold">
+                        <span className="text-gradient">LemaClinic </span>
+                        <span className="text-red-gradient">Truth</span>
+                      </span>
+                    </div>
+                  </SheetTitle>
+                </SheetHeader>
+                
+                <nav className="flex flex-col space-y-4 mt-8">
+                  <button 
+                    onClick={() => {
+                      scrollToSection('accueil');
+                      setMobileMenuOpen(false);
+                    }} 
+                    className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium"
+                  >
+                    Accueil
+                  </button>
+                  
+                  <button 
+                    onClick={() => {
+                      scrollToSection('histoire');
+                      setMobileMenuOpen(false);
+                    }} 
+                    className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium"
+                  >
+                    Mon histoire
+                  </button>
+                  
+                  <div className="px-4 py-2">
+                    <div className="text-sm font-semibold text-muted-foreground mb-2">S'informer</div>
+                    <Link
+                      to="/informer/questions-victimes"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-4 py-3 text-muted-foreground hover:text-primary-red hover:bg-accent/50 rounded-md transition-all duration-300"
+                    >
+                      Questions Importantes des Victimes
+                    </Link>
+                  </div>
+                  
+                  <button 
+                    onClick={() => {
+                      scrollToSection('victimes');
+                      setMobileMenuOpen(false);
+                    }} 
+                    className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium"
+                  >
+                    Témoignages
+                  </button>
+                  
+                  <button 
+                    onClick={() => {
+                      scrollToSection('contact');
+                      setMobileMenuOpen(false);
+                    }} 
+                    className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium"
+                  >
+                    Contact
+                  </button>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
