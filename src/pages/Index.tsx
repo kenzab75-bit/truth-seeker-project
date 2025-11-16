@@ -77,7 +77,7 @@ const Index = () => {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:text-foreground font-medium transition-all duration-300 data-[state=open]:text-foreground data-[active]:bg-transparent focus:bg-transparent">
+                    <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:text-foreground hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-foreground data-[active]:bg-transparent focus:bg-transparent">
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
