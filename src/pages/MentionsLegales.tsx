@@ -30,7 +30,7 @@ const MentionsLegales = () => {
 
           {/* Page Title */}
           <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold font-display mb-4 text-title-gradient">
+            <h1 className="text-4xl md:text-5xl font-bold font-display mb-4 bg-gradient-to-r from-white via-white to-primary-red bg-clip-text text-transparent">
               Mentions Légales
             </h1>
             <p className="text-muted-foreground text-lg">
