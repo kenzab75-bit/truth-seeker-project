@@ -124,9 +124,25 @@ const Index = () => {
                       <ul className="grid w-[400px] gap-3 p-3 bg-gradient-to-br from-black via-black to-[#1a0000] backdrop-blur-[6px] border border-border/20 rounded-xl shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]">
                         <li>
                           <NavigationMenuLink asChild>
+                            <button onClick={() => scrollToSection('victimes')} className="w-full flex items-center gap-2 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
+                              <AlertTriangle className="h-4 w-4 opacity-70" />
+                              Leurs méthodes
+                            </button>
+                          </NavigationMenuLink>
+                        </li>
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <button onClick={() => scrollToSection('temoignages')} className="w-full flex items-center gap-2 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
+                              <Quote className="h-4 w-4 opacity-70" />
+                              Témoignages
+                            </button>
+                          </NavigationMenuLink>
+                        </li>
+                        <li>
+                          <NavigationMenuLink asChild>
                             <Link to="/informer/questions-victimes" className="flex items-center gap-2 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616]">
                               <FileText className="h-4 w-4 opacity-70" />
-                              Questions Importantes des Victimes
+                              Vos questions importantes
                             </Link>
                           </NavigationMenuLink>
                         </li>
@@ -135,11 +151,6 @@ const Index = () => {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-
-              <button onClick={() => scrollToSection('victimes')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
-                Témoignages
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
-              </button>
               <button onClick={() => scrollToSection('contact')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Contact
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
@@ -183,17 +194,22 @@ const Index = () => {
                   
                   <div className="px-4 py-2">
                     <div className="text-sm font-semibold text-muted-foreground mb-2">S'informer</div>
+                    <button onClick={() => {
+                      scrollToSection('victimes');
+                      setMobileMenuOpen(false);
+                    }} className="w-full text-left px-4 py-3 text-muted-foreground hover:text-primary-red hover:bg-accent/50 rounded-md transition-all duration-300">
+                      Leurs méthodes
+                    </button>
+                    <button onClick={() => {
+                      scrollToSection('temoignages');
+                      setMobileMenuOpen(false);
+                    }} className="w-full text-left px-4 py-3 text-muted-foreground hover:text-primary-red hover:bg-accent/50 rounded-md transition-all duration-300">
+                      Témoignages
+                    </button>
                     <Link to="/informer/questions-victimes" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-muted-foreground hover:text-primary-red hover:bg-accent/50 rounded-md transition-all duration-300">
-                      Questions Importantes des Victimes
+                      Vos questions importantes
                     </Link>
                   </div>
-                  
-                  <button onClick={() => {
-                  scrollToSection('victimes');
-                  setMobileMenuOpen(false);
-                }} className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-all duration-300 font-medium">
-                    Témoignages
-                  </button>
                   
                   <button onClick={() => {
                   scrollToSection('contact');
@@ -539,7 +555,7 @@ Lema Dental Clinic en Turquie.
       <div className="section-divider"></div>
 
       {/* Témoignages des Victimes Section */}
-      <section className="py-section bg-gradient-to-br from-black via-background to-black relative overflow-hidden pattern-grid">
+      <section id="temoignages" className="py-section bg-gradient-to-br from-black via-background to-black relative overflow-hidden pattern-grid">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
@@ -867,6 +883,11 @@ Lema Dental Clinic en Turquie.
                 </li>
                 <li>
                   <button onClick={() => scrollToSection("victimes")} className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
+                    Leurs méthodes
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollToSection("temoignages")} className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
                     Témoignages
                   </button>
                 </li>
