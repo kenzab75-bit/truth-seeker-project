@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -9,6 +9,8 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { useToast } from "@/hooks/use-toast";
 import AlertBanner from "@/components/AlertBanner";
 import ContactForm from "@/components/ContactForm";
+import TestimonialCard from "@/components/TestimonialCard";
+import { testimonials } from "@/data/testimonials";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isEtape1ModalOpen, setIsEtape1ModalOpen] = useState(false);
@@ -19,6 +21,8 @@ const Index = () => {
   const [testimony, setTestimony] = useState("");
   const [consentChecked, setConsentChecked] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [displayedTestimonials, setDisplayedTestimonials] = useState(3);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const {
     toast
   } = useToast();
@@ -61,6 +65,22 @@ const Index = () => {
     setTestimony("");
     setConsentChecked(false);
   };
+
+  const handleLoadMore = () => {
+    setIsLoadingMore(true);
+    // Simulate loading delay for better UX
+    setTimeout(() => {
+      setDisplayedTestimonials(prev => Math.min(prev + 3, filteredTestimonials.length));
+      setIsLoadingMore(false);
+    }, 600);
+  };
+
+  const filteredTestimonials = activeFilter === "Tous" 
+    ? testimonials 
+    : testimonials.filter(t => t.category === activeFilter);
+  
+  const visibleTestimonials = filteredTestimonials.slice(0, displayedTestimonials);
+  const hasMoreTestimonials = displayedTestimonials < filteredTestimonials.length;
   return <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Premium Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass bg-black/80" : "glass"}`}>
@@ -535,121 +555,58 @@ Lema Dental Clinic en Turquie.
 
           {/* Filtres */}
           <div className="flex justify-center items-center gap-4 mb-8 flex-wrap">
-            {["Tous", "Complications", "Fraude", "Facturation"].map(filter => <button key={filter} onClick={() => setActiveFilter(filter)} className={`px-6 py-2.5 rounded-full font-medium transition-all duration-300 ${activeFilter === filter ? "bg-primary-red text-white shadow-lg shadow-primary-red/30" : "bg-background/40 text-muted-foreground border border-white/10 hover:border-primary-red/50 hover:text-foreground"}`}>
+            {["Tous", "Complications", "Fraude", "Facturation"].map(filter => (
+              <button 
+                key={filter} 
+                onClick={() => {
+                  setActiveFilter(filter);
+                  setDisplayedTestimonials(3); // Reset displayed count on filter change
+                }}
+                className={`px-6 py-2.5 rounded-full font-medium transition-all duration-300 ${
+                  activeFilter === filter 
+                    ? "bg-primary-red text-white shadow-lg shadow-primary-red/30" 
+                    : "bg-background/40 text-muted-foreground border border-white/10 hover:border-primary-red/50 hover:text-foreground"
+                }`}
+              >
                 {filter}
-              </button>)}
+              </button>
+            ))}
           </div>
 
           {/* Compteur */}
           <p className="text-center text-muted-foreground mb-12">
-            {(() => {
-            const testimonials = [{
-              category: "Complications"
-            }, {
-              category: "Fraude"
-            }, {
-              category: "Facturation"
-            }];
-            const filtered = activeFilter === "Tous" ? testimonials : testimonials.filter(t => t.category === activeFilter);
-            return `${filtered.length} témoignage${filtered.length > 1 ? 's' : ''} disponible${filtered.length > 1 ? 's' : ''}.`;
-          })()}
+            {filteredTestimonials.length} témoignage{filteredTestimonials.length > 1 ? 's' : ''} disponible{filteredTestimonials.length > 1 ? 's' : ''}.
           </p>
 
           {/* Cartes de témoignages */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {/* Témoignage 1 - Complications */}
-            {(activeFilter === "Tous" || activeFilter === "Complications") && <div className="glass-card rounded-2xl p-8 border border-primary-red/20 hover:border-primary-red/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary-red/10 animate-fade-in group">
-                {/* Icône guillemets */}
-                <Quote className="h-12 w-12 text-primary-red mb-6" />
-                
-                {/* Citation */}
-                <p className="text-muted-foreground italic text-lg leading-relaxed mb-6">
-                  Après mon intervention, j'ai souffert de complications qui n'ont jamais été correctement prises en charge. Je me retrouve avec des dommages permanents.
-                </p>
-
-                {/* Séparateur */}
-                <div className="w-full h-px bg-white/10 mb-6" />
-
-                {/* Identité et tag */}
-                <div className="flex justify-between items-center mb-6">
-                  <div>
-                    <p className="font-bold text-foreground">Patient Anonyme</p>
-                    <p className="text-sm text-muted-foreground">France</p>
-                  </div>
-                  <span className="px-3 py-1 bg-primary-red/20 text-primary-red text-xs font-bold rounded-full border border-primary-red/30">
-                    Complications
-                  </span>
-                </div>
-
-                {/* Bouton */}
-                <button className="flex items-center gap-2 text-primary-red hover:text-white font-medium transition-all duration-300 group-hover:-translate-y-0.5">
-                  Consulter la preuve
-                  <ArrowUp className="h-4 w-4" />
-                </button>
-              </div>}
-
-            {/* Témoignage 2 - Fraude */}
-            {(activeFilter === "Tous" || activeFilter === "Fraude") && <div className="glass-card rounded-2xl p-8 border border-primary-red/20 hover:border-primary-red/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary-red/10 animate-fade-in group">
-                {/* Icône guillemets */}
-                <Quote className="h-12 w-12 text-primary-red mb-6" />
-                
-                {/* Citation */}
-                <p className="text-muted-foreground italic text-lg leading-relaxed mb-6">
-                  La clinique a menti sur mon diagnostic pour justifier des procédures inutiles qui m'ont laissé dans un état pire.
-                </p>
-
-                {/* Séparateur */}
-                <div className="w-full h-px bg-white/10 mb-6" />
-
-                {/* Identité et tag */}
-                <div className="flex justify-between items-center mb-6">
-                  <div>
-                    <p className="font-bold text-foreground">Marie S.</p>
-                    <p className="text-sm text-muted-foreground">Suisse</p>
-                  </div>
-                  <span className="px-3 py-1 bg-primary-red/20 text-primary-red text-xs font-bold rounded-full border border-primary-red/30">
-                    Fraude
-                  </span>
-                </div>
-
-                {/* Bouton */}
-                <button className="flex items-center gap-2 text-primary-red hover:text-white font-medium transition-all duration-300 group-hover:-translate-y-0.5">
-                  Consulter la preuve
-                  <ArrowUp className="h-4 w-4" />
-                </button>
-              </div>}
-
-            {/* Témoignage 3 - Facturation */}
-            {(activeFilter === "Tous" || activeFilter === "Facturation") && <div className="glass-card rounded-2xl p-8 border border-primary-red/20 hover:border-primary-red/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary-red/10 animate-fade-in group">
-                {/* Icône guillemets */}
-                <Quote className="h-12 w-12 text-primary-red mb-6" />
-                
-                {/* Citation */}
-                <p className="text-muted-foreground italic text-lg leading-relaxed mb-6">
-                  Facturations abusives, frais cachés non mentionnés. Le montant final était le double du devis initial.
-                </p>
-
-                {/* Séparateur */}
-                <div className="w-full h-px bg-white/10 mb-6" />
-
-                {/* Identité et tag */}
-                <div className="flex justify-between items-center mb-6">
-                  <div>
-                    <p className="font-bold text-foreground">Sophie M.</p>
-                    <p className="text-sm text-muted-foreground">Luxembourg</p>
-                  </div>
-                  <span className="px-3 py-1 bg-primary-red/20 text-primary-red text-xs font-bold rounded-full border border-primary-red/30">
-                    Facturation
-                  </span>
-                </div>
-
-                {/* Bouton */}
-                <button className="flex items-center gap-2 text-primary-red hover:text-white font-medium transition-all duration-300 group-hover:-translate-y-0.5">
-                  Consulter la preuve
-                  <ArrowUp className="h-4 w-4" />
-                </button>
-              </div>}
+            {visibleTestimonials.map((testimonial) => (
+              <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+            ))}
           </div>
+
+          {/* Load More Button */}
+          {hasMoreTestimonials && (
+            <div className="flex justify-center mb-8">
+              <Button
+                onClick={handleLoadMore}
+                disabled={isLoadingMore}
+                className="btn-premium px-8 py-4 text-lg font-semibold rounded-xl group"
+              >
+                {isLoadingMore ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Chargement...
+                  </>
+                ) : (
+                  <>
+                    Charger plus de témoignages
+                    <ChevronDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
 
           {/* Footer note */}
           <div className="text-center">
@@ -657,7 +614,7 @@ Lema Dental Clinic en Turquie.
               Tous les témoignages sont anonymisés et vérifiés avant publication
             </p>
             <p className="text-sm text-muted-foreground">
-              3 témoignages • Toutes catégories
+              {displayedTestimonials} sur {filteredTestimonials.length} témoignages affichés
             </p>
           </div>
         </div>
