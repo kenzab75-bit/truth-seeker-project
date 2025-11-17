@@ -255,11 +255,11 @@ Lema Dental Clinic en Turquie.
       </section>
 
       {/* My Story Section - Introduction */}
-      <section id="histoire" className="py-24 bg-gradient-to-br from-background via-secondary to-background relative overflow-hidden">
+      <section id="histoire" className="py-section bg-gradient-to-br from-background via-secondary to-background relative overflow-hidden pattern-dots">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             <h2 className="text-5xl lg:text-6xl font-black text-gradient mb-8 font-display">
               Mon Histoire
             </h2>
@@ -355,12 +355,15 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
+      {/* Elegant Section Divider */}
+      <div className="section-divider"></div>
+
       {/* Story Section - Une mécanique bien rodée */}
-      <section id="victimes" className="py-24 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
+      <section id="victimes" className="py-section bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             <h2 className="text-5xl lg:text-6xl font-black mb-4 font-display">
               <span className="text-foreground block">Une mécanique</span>
               <span className="text-red-gradient block">parfaitement orchestrée</span>
@@ -497,13 +500,16 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
+      {/* Elegant Section Divider */}
+      <div className="section-divider"></div>
+
       {/* Témoignages des Victimes Section */}
-      <section className="py-24 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
+      <section className="py-section bg-gradient-to-br from-black via-background to-black relative overflow-hidden pattern-grid">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
               Témoignages des Victimes
             </h2>
@@ -642,14 +648,16 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
+      {/* Elegant Section Divider */}
+      <div className="section-divider"></div>
 
       {/* Section Témoignage Anonyme */}
-      <section className="py-24 bg-gradient-to-br from-background via-black to-background relative overflow-hidden">
+      <section className="py-section bg-gradient-to-br from-background via-black to-background relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
         
         <div className="max-w-3xl mx-auto px-6 lg:px-8 relative">
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-black text-foreground mb-6 font-display">
               Témoignage Anonyme
             </h2>
@@ -708,13 +716,16 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
+      {/* Elegant Section Divider */}
+      <div className="section-divider"></div>
+
       {/* Section RGPD - Vos données, vos droits */}
-      <section className="py-24 bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
+      <section className="py-section bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           {/* Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-2 mb-6">
               <AlertTriangle className="h-4 w-4 text-primary-red" />
               <span className="text-primary-red font-medium tracking-widest text-sm uppercase">
@@ -812,8 +823,11 @@ Lema Dental Clinic en Turquie.
         </div>
       </section>
 
+      {/* Elegant Section Divider */}
+      <div className="section-divider"></div>
+
       {/* Contact Section */}
-      <section id="contact" className="relative py-32 overflow-hidden">
+      <section id="contact" className="relative py-section overflow-hidden pattern-dots">
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-background via-black to-background" />
         
@@ -829,7 +843,7 @@ Lema Dental Clinic en Turquie.
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-br from-background via-black to-background py-24">
+      <footer className="bg-gradient-to-br from-background via-black to-background py-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
             {/* Brand Section */}
