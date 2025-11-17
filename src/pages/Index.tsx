@@ -247,8 +247,8 @@ const Index = () => {
         </div>
 
         <div className="relative z-[2] max-w-7xl mx-auto px-6 lg:px-8 text-center pt-20">
-          {/* Alert Icon */}
-          <div className="flex justify-center mb-12 animate-fade-in">
+          {/* Alert Icon - Animation progressive */}
+          <div className="flex justify-center mb-12 opacity-0 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
             <div className="relative">
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary-red/40 rounded-full animate-ping" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-primary-red/30 rounded-full animate-pulse" />
@@ -258,42 +258,81 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Main Title */}
-          <h1 className="text-6xl lg:text-8xl xl:text-9xl font-black mb-8 leading-none font-display animate-scale-in">
+          {/* Main Title - Animation progressive */}
+          <h1 className="text-6xl lg:text-8xl xl:text-9xl font-black mb-6 leading-none font-display opacity-0 animate-scale-in" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
             <span className="text-gradient block">LemaClinic</span>
             <span className="text-red-gradient block">Truth</span>
           </h1>
 
-          {/* Slogan */}
-          <p className="text-3xl lg:text-4xl xl:text-5xl mb-12 font-light text-primary-red font-display">
+          {/* Slogan - Animation progressive */}
+          <p className="text-3xl lg:text-4xl xl:text-5xl mb-6 font-light text-primary-red font-display opacity-0 animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
             La vérité éclaire toujours
           </p>
 
-          {/* Mission Statement */}
-          <div className="max-w-6xl mx-auto mb-16">
-            <p className="text-xl lg:text-2xl xl:text-3xl font-bold leading-relaxed text-foreground">
-              Révéler la vérité, défendre les victimes face aux abus de 
-Lema Dental Clinic en Turquie.
+          {/* Sous-titre accrocheur - Animation progressive */}
+          <div className="max-w-5xl mx-auto mb-4 opacity-0 animate-fade-in" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
+            <p className="text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight text-foreground mb-3">
+              Des centaines de victimes. Une seule clinique.
+            </p>
+            <p className="text-lg lg:text-xl xl:text-2xl text-muted-foreground leading-relaxed">
+              Découvrez comment <span className="text-primary-red font-semibold">Lema Dental Clinic</span> transforme des vies en cauchemars
             </p>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
-            <Button onClick={() => scrollToSection("histoire")} className="btn-premium px-8 py-6 text-xl font-bold rounded-xl text-white group h-auto">
-              <span className="relative z-10 flex items-center justify-center">
-                <Shield className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
-                Découvrir mon histoire
+          {/* Stats rapides - Animation progressive */}
+          <div className="flex flex-wrap justify-center gap-6 lg:gap-12 mb-12 opacity-0 animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}>
+            <div className="text-center">
+              <div className="text-3xl lg:text-4xl font-black text-primary-red">500+</div>
+              <div className="text-sm lg:text-base text-muted-foreground">Victimes</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl lg:text-4xl font-black text-primary-red">€15K+</div>
+              <div className="text-sm lg:text-base text-muted-foreground">Pertes moyennes</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl lg:text-4xl font-black text-primary-red">90%</div>
+              <div className="text-sm lg:text-base text-muted-foreground">Complications</div>
+            </div>
+          </div>
+
+          {/* CTA Buttons - Plus imposants - Animation progressive */}
+          <div className="flex flex-col lg:flex-row gap-6 justify-center items-center opacity-0 animate-scale-in" style={{ animationDelay: '1.1s', animationFillMode: 'forwards' }}>
+            <Button 
+              onClick={() => scrollToSection("histoire")} 
+              className="relative px-12 py-8 text-2xl font-black rounded-2xl text-white group h-auto overflow-hidden bg-gradient-to-r from-primary-red via-red-600 to-primary-red bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-2xl shadow-primary-red/50 hover:shadow-primary-red/70 hover:scale-105 border-2 border-primary-red/30"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+              <span className="relative z-10 flex items-center justify-center gap-3">
+                <Shield className="h-7 w-7 transition-transform group-hover:scale-110 group-hover:rotate-6" />
+                Découvrir la vérité
+                <ChevronRight className="h-7 w-7 transition-transform group-hover:translate-x-2" />
               </span>
             </Button>
 
-            <Button variant="outline" onClick={() => scrollToSection("contact")} className="glass border-2 border-white/30 hover:border-white/60 px-12 py-6 text-xl font-bold rounded-xl text-white min-w-[280px] h-auto transition-all duration-300 hover:bg-white/10 group">
-              <span className="flex items-center justify-center">
-                <svg className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <Button 
+              variant="outline" 
+              onClick={() => scrollToSection("contact")} 
+              className="relative px-12 py-8 text-xl font-bold rounded-2xl min-w-[320px] h-auto transition-all duration-300 group border-2 border-white/40 hover:border-primary-red bg-black/40 backdrop-blur-sm hover:bg-primary-red/10 text-white hover:scale-105 shadow-xl"
+            >
+              <span className="flex items-center justify-center gap-3">
+                <svg className="h-6 w-6 transition-transform group-hover:scale-125 group-hover:fill-primary-red" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
-                Soutenir le projet
+                Soutenir les victimes
               </span>
             </Button>
+          </div>
+
+          {/* Badge de confiance - Animation progressive */}
+          <div className="mt-12 flex justify-center gap-4 flex-wrap opacity-0 animate-fade-in" style={{ animationDelay: '1.3s', animationFillMode: 'forwards' }}>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
+              <ShieldCheck className="h-4 w-4 text-green-500" />
+              <span className="text-sm text-muted-foreground">Témoignages vérifiés</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
+              <Lock className="h-4 w-4 text-blue-500" />
+              <span className="text-sm text-muted-foreground">100% Anonyme</span>
+            </div>
           </div>
         </div>
 
