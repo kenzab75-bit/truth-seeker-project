@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -9,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Send, Loader2, CheckCircle2 } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 
 const contactSchema = z.object({
   name: z
@@ -38,7 +37,6 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export default function ContactForm() {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -50,31 +48,19 @@ export default function ContactForm() {
     },
   });
 
-  const onSubmit = async (data: ContactFormValues) => {
-    setIsSubmitting(true);
+  const onSubmit = (data: ContactFormValues) => {
     // Encode data for secure transmission via WhatsApp
     const whatsappMessage = encodeURIComponent(
       `Nouveau message de contact:\n\nNom: ${data.name}\nEmail: ${data.email}\nMessage: ${data.message}`
     );
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
     // Open WhatsApp with pre-filled message
     const whatsappNumber = "33123456789"; // Replace with actual number
     window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, "_blank");
     
-    setIsSubmitting(false);
-    
     toast({
-      title: (
-        <div className="flex items-center gap-2">
-          <CheckCircle2 className="h-5 w-5 text-green-500" />
-          <span>Message envoyé avec succès !</span>
-        </div>
-      ) as any,
+      title: "Message envoyé !",
       description: "Nous avons bien reçu votre message et vous recontacterons rapidement.",
-      duration: 5000,
     });
     
     form.reset();
@@ -104,9 +90,7 @@ export default function ContactForm() {
                   <Input 
                     placeholder="Jean Dupont" 
                     {...field}
-                    className="min-h-[48px] transition-all duration-200 focus:scale-[1.02]"
-                    aria-label="Entrez votre nom complet"
-                    aria-required="true"
+                    className="transition-all duration-200 focus:scale-[1.02]"
                   />
                 </FormControl>
                 <FormMessage />
@@ -125,9 +109,7 @@ export default function ContactForm() {
                     type="email"
                     placeholder="jean.dupont@example.com" 
                     {...field}
-                    className="min-h-[48px] transition-all duration-200 focus:scale-[1.02]"
-                    aria-label="Entrez votre adresse email"
-                    aria-required="true"
+                    className="transition-all duration-200 focus:scale-[1.02]"
                   />
                 </FormControl>
                 <FormMessage />
@@ -146,8 +128,6 @@ export default function ContactForm() {
                     placeholder="Décrivez votre situation ou posez votre question..."
                     className="min-h-[150px] resize-none transition-all duration-200 focus:scale-[1.02]"
                     {...field}
-                    aria-label="Entrez votre message"
-                    aria-required="true"
                   />
                 </FormControl>
                 <FormMessage />
@@ -182,23 +162,11 @@ export default function ContactForm() {
 
           <Button 
             type="submit" 
-            variant="premium"
-            size="lg"
-            className="w-full group"
-            disabled={isSubmitting}
-            aria-label="Envoyer le message de contact"
+            className="w-full h-12 text-base font-semibold group"
+            disabled={form.formState.isSubmitting}
           >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Envoi en cours...
-              </>
-            ) : (
-              <>
-                <Send className="mr-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                Envoyer le message
-              </>
-            )}
+            <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            {form.formState.isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
           </Button>
 
           <p className="text-sm text-muted-foreground text-center">

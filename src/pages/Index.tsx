@@ -9,7 +9,6 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { useToast } from "@/hooks/use-toast";
 import AlertBanner from "@/components/AlertBanner";
 import ContactForm from "@/components/ContactForm";
-import ScrollProgress from "@/components/ScrollProgress";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isEtape1ModalOpen, setIsEtape1ModalOpen] = useState(false);
@@ -48,9 +47,8 @@ const Index = () => {
     setConsentChecked(false);
   };
   return <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <ScrollProgress />
       {/* Premium Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass bg-black/80" : "glass"}`} role="banner">
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass bg-black/80" : "glass"}`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-4">
@@ -71,22 +69,14 @@ const Index = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8" role="navigation" aria-label="Navigation principale">
-              <button 
-                onClick={() => scrollToSection('accueil')} 
-                className="relative text-foreground/90 hover:text-primary font-medium transition-all duration-300 group min-h-[44px] px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
-                aria-label="Aller à la section Accueil"
-              >
+            <nav className="hidden lg:flex items-center space-x-8">
+              <button onClick={() => scrollToSection('accueil')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Accueil
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
-              <button 
-                onClick={() => scrollToSection('histoire')} 
-                className="relative text-foreground/90 hover:text-primary font-medium transition-all duration-300 group min-h-[44px] px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
-                aria-label="Aller à la section Mon histoire"
-              >
+              <button onClick={() => scrollToSection('histoire')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Mon histoire
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
               
               <NavigationMenu>
@@ -111,21 +101,13 @@ const Index = () => {
                 </NavigationMenuList>
               </NavigationMenu>
 
-              <button 
-                onClick={() => scrollToSection('victimes')} 
-                className="relative text-foreground/90 hover:text-primary font-medium transition-all duration-300 group min-h-[44px] px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
-                aria-label="Aller à la section Témoignages"
-              >
+              <button onClick={() => scrollToSection('victimes')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Témoignages
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
-              <button 
-                onClick={() => scrollToSection('contact')} 
-                className="relative text-foreground/90 hover:text-primary font-medium transition-all duration-300 group min-h-[44px] px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
-                aria-label="Aller à la section Contact"
-              >
+              <button onClick={() => scrollToSection('contact')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
                 Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
             </nav>
 
@@ -192,7 +174,7 @@ const Index = () => {
       </header>
 
       {/* Hero Section Ultra Premium */}
-      <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32" role="main" aria-labelledby="hero-title" style={{
+      <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32" style={{
       background: `
             radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
@@ -226,62 +208,50 @@ const Index = () => {
           </div>
 
           {/* Main Title */}
-          <h1 id="hero-title" className="text-5xl lg:text-6xl xl:text-7xl font-black mb-8 leading-none font-display animate-scale-in">
+          <h1 className="text-6xl lg:text-8xl xl:text-9xl font-black mb-8 leading-none font-display animate-scale-in">
             <span className="text-gradient block">LemaClinic</span>
             <span className="text-red-gradient block">Truth</span>
           </h1>
 
           {/* Slogan */}
-          <p className="text-2xl lg:text-3xl mb-12 font-light text-primary font-display">
+          <p className="text-3xl lg:text-4xl xl:text-5xl mb-12 font-light text-primary-red font-display">
             La vérité éclaire toujours
           </p>
 
           {/* Mission Statement */}
           <div className="max-w-6xl mx-auto mb-16">
-            <p className="text-lg lg:text-xl leading-relaxed text-foreground/90">
-              Révéler la vérité, défendre les victimes face aux abus de 
+            <p className="text-xl lg:text-2xl xl:text-3xl font-bold leading-relaxed text-foreground">
+              Révéler la vérité, défendre les victimes face aux abus de 
 Lema Dental Clinic en Turquie.
             </p>
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
-            <Button 
-              onClick={() => scrollToSection("histoire")} 
-              variant="premium"
-              size="lg"
-              className="group"
-              aria-label="Découvrir mon histoire"
-            >
-              <Shield className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
-              Découvrir mon histoire
+            <Button onClick={() => scrollToSection("histoire")} className="btn-premium px-8 py-6 text-xl font-bold rounded-xl text-white group h-auto">
+              <span className="relative z-10 flex items-center justify-center">
+                <Shield className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
+                Découvrir mon histoire
+              </span>
             </Button>
 
-            <Button 
-              variant="outline" 
-              onClick={() => scrollToSection("contact")} 
-              size="lg"
-              className="glass border-2 border-border hover:border-primary/50 group"
-              aria-label="Soutenir le projet"
-            >
-              <svg className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-              Soutenir le projet
+            <Button variant="outline" onClick={() => scrollToSection("contact")} className="glass border-2 border-white/30 hover:border-white/60 px-12 py-6 text-xl font-bold rounded-xl text-white min-w-[280px] h-auto transition-all duration-300 hover:bg-white/10 group">
+              <span className="flex items-center justify-center">
+                <svg className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                Soutenir le projet
+              </span>
             </Button>
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <button
-          onClick={() => scrollToSection("histoire")}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] animate-bounce-slow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full p-2"
-          aria-label="Défiler vers la section Mon histoire"
-        >
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] animate-bounce-slow">
           <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
             <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse" />
           </div>
-        </button>
+        </div>
       </section>
 
       {/* My Story Section - Introduction */}
