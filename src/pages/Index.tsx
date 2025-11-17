@@ -180,14 +180,14 @@ const Index = () => {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent">
+                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-[250ms] [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px">
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-1 p-2 bg-gradient-to-br from-black via-black to-[#1a0000] backdrop-blur-[6px] border border-border/20 rounded-xl shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]">
+                      <ul className="grid w-[400px] gap-1 p-3 bg-gradient-to-br from-black via-[#0a0000] to-[#1a0000] backdrop-blur-[6px] border border-white/5 rounded-xl shadow-[inset_0_1px_2px_rgba(0,0,0,0.3),0_10px_40px_rgba(0,0,0,0.5)]">
                         <li>
                           <NavigationMenuLink asChild>
-                            <button onClick={() => scrollToSection('victimes')} className="w-full flex items-center gap-2 select-none rounded-lg px-4 py-2 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
+                            <button onClick={() => scrollToSection('victimes')} className="w-full flex items-center gap-3 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
                               <AlertTriangle className="h-4 w-4 opacity-70" />
                               Leurs méthodes
                             </button>
@@ -195,7 +195,7 @@ const Index = () => {
                         </li>
                         <li>
                           <NavigationMenuLink asChild>
-                            <button onClick={() => scrollToSection('temoignages')} className="w-full flex items-center gap-2 select-none rounded-lg px-4 py-2 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
+                            <button onClick={() => scrollToSection('temoignages')} className="w-full flex items-center gap-3 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
                               <Quote className="h-4 w-4 opacity-70" />
                               Témoignages
                             </button>
@@ -203,7 +203,7 @@ const Index = () => {
                         </li>
                         <li>
                           <NavigationMenuLink asChild>
-                            <Link to="/informer/questions-victimes" className="flex items-center gap-2 select-none rounded-lg px-4 py-2 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616]">
+                            <Link to="/informer/questions-victimes" className="flex items-center gap-3 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616]">
                               <FileText className="h-4 w-4 opacity-70" />
                               Vos questions importantes
                             </Link>
