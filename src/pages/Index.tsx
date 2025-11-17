@@ -121,10 +121,10 @@ const Index = () => {
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-3 bg-gradient-to-br from-black via-black to-[#1a0000] backdrop-blur-[6px] border border-border/20 rounded-xl shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]">
+                      <ul className="grid w-[400px] gap-1 p-2 bg-gradient-to-br from-black via-black to-[#1a0000] backdrop-blur-[6px] border border-border/20 rounded-xl shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]">
                         <li>
                           <NavigationMenuLink asChild>
-                            <button onClick={() => scrollToSection('victimes')} className="w-full flex items-center gap-2 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
+                            <button onClick={() => scrollToSection('victimes')} className="w-full flex items-center gap-2 select-none rounded-lg px-4 py-2 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
                               <AlertTriangle className="h-4 w-4 opacity-70" />
                               Leurs méthodes
                             </button>
@@ -132,7 +132,7 @@ const Index = () => {
                         </li>
                         <li>
                           <NavigationMenuLink asChild>
-                            <button onClick={() => scrollToSection('temoignages')} className="w-full flex items-center gap-2 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
+                            <button onClick={() => scrollToSection('temoignages')} className="w-full flex items-center gap-2 select-none rounded-lg px-4 py-2 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
                               <Quote className="h-4 w-4 opacity-70" />
                               Témoignages
                             </button>
@@ -140,7 +140,7 @@ const Index = () => {
                         </li>
                         <li>
                           <NavigationMenuLink asChild>
-                            <Link to="/informer/questions-victimes" className="flex items-center gap-2 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616]">
+                            <Link to="/informer/questions-victimes" className="flex items-center gap-2 select-none rounded-lg px-4 py-2 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616]">
                               <FileText className="h-4 w-4 opacity-70" />
                               Vos questions importantes
                             </Link>
