@@ -11,6 +11,7 @@ import AlertBanner from "@/components/AlertBanner";
 import ContactForm from "@/components/ContactForm";
 import TestimonialCard from "@/components/TestimonialCard";
 import { testimonials } from "@/data/testimonials";
+import { supabase } from "@/integrations/supabase/client";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isEtape1ModalOpen, setIsEtape1ModalOpen] = useState(false);
@@ -24,6 +25,7 @@ const Index = () => {
   const [displayedTestimonials, setDisplayedTestimonials] = useState(3);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
   const {
     toast
   } = useToast();
@@ -76,7 +78,7 @@ const Index = () => {
     }, 600);
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!newsletterEmail) {
@@ -98,11 +100,42 @@ const Index = () => {
       return;
     }
 
-    toast({
-      title: "Inscription réussie !",
-      description: "Merci de votre inscription à notre newsletter.",
-    });
-    setNewsletterEmail("");
+    setIsSubscribing(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('newsletter-subscribe', {
+        body: { email: newsletterEmail }
+      });
+
+      if (error) {
+        console.error('Newsletter subscription error:', error);
+        throw error;
+      }
+
+      if (data?.error) {
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: data.error,
+        });
+        return;
+      }
+
+      toast({
+        title: "Inscription réussie !",
+        description: data.message || "Merci de votre inscription à notre newsletter. Vérifiez votre email.",
+      });
+      setNewsletterEmail("");
+    } catch (error: any) {
+      console.error('Newsletter subscription error:', error);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'inscription. Veuillez réessayer.",
+      });
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
   const filteredTestimonials = activeFilter === "Tous" 
@@ -1007,10 +1040,24 @@ const Index = () => {
                   placeholder="Votre email" 
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary-red transition-colors" 
+                  disabled={isSubscribing}
+                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary-red transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
                 />
-                <Button type="submit" className="w-full bg-gradient-to-r from-primary-red to-red-600 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)] transition-all duration-300">
-                  S'inscrire<Mail className="ml-2 h-4 w-4" />
+                <Button 
+                  type="submit" 
+                  disabled={isSubscribing}
+                  className="w-full bg-gradient-to-r from-primary-red to-red-600 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)] transition-all duration-300"
+                >
+                  {isSubscribing ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Inscription en cours...
+                    </>
+                  ) : (
+                    <>
+                      S'inscrire<Mail className="ml-2 h-4 w-4" />
+                    </>
+                  )}
                 </Button>
               </form>
               <p className="text-xs text-muted-foreground mt-3">Données protégées RGPD</p>
