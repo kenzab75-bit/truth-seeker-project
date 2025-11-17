@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2 } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2, Heart, FileCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -464,15 +464,15 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Timeline verticale */}
+          {/* Timeline verticale avec numérotation élégante */}
           <div className="max-w-6xl mx-auto relative">
-            {/* Ligne verticale centrale avec gradient amélioré */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-red via-primary-red/70 to-primary-red/30 -translate-x-1/2 hidden lg:block" />
+            {/* Ligne verticale centrale avec gradient amélioré et effet de lueur */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary-red via-primary-red/70 to-primary-red/30 -translate-x-1/2 hidden lg:block rounded-full shadow-[0_0_20px_rgba(220,38,38,0.3)]" />
 
             {/* Étape 1 - Gauche */}
             <div className="relative mb-24 lg:mb-32 animate-fade-in">
-              <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
-                <div className="lg:text-right lg:pr-12">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div className="lg:text-right lg:pr-16">
                   <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
                     <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
                       Étape 1
@@ -491,19 +491,25 @@ const Index = () => {
                 </div>
                 <div className="hidden lg:block" />
               </div>
-              {/* Cercle sur la ligne avec animation pulse */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10 shadow-lg shadow-primary-red/50 animate-pulse">
-                <div className="w-4 h-4 bg-white rounded-full" />
+              {/* Cercle élégant avec numérotation */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-10">
+                <div className="relative">
+                  {/* Anneaux extérieurs pulsants */}
+                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/20 rounded-full animate-ping" />
+                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/10 rounded-full animate-pulse" />
+                  {/* Cercle principal avec numéro */}
+                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary-red to-red-600 rounded-full border-4 border-background flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
+                    <span className="text-2xl font-black text-white">1</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Étape 2 - Droite */}
-            <div className="relative mb-24 lg:mb-32 animate-fade-in" style={{
-            animationDelay: '0.1s'
-          }}>
-              <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+            <div className="relative mb-24 lg:mb-32 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                 <div className="hidden lg:block" />
-                <div className="lg:pl-12">
+                <div className="lg:pl-16">
                   <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
                     <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
                       Étape 2
@@ -512,7 +518,7 @@ const Index = () => {
                       Le piège
                     </h3>
                     <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                      Une fois sur place, vous vous retrouvez pris au piège, entièrement dépendants de la clinique, qui exploite cette position de force pour accélérer les procédures. Les consentements sont signés dans la précipitation, sous pression psychologique et logistique. Refuser devient impensable, au risque de perdre les sommes versées et le séjour déjà engagé.
+                      Une fois à Istanbul, ils vous isolent et vous placent sous pression. Les conditions changent, les prix explosent, et vous êtes pris au piège, loin de chez vous et vulnérable.
                     </p>
                     <button onClick={() => setIsEtape2ModalOpen(true)} className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30">
                       Cliquer pour voir les détails
@@ -521,18 +527,22 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              {/* Cercle sur la ligne avec animation pulse */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10 shadow-lg shadow-primary-red/50 animate-pulse">
-                <div className="w-4 h-4 bg-white rounded-full" />
+              {/* Cercle élégant avec numérotation */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-10">
+                <div className="relative">
+                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/20 rounded-full animate-ping" style={{ animationDelay: '0.1s' }} />
+                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/10 rounded-full animate-pulse" style={{ animationDelay: '0.1s' }} />
+                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary-red to-red-600 rounded-full border-4 border-background flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
+                    <span className="text-2xl font-black text-white">2</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Étape 3 - Gauche */}
-            <div className="relative mb-24 lg:mb-32 animate-fade-in" style={{
-            animationDelay: '0.2s'
-          }}>
-              <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
-                <div className="lg:text-right lg:pr-12">
+            <div className="relative mb-24 lg:mb-32 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div className="lg:text-right lg:pr-16">
                   <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
                     <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
                       Étape 3
@@ -551,25 +561,29 @@ const Index = () => {
                 </div>
                 <div className="hidden lg:block" />
               </div>
-              {/* Cercle sur la ligne avec animation pulse */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10 shadow-lg shadow-primary-red/50 animate-pulse">
-                <div className="w-4 h-4 bg-white rounded-full" />
+              {/* Cercle élégant avec numérotation */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-10">
+                <div className="relative">
+                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/20 rounded-full animate-ping" style={{ animationDelay: '0.2s' }} />
+                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/10 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary-red to-red-600 rounded-full border-4 border-background flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
+                    <span className="text-2xl font-black text-white">3</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Étape 4 - Droite */}
-            <div className="relative animate-fade-in" style={{
-            animationDelay: '0.3s'
-          }}>
-              <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+            <div className="relative animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                 <div className="hidden lg:block" />
-                <div className="lg:pl-12">
+                <div className="lg:pl-16">
                   <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
                     <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
                       Étape 4
                     </div>
                     <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
-                      La vérité 
+                      La vérité 
                     </h3>
                     <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                       Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.
@@ -581,9 +595,15 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              {/* Cercle sur la ligne avec animation pulse */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-red rounded-full border-4 border-background hidden lg:flex items-center justify-center z-10 shadow-lg shadow-primary-red/50 animate-pulse">
-                <div className="w-4 h-4 bg-white rounded-full" />
+              {/* Cercle élégant avec numérotation */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-10">
+                <div className="relative">
+                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/20 rounded-full animate-ping" style={{ animationDelay: '0.3s' }} />
+                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/10 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }} />
+                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary-red to-red-600 rounded-full border-4 border-background flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
+                    <span className="text-2xl font-black text-white">4</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -869,22 +889,56 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gradient-to-br from-background via-black to-background py-section">
+      {/* Footer Enrichi */}
+      <footer className="bg-gradient-to-br from-background via-black to-background py-section border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
+          {/* Trust Signals & Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 pb-16 border-b border-white/10">
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="text-4xl lg:text-5xl font-black text-primary-red mb-2">12+</div>
+              <div className="text-sm text-muted-foreground">Témoignages vérifiés</div>
+            </div>
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="text-4xl lg:text-5xl font-black text-primary-red mb-2">100%</div>
+              <div className="text-sm text-muted-foreground">Confidentialité garantie</div>
+            </div>
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="text-4xl lg:text-5xl font-black text-primary-red mb-2">24/7</div>
+              <div className="text-sm text-muted-foreground">Soutien disponible</div>
+            </div>
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="text-4xl lg:text-5xl font-black text-primary-red mb-2">RGPD</div>
+              <div className="text-sm text-muted-foreground">Conformité totale</div>
+            </div>
+          </div>
+
+          {/* Main Footer Grid */}
+          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 mb-16">
             {/* Brand Section */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6 group">
                 <Scale className="h-8 w-8 text-primary-red transition-transform duration-300 group-hover:scale-110" />
-                <span className="text-2xl font-bold font-display">
-                  LemaClinic Truth
-                </span>
+                <span className="text-2xl font-bold font-display">LemaClinic Truth</span>
               </div>
               <p className="text-muted-foreground text-base leading-relaxed mb-8">
-                Un mouvement déterminé pour la vérité, la justice et la protection
-                des patients face aux abus médicaux.
+                Un mouvement déterminé pour la vérité, la justice et la protection des patients face aux abus médicaux.
               </p>
+              
+              {/* Security Badges */}
+              <div className="flex flex-wrap gap-3 mb-8">
+                <div className="glass-card px-4 py-2 rounded-lg border border-primary-red/20 flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-primary-red" />
+                  <span className="text-xs font-medium">Données sécurisées</span>
+                </div>
+                <div className="glass-card px-4 py-2 rounded-lg border border-primary-red/20 flex items-center gap-2">
+                  <Lock className="h-4 w-4 text-primary-red" />
+                  <span className="text-xs font-medium">SSL Crypté</span>
+                </div>
+                <div className="glass-card px-4 py-2 rounded-lg border border-primary-red/20 flex items-center gap-2">
+                  <FileCheck className="h-4 w-4 text-primary-red" />
+                  <span className="text-xs font-medium">RGPD Conforme</span>
+                </div>
+              </div>
               
               {/* Social Media */}
               <div className="flex items-center space-x-4">
@@ -911,86 +965,49 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Navigation */}
             <div>
-              <h3 className="text-xl font-bold mb-6">Liens rapides</h3>
+              <h3 className="text-xl font-bold mb-6">Navigation</h3>
               <ul className="space-y-3">
-                <li>
-                  <button onClick={() => scrollToSection("histoire")} className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Mon histoire
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => scrollToSection("victimes")} className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Leurs méthodes
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => scrollToSection("temoignages")} className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Témoignages
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => scrollToSection("etapes")} className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Notre mission
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => scrollToSection("support")} className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Soutenir
-                  </button>
-                </li>
+                <li><button onClick={() => scrollToSection("histoire")} className="text-muted-foreground hover:text-primary-red transition-all duration-300 text-base hover:translate-x-1 inline-block">Mon histoire</button></li>
+                <li><button onClick={() => scrollToSection("victimes")} className="text-muted-foreground hover:text-primary-red transition-all duration-300 text-base hover:translate-x-1 inline-block">Leurs méthodes</button></li>
+                <li><button onClick={() => scrollToSection("temoignages")} className="text-muted-foreground hover:text-primary-red transition-all duration-300 text-base hover:translate-x-1 inline-block">Témoignages</button></li>
+                <li><button onClick={() => scrollToSection("support")} className="text-muted-foreground hover:text-primary-red transition-all duration-300 text-base hover:translate-x-1 inline-block">Soutenir</button></li>
               </ul>
             </div>
 
-            {/* Legal Links */}
+            {/* Legal */}
             <div>
-              <h3 className="text-xl font-bold mb-6">Informations légales</h3>
+              <h3 className="text-xl font-bold mb-6">Légal</h3>
               <ul className="space-y-3">
-                <li>
-                  <Link to="/mentions-legales" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Mentions légales
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/politique-confidentialite" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Politique de confidentialité
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/conditions-utilisation" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Conditions d'utilisation
-                  </Link>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base hover:translate-x-1 inline-block">
-                    Gestion des cookies
-                  </a>
-                </li>
+                <li><Link to="/mentions-legales" className="text-muted-foreground hover:text-primary-red transition-all duration-300 text-base hover:translate-x-1 inline-block">Mentions légales</Link></li>
+                <li><Link to="/politique-confidentialite" className="text-muted-foreground hover:text-primary-red transition-all duration-300 text-base hover:translate-x-1 inline-block">Confidentialité</Link></li>
+                <li><Link to="/conditions-utilisation" className="text-muted-foreground hover:text-primary-red transition-all duration-300 text-base hover:translate-x-1 inline-block">Conditions</Link></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary-red transition-all duration-300 text-base hover:translate-x-1 inline-block">Cookies</a></li>
               </ul>
             </div>
 
-            {/* Contact Section */}
+            {/* Newsletter */}
             <div>
-              <h3 className="text-xl font-bold mb-6">Contact confidentiel</h3>
-              <p className="text-muted-foreground mb-6 text-base leading-relaxed">
-                Votre témoignage est précieux et sera traité avec la plus grande
-                confidentialité.
-              </p>
-              <Button onClick={() => scrollToSection('contact')} className="btn-premium px-8 py-4 rounded-lg font-bold text-white h-auto w-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)]">
-                Nous contacter
-              </Button>
+              <h3 className="text-xl font-bold mb-6">Newsletter</h3>
+              <p className="text-muted-foreground mb-4 text-sm leading-relaxed">Restez informé des dernières actualités.</p>
+              <form className="space-y-3">
+                <input type="email" placeholder="Votre email" className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary-red transition-colors" />
+                <Button type="submit" className="w-full bg-gradient-to-r from-primary-red to-red-600 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)] transition-all duration-300">
+                  S'inscrire<Mail className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
+              <p className="text-xs text-muted-foreground mt-3">Données protégées RGPD</p>
             </div>
           </div>
 
           {/* Bottom Bar */}
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-muted-foreground text-sm">
-              &copy; 2024 LemaClinic Truth. Tous droits réservés.
-            </p>
-            <p className="text-muted-foreground text-sm">
-              Fait avec ❤️ pour la vérité et la justice
-            </p>
+            <p className="text-muted-foreground text-sm">&copy; 2024 LemaClinic Truth. Tous droits réservés.</p>
+            <div className="flex items-center gap-2 text-muted-foreground text-sm">
+              <Heart className="h-4 w-4 text-primary-red" />
+              <span>Fait avec passion pour la vérité et la justice</span>
+            </div>
           </div>
         </div>
       </footer>
