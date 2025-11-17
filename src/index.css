@@ -212,6 +212,17 @@ All colors MUST be HSL.
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--dark-red));
   }
+
+  /* Custom text selection - subtle and elegant */
+  ::selection {
+    background: hsl(var(--primary-red) / 0.2);
+    color: inherit;
+  }
+
+  ::-moz-selection {
+    background: hsl(var(--primary-red) / 0.2);
+    color: inherit;
+  }
 }
 
 @layer components {
