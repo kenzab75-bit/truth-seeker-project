@@ -30,19 +30,34 @@ const Index = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   const scrollToSection = (id: string) => {
+    setMobileMenuOpen(false); // Close mobile menu on navigation
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
         behavior: "smooth"
       });
     }
   };
   const handleSubmitTestimony = () => {
     if (!testimony.trim() || !consentChecked) {
+      toast({
+        title: "Champs requis",
+        description: "Veuillez remplir tous les champs et accepter le consentement",
+        variant: "destructive"
+      });
       return;
     }
     // Simuler l'envoi sécurisé
     console.log("Témoignage anonyme envoyé de manière sécurisée");
+    toast({
+      title: "Témoignage envoyé",
+      description: "Votre témoignage a été envoyé de manière sécurisée et anonyme"
+    });
     setTestimony("");
     setConsentChecked(false);
   };

@@ -116,6 +116,9 @@ export default {
         "scale-in": "scale-in 0.2s ease-out",
         "bounce-slow": "bounce-slow 2s infinite",
       },
+      scale: {
+        '98': '0.98',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

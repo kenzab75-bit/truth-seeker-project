@@ -136,7 +136,18 @@ All colors MUST be HSL.
 @layer base {
   * {
     @apply border-border;
+  }
+  
+  html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Account for fixed header */
+  }
+  
+  /* Better focus visibility for accessibility */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    transition: outline-offset 0.2s ease;
   }
 
   body {
@@ -356,6 +367,64 @@ All colors MUST be HSL.
 
   .particle {
     animation: particle-float 20s linear infinite;
+  }
+
+  /* UX Improvements */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  /* Loading state */
+  .loading {
+    background: linear-gradient(90deg, 
+      hsl(var(--muted)) 0%, 
+      hsl(var(--muted-foreground) / 0.1) 50%, 
+      hsl(var(--muted)) 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Smooth transitions for interactive elements */
+  .interactive {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elegant);
+  }
+
+  /* Improved button interactions */
+  button,
+  a.button {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  button:active,
+  a.button:active {
+    transform: scale(0.98);
+  }
+
+  /* Skip to content link for accessibility */
+  .skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 100;
+  }
+
+  .skip-to-content:focus {
+    top: 0;
   }
 
   .hover-lift {
