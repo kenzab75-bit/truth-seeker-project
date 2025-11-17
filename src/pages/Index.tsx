@@ -23,6 +23,7 @@ const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [displayedTestimonials, setDisplayedTestimonials] = useState(3);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
   const {
     toast
   } = useToast();
@@ -73,6 +74,35 @@ const Index = () => {
       setDisplayedTestimonials(prev => Math.min(prev + 3, filteredTestimonials.length));
       setIsLoadingMore(false);
     }, 600);
+  };
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!newsletterEmail) {
+      toast({
+        variant: "destructive",
+        title: "Email requis",
+        description: "Veuillez entrer votre adresse email.",
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newsletterEmail)) {
+      toast({
+        variant: "destructive",
+        title: "Email invalide",
+        description: "Veuillez entrer une adresse email valide.",
+      });
+      return;
+    }
+
+    toast({
+      title: "Inscription réussie !",
+      description: "Merci de votre inscription à notre newsletter.",
+    });
+    setNewsletterEmail("");
   };
 
   const filteredTestimonials = activeFilter === "Tous" 
@@ -971,8 +1001,14 @@ const Index = () => {
             <div>
               <h3 className="text-xl font-bold mb-6">Newsletter</h3>
               <p className="text-muted-foreground mb-4 text-sm leading-relaxed">Restez informé des dernières actualités.</p>
-              <form className="space-y-3">
-                <input type="email" placeholder="Votre email" className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary-red transition-colors" />
+              <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+                <input 
+                  type="email" 
+                  placeholder="Votre email" 
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary-red transition-colors" 
+                />
                 <Button type="submit" className="w-full bg-gradient-to-r from-primary-red to-red-600 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)] transition-all duration-300">
                   S'inscrire<Mail className="ml-2 h-4 w-4" />
                 </Button>
