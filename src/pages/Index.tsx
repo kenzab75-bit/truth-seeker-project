@@ -892,26 +892,6 @@ const Index = () => {
       {/* Footer Enrichi */}
       <footer className="bg-gradient-to-br from-background via-black to-background py-section border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          {/* Trust Signals & Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 pb-16 border-b border-white/10">
-            <div className="text-center group hover:scale-105 transition-transform duration-300">
-              <div className="text-4xl lg:text-5xl font-black text-primary-red mb-2">12+</div>
-              <div className="text-sm text-muted-foreground">Témoignages vérifiés</div>
-            </div>
-            <div className="text-center group hover:scale-105 transition-transform duration-300">
-              <div className="text-4xl lg:text-5xl font-black text-primary-red mb-2">100%</div>
-              <div className="text-sm text-muted-foreground">Confidentialité garantie</div>
-            </div>
-            <div className="text-center group hover:scale-105 transition-transform duration-300">
-              <div className="text-4xl lg:text-5xl font-black text-primary-red mb-2">24/7</div>
-              <div className="text-sm text-muted-foreground">Soutien disponible</div>
-            </div>
-            <div className="text-center group hover:scale-105 transition-transform duration-300">
-              <div className="text-4xl lg:text-5xl font-black text-primary-red mb-2">RGPD</div>
-              <div className="text-sm text-muted-foreground">Conformité totale</div>
-            </div>
-          </div>
-
           {/* Main Footer Grid */}
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 mb-16">
             {/* Brand Section */}
