@@ -304,7 +304,7 @@ const Index = () => {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-[250ms] [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px" aria-label="S'informer">
+                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-300 [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px" aria-label="S'informer">
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
