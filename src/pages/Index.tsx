@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2, Heart, FileCheck, Sparkles, Globe, Users, Megaphone, FileAudio, Image as ImageIcon, MessageCircle, Fingerprint, KeyRound } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2, Heart, FileCheck, Sparkles, Globe, Users, Megaphone, Fingerprint, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -133,13 +133,6 @@ const Index = () => {
       detail: "Orientation vers un espace de fichiers à la demande.",
     }
   ];
-
-  const evidenceIconMap = {
-    audio: FileAudio,
-    pdf: FileText,
-    photo: ImageIcon,
-    message: MessageCircle,
-  } as const;
   const handleSubmitTestimony = async () => {
     if (!testimony.trim() || !consentChecked) {
       toast({
@@ -304,7 +297,7 @@ const Index = () => {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-[250ms] [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px" aria-label="S'informer">
+                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-300 [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px" aria-label="S'informer">
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -679,82 +672,66 @@ const Index = () => {
       {/* Elegant Section Divider */}
       <div className="section-divider"></div>
 
-      {/* Story Section - Une mécanique bien rodée */}
+      {/* Timeline Section */}
       <section id="victimes" className="py-section bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
-        
+
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-black mb-4 font-display">
-              <span className="text-foreground block">Une mécanique</span>
-              <span className="text-red-gradient block">parfaitement orchestrée</span>
-            </h2>
-            <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
-            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Comprenez les tendances qui ressortent des témoignages : promesses séduisantes, paperasse complexe et pressions émotionnelles.
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <p className="text-2xl lg:text-3xl text-white/90 leading-relaxed font-semibold">
+              Découvrez comment un système bien rodé transforme la confiance des patients en instrument de profit.
             </p>
           </div>
 
-          {/* Timeline data-driven */}
-          <div className="max-w-6xl mx-auto space-y-12">
-            {timelineSteps.map((step, index) => {
-              const isEven = index % 2 === 1;
-              return (
-                <article
-                  key={step.id}
-                  className={`glass-card rounded-3xl p-10 border border-white/5 hover:border-primary-red/40 transition-all duration-500 ${isEven ? "lg:flex-row-reverse" : ""}`}
-                >
-                  <div className="flex flex-col lg:flex-row gap-8 items-start">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 text-primary-red text-sm uppercase tracking-[0.3em] mb-3">
-                        <span>{step.label}</span>
-                        <span className="inline-flex h-2 w-2 rounded-full bg-primary-red" />
-                        <span>#{(index + 1).toString().padStart(2, "0")}</span>
-                      </div>
-                      <h3 className="text-3xl lg:text-4xl font-black text-white mb-4">{step.title}</h3>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-6">{step.description}</p>
-                      <ul className="space-y-3 mb-6">
-                        {step.highlights.map(highlight => (
-                          <li key={highlight} className="flex items-start gap-3 text-muted-foreground">
-                            <span className="mt-1 h-2 w-2 rounded-full bg-primary-red" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="flex flex-wrap gap-3">
-                        {step.evidence.map(evidence => {
-                          const Icon = evidenceIconMap[evidence.type];
-                          return (
-                            <button
-                              key={evidence.label}
-                              className="px-4 py-2 rounded-full border border-white/10 text-sm text-white/80 hover:border-primary-red/60 hover:text-white transition-all duration-200 flex items-center gap-2"
-                              onClick={() => setActiveTimelineStep(step)}
-                            >
-                              <Icon className="h-4 w-4 text-primary-red" aria-hidden="true" />
-                              {evidence.label}
-                            </button>
-                          );
-                        })}
+          <div className="relative max-w-6xl mx-auto">
+            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-primary-red/60 to-transparent" aria-hidden="true" />
+
+            <div className="space-y-16">
+              {timelineSteps.map((step, index) => {
+                const isEven = index % 2 === 1;
+                return (
+                  <article
+                    key={step.id}
+                    className={`relative flex flex-col lg:flex-row items-center gap-10 ${isEven ? "lg:flex-row-reverse" : ""}`}
+                  >
+                    <div className="flex-1 w-full">
+                      <div className="glass-card rounded-3xl p-8 lg:p-10 bg-gradient-to-br from-black/80 via-[#160202] to-black/80 border border-primary-red/20 shadow-[0_20px_60px_-20px_rgba(255,0,0,0.4)]">
+                        <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.3em] uppercase text-primary-red mb-4">
+                          <span className="h-2 w-2 rounded-full bg-primary-red" />
+                          <span>{step.stepNumber}</span>
+                        </div>
+                        <h3 className="text-3xl lg:text-4xl font-black text-white mb-4">{step.cardTitle}</h3>
+                        <p className="text-lg text-white/80 leading-relaxed mb-6">{step.cardDescription}</p>
+                        <Button
+                          className="px-6 py-4 rounded-2xl bg-gradient-to-r from-primary-red via-[#ff2d2d] to-primary border-none text-white font-semibold shadow-lg shadow-primary-red/40 hover:shadow-primary-red/60"
+                          onClick={() => setActiveTimelineStep(step)}
+                        >
+                          Cliquer pour voir les détails
+                          <ChevronRight className="ml-2 h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
-                    <div className="w-full lg:w-64 bg-black/40 rounded-2xl border border-primary-red/30 p-6 text-center">
-                      <p className="text-sm uppercase tracking-widest text-muted-foreground mb-2">{step.kpi.label}</p>
-                      <p className="text-4xl font-black text-primary-red mb-1">{step.kpi.value}</p>
-                      <p className="text-muted-foreground mb-6">{step.kpi.detail}</p>
-                      <Button
-                        variant="ghost"
-                        className="w-full border border-white/10 hover:border-primary-red"
-                        onClick={() => setActiveTimelineStep(step)}
-                      >
-                        Voir les preuves
-                        <ChevronRight className="ml-2 h-4 w-4" />
-                      </Button>
+
+                    <div className="relative flex flex-col items-center" aria-hidden="true">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-primary-red/30 blur-2xl rounded-full animate-pulse" />
+                        <div className="relative h-16 w-16 rounded-full bg-gradient-to-b from-[#ff4d4d] to-primary-red border border-white/20 flex items-center justify-center text-2xl font-black text-white shadow-[0_10px_30px_rgba(255,0,0,0.6)]">
+                          {index + 1}
+                        </div>
+                      </div>
+                      {index !== timelineSteps.length - 1 && (
+                        <div className="hidden lg:block w-px flex-1 bg-gradient-to-b from-primary-red/60 to-transparent mt-6" />
+                      )}
                     </div>
-                  </div>
-                </article>
-              );
-            })}
+                  </article>
+                );
+              })}
+            </div>
           </div>
+
+          <p className="text-center text-sm text-white/60 mt-20">
+            Si un passage n’est pas clair, demande-moi quelle version est la bonne.
+          </p>
         </div>
       </section>
 
@@ -1222,14 +1199,13 @@ const Index = () => {
       </footer>
 
       <Dialog open={!!activeTimelineStep} onOpenChange={(open) => setActiveTimelineStep(open ? activeTimelineStep : null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
-          <DialogHeader className="relative">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
-                {activeTimelineStep?.label}
-              </div>
-              <DialogTitle className="text-3xl font-bold">{activeTimelineStep?.title}</DialogTitle>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0b0b0b] border border-primary-red/40 text-foreground">
+          <DialogHeader className="relative pb-6">
+            <div className="inline-flex items-center gap-2 bg-primary-red/20 text-primary-red px-4 py-2 rounded-full text-sm font-semibold tracking-[0.3em] uppercase">
+              <span className="h-2 w-2 rounded-full bg-primary-red" />
+              <span>{activeTimelineStep?.stepNumber}</span>
             </div>
+            <DialogTitle className="text-4xl font-black mt-4 text-white">{activeTimelineStep?.modalTitle}</DialogTitle>
             <button onClick={() => setActiveTimelineStep(null)} className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="Fermer la modale">
               <X className="h-5 w-5" />
             </button>
@@ -1237,12 +1213,13 @@ const Index = () => {
 
           {activeTimelineStep && (
             <div className="space-y-8">
-              <p className="text-lg text-muted-foreground leading-relaxed">{activeTimelineStep.description}</p>
-              <div>
-                <h4 className="text-xl font-bold mb-4">Points clés</h4>
+              <p className="text-lg text-white/80 leading-relaxed">{activeTimelineStep.modalDescription}</p>
+
+              <div className="bg-black/40 border border-white/10 rounded-2xl p-6">
+                <h4 className="text-2xl font-bold text-white mb-4">Détails de l’étape</h4>
                 <ul className="space-y-3">
-                  {activeTimelineStep.highlights.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-muted-foreground">
+                  {activeTimelineStep.details.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-white/80">
                       <span className="mt-1 h-2 w-2 rounded-full bg-primary-red" />
                       <span>{item}</span>
                     </li>
@@ -1250,21 +1227,17 @@ const Index = () => {
                 </ul>
               </div>
 
-              <div>
-                <h4 className="text-xl font-bold mb-4">Sources et preuves</h4>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {activeTimelineStep.evidence.map((evidence) => {
-                    const Icon = evidenceIconMap[evidence.type];
-                    return (
-                      <div key={evidence.label} className="bg-black/40 border border-white/10 rounded-xl p-5 flex items-start gap-3">
-                        <Icon className="h-5 w-5 text-primary-red" aria-hidden="true" />
-                        <div>
-                          <p className="font-semibold">{evidence.label}</p>
-                          <p className="text-sm text-muted-foreground">Dossier horodaté et signé</p>
-                        </div>
-                      </div>
-                    );
-                  })}
+              <div className="bg-black/40 border border-white/10 rounded-2xl p-6">
+                <h4 className="text-2xl font-bold text-white mb-4">Sources et preuves</h4>
+                <div className="space-y-4">
+                  {activeTimelineStep.sources.map((source) => (
+                    <div key={source.label} className="p-4 rounded-xl border border-white/10 bg-black/60">
+                      <p className="font-semibold text-white">{source.label}</p>
+                      {source.description && (
+                        <p className="text-sm text-white/70 mt-1">{source.description}</p>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
