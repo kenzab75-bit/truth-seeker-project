@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2, Heart, FileCheck } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2, Heart, FileCheck, Sparkles, Globe, Users, Megaphone, FileAudio, Image as ImageIcon, MessageCircle, Fingerprint, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -11,16 +11,18 @@ import AlertBanner from "@/components/AlertBanner";
 import ContactForm from "@/components/ContactForm";
 import TestimonialCard from "@/components/TestimonialCard";
 import { testimonials } from "@/data/testimonials";
+import { timelineSteps, type TimelineStep } from "@/data/timelineSteps";
 import { supabase } from "@/integrations/supabase/client";
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [isEtape1ModalOpen, setIsEtape1ModalOpen] = useState(false);
-  const [isEtape2ModalOpen, setIsEtape2ModalOpen] = useState(false);
-  const [isEtape3ModalOpen, setIsEtape3ModalOpen] = useState(false);
-  const [isEtape4ModalOpen, setIsEtape4ModalOpen] = useState(false);
+  const [activeTimelineStep, setActiveTimelineStep] = useState<TimelineStep | null>(null);
   const [activeFilter, setActiveFilter] = useState("Tous");
   const [testimony, setTestimony] = useState("");
   const [consentChecked, setConsentChecked] = useState(false);
+  const [testimonySegment, setTestimonySegment] = useState("victime");
+  const [testimonyChannel, setTestimonyChannel] = useState("texte");
+  const [encryptionReceipt, setEncryptionReceipt] = useState<string | null>(null);
+  const [isSubmittingTestimony, setIsSubmittingTestimony] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [displayedTestimonials, setDisplayedTestimonials] = useState(3);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -50,7 +52,95 @@ const Index = () => {
       });
     }
   };
-  const handleSubmitTestimony = () => {
+
+  const heroSegments = [
+    {
+      id: "victime",
+      title: "Victime ou proche",
+      description: "Je veux savoir comment témoigner et être protégée.",
+      badge: "Support humain 24h",
+      target: "temoignages",
+      icon: Shield,
+    },
+    {
+      id: "presse",
+      title: "Journaliste",
+      description: "Je cherche un dossier sourcé et des preuves vérifiées.",
+      badge: "Dossier média",
+      target: "victimes",
+      icon: Megaphone,
+    },
+    {
+      id: "expert",
+      title: "Médecin / avocat",
+      description: "Je souhaite contribuer au collectif et sécuriser les patients.",
+      badge: "Brief juridique",
+      target: "contact",
+      icon: FileCheck,
+    }
+  ];
+
+  const heroValueProps = [
+    {
+      icon: Sparkles,
+      title: "Expérience guidée",
+      description: "Parcours contextualisé façon Alan",
+    },
+    {
+      icon: Users,
+      title: "Collectif protégé",
+      description: "72 experts solidaires",
+    },
+    {
+      icon: Globe,
+      title: "Diffusion internationale",
+      description: "Dossiers prêts pour la presse",
+    }
+  ];
+
+  const testimonySegments = [
+    {
+      id: "victime",
+      label: "Victime",
+      description: "Je témoigne pour être protégée.",
+    },
+    {
+      id: "pro",
+      label: "Professionnel",
+      description: "Je partage un signalement médical ou juridique.",
+    },
+    {
+      id: "media",
+      label: "Journaliste",
+      description: "Je transmets une information vérifiée.",
+    }
+  ];
+
+  const testimonyChannels = [
+    {
+      id: "texte",
+      label: "Texte chiffré",
+      detail: "AES-256 + suppression des métadonnées",
+    },
+    {
+      id: "memo",
+      label: "Mémo vocal",
+      detail: "Lien Signal envoyé en retour",
+    },
+    {
+      id: "dossier",
+      label: "Dossier PDF",
+      detail: "Upload sécurisé (SFTP) sur demande",
+    }
+  ];
+
+  const evidenceIconMap = {
+    audio: FileAudio,
+    pdf: FileText,
+    photo: ImageIcon,
+    message: MessageCircle,
+  } as const;
+  const handleSubmitTestimony = async () => {
     if (!testimony.trim() || !consentChecked) {
       toast({
         title: "Champs requis",
@@ -59,14 +149,40 @@ const Index = () => {
       });
       return;
     }
-    // Simuler l'envoi sécurisé
-    console.log("Témoignage anonyme envoyé de manière sécurisée");
-    toast({
-      title: "Témoignage envoyé",
-      description: "Votre témoignage a été envoyé de manière sécurisée et anonyme"
-    });
-    setTestimony("");
-    setConsentChecked(false);
+    setIsSubmittingTestimony(true);
+    setEncryptionReceipt(null);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("secure-testimony", {
+        body: {
+          testimony,
+          segment: testimonySegment,
+          channel: testimonyChannel
+        }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      toast({
+        title: "Témoignage envoyé",
+        description: data?.message || "Votre témoignage chiffré a bien été reçu."
+      });
+
+      setEncryptionReceipt(data?.receipt ?? null);
+      setTestimony("");
+      setConsentChecked(false);
+    } catch (error) {
+      console.error("Secure testimony error", error);
+      toast({
+        title: "Erreur",
+        description: "Impossible d'envoyer le témoignage. Veuillez réessayer.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmittingTestimony(false);
+    }
   };
 
   const handleLoadMore = () => {
@@ -167,12 +283,20 @@ const Index = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              <button onClick={() => scrollToSection('accueil')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
+            <nav className="hidden lg:flex items-center space-x-8" aria-label="Navigation principale">
+              <button
+                onClick={() => scrollToSection('accueil')}
+                className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group"
+                aria-label="Aller à l'accueil"
+              >
                 Accueil
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
-              <button onClick={() => scrollToSection('histoire')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
+              <button
+                onClick={() => scrollToSection('histoire')}
+                className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group"
+                aria-label="Découvrir l'histoire"
+              >
                 Mon histoire
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
@@ -180,7 +304,7 @@ const Index = () => {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-[250ms] [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px">
+                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-[250ms] [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px" aria-label="S'informer">
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -214,7 +338,11 @@ const Index = () => {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-              <button onClick={() => scrollToSection('contact')} className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group">
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group"
+                aria-label="Aller à la section contact"
+              >
                 Contact
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
@@ -342,52 +470,87 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Stats rapides - Animation progressive */}
-          <div className="flex flex-wrap justify-center gap-6 lg:gap-12 mb-12 opacity-0 animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}>
-            <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-black text-primary-red">500+</div>
-              <div className="text-sm lg:text-base text-muted-foreground">Victimes</div>
+          {/* Segmentation dynamique */}
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+            {heroSegments.map(segment => {
+              const Icon = segment.icon;
+              return (
+                <div key={segment.id} className="glass-card rounded-2xl p-6 border border-white/10 hover:border-primary-red/40 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs uppercase tracking-widest text-primary-red font-semibold">{segment.badge}</span>
+                    <Icon className="h-6 w-6 text-primary-red" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{segment.title}</h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">{segment.description}</p>
+                  <Button
+                    onClick={() => scrollToSection(segment.target)}
+                    variant="secondary"
+                    className="w-full group"
+                    aria-label={`Accéder à l'espace ${segment.id}`}
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      J'accède
+                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Stats rapides & CTA */}
+          <div className="mt-12 flex flex-col gap-10">
+            <div className="flex flex-wrap justify-center gap-8 text-center">
+              {[{ label: "Victimes identifiées", value: "500+" }, { label: "Pertes moyennes", value: "15 000€" }, { label: "Complications documentées", value: "90%" }].map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-4xl font-black text-primary-red">{stat.value}</div>
+                  <p className="text-sm uppercase tracking-widest text-muted-foreground mt-1">{stat.label}</p>
+                </div>
+              ))}
             </div>
-            <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-black text-primary-red">€15K+</div>
-              <div className="text-sm lg:text-base text-muted-foreground">Pertes moyennes</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-black text-primary-red">90%</div>
-              <div className="text-sm lg:text-base text-muted-foreground">Complications</div>
+            <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
+              <Button
+                onClick={() => scrollToSection("histoire")}
+                className="relative px-10 py-6 text-xl font-black rounded-2xl text-white group h-auto overflow-hidden bg-gradient-to-r from-primary-red via-red-600 to-primary-red bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-2xl shadow-primary-red/50 hover:shadow-primary-red/70 border-2 border-primary-red/30"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+                <span className="relative z-10 flex items-center justify-center gap-3">
+                  <Shield className="h-6 w-6 transition-transform group-hover:scale-110 group-hover:rotate-6" />
+                  Découvrir la vérité
+                </span>
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={() => scrollToSection("contact")}
+                className="relative px-10 py-6 text-lg font-bold rounded-2xl min-w-[280px] h-auto transition-all duration-300 group border-2 border-white/40 hover:border-primary-red bg-black/40 backdrop-blur-sm hover:bg-primary-red/10 text-white"
+              >
+                <span className="flex items-center justify-center gap-3">
+                  <Heart className="h-5 w-5" />
+                  Soutenir les victimes
+                </span>
+              </Button>
             </div>
           </div>
 
-          {/* CTA Buttons - Plus imposants - Animation progressive */}
-          <div className="flex flex-col lg:flex-row gap-6 justify-center items-center opacity-0 animate-scale-in" style={{ animationDelay: '1.1s', animationFillMode: 'forwards' }}>
-            <Button 
-              onClick={() => scrollToSection("histoire")} 
-              className="relative px-12 py-8 text-2xl font-black rounded-2xl text-white group h-auto overflow-hidden bg-gradient-to-r from-primary-red via-red-600 to-primary-red bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-2xl shadow-primary-red/50 hover:shadow-primary-red/70 hover:scale-105 border-2 border-primary-red/30"
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-              <span className="relative z-10 flex items-center justify-center gap-3">
-                <Shield className="h-7 w-7 transition-transform group-hover:scale-110 group-hover:rotate-6" />
-                Découvrir la vérité
-                <ChevronRight className="h-7 w-7 transition-transform group-hover:translate-x-2" />
-              </span>
-            </Button>
-
-            <Button 
-              variant="outline" 
-              onClick={() => scrollToSection("contact")} 
-              className="relative px-12 py-8 text-xl font-bold rounded-2xl min-w-[320px] h-auto transition-all duration-300 group border-2 border-white/40 hover:border-primary-red bg-black/40 backdrop-blur-sm hover:bg-primary-red/10 text-white hover:scale-105 shadow-xl"
-            >
-              <span className="flex items-center justify-center gap-3">
-                <svg className="h-6 w-6 transition-transform group-hover:scale-125 group-hover:fill-primary-red" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-                Soutenir les victimes
-              </span>
-            </Button>
+          {/* Value props */}
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {heroValueProps.map(prop => {
+              const Icon = prop.icon;
+              return (
+                <div key={prop.title} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10">
+                  <Icon className="h-5 w-5 text-primary-red" aria-hidden="true" />
+                  <div>
+                    <p className="text-sm font-semibold text-white">{prop.title}</p>
+                    <p className="text-xs text-muted-foreground">{prop.description}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Badge de confiance - Animation progressive */}
-          <div className="mt-12 flex justify-center gap-4 flex-wrap opacity-0 animate-fade-in" style={{ animationDelay: '1.3s', animationFillMode: 'forwards' }}>
+          {/* Badge de confiance */}
+          <div className="mt-6 flex justify-center gap-4 flex-wrap">
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
               <ShieldCheck className="h-4 w-4 text-green-500" />
               <span className="text-sm text-muted-foreground">Témoignages vérifiés</span>
@@ -527,148 +690,65 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Timeline verticale avec numérotation élégante */}
-          <div className="max-w-6xl mx-auto relative">
-            {/* Ligne verticale centrale avec gradient amélioré et effet de lueur */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary-red via-primary-red/70 to-primary-red/30 -translate-x-1/2 hidden lg:block rounded-full shadow-[0_0_20px_rgba(220,38,38,0.3)]" />
-
-            {/* Étape 1 - Gauche */}
-            <div className="relative mb-24 lg:mb-32 animate-fade-in">
-              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                <div className="lg:text-right lg:pr-16">
-                  <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
-                    <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
-                      Étape 1
+          {/* Timeline data-driven */}
+          <div className="max-w-6xl mx-auto space-y-12">
+            {timelineSteps.map((step, index) => {
+              const isEven = index % 2 === 1;
+              return (
+                <article
+                  key={step.id}
+                  className={`glass-card rounded-3xl p-10 border border-white/5 hover:border-primary-red/40 transition-all duration-500 ${isEven ? "lg:flex-row-reverse" : ""}`}
+                >
+                  <div className="flex flex-col lg:flex-row gap-8 items-start">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 text-primary-red text-sm uppercase tracking-[0.3em] mb-3">
+                        <span>{step.label}</span>
+                        <span className="inline-flex h-2 w-2 rounded-full bg-primary-red" />
+                        <span>#{(index + 1).toString().padStart(2, "0")}</span>
+                      </div>
+                      <h3 className="text-3xl lg:text-4xl font-black text-white mb-4">{step.title}</h3>
+                      <p className="text-lg text-muted-foreground leading-relaxed mb-6">{step.description}</p>
+                      <ul className="space-y-3 mb-6">
+                        {step.highlights.map(highlight => (
+                          <li key={highlight} className="flex items-start gap-3 text-muted-foreground">
+                            <span className="mt-1 h-2 w-2 rounded-full bg-primary-red" />
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex flex-wrap gap-3">
+                        {step.evidence.map(evidence => {
+                          const Icon = evidenceIconMap[evidence.type];
+                          return (
+                            <button
+                              key={evidence.label}
+                              className="px-4 py-2 rounded-full border border-white/10 text-sm text-white/80 hover:border-primary-red/60 hover:text-white transition-all duration-200 flex items-center gap-2"
+                              onClick={() => setActiveTimelineStep(step)}
+                            >
+                              <Icon className="h-4 w-4 text-primary-red" aria-hidden="true" />
+                              {evidence.label}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
-                      L'appât
-                    </h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                      Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
-                    </p>
-                    <button onClick={() => setIsEtape1ModalOpen(true)} className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30">
-                      Cliquer pour voir les détails
-                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                    </button>
-                  </div>
-                </div>
-                <div className="hidden lg:block" />
-              </div>
-              {/* Cercle élégant avec numérotation */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-10">
-                <div className="relative">
-                  {/* Anneaux extérieurs pulsants */}
-                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/20 rounded-full animate-ping" />
-                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/10 rounded-full animate-pulse" />
-                  {/* Cercle principal avec numéro */}
-                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary-red to-red-600 rounded-full border-4 border-background flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
-                    <span className="text-2xl font-black text-white">1</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Étape 2 - Droite */}
-            <div className="relative mb-24 lg:mb-32 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                <div className="hidden lg:block" />
-                <div className="lg:pl-16">
-                  <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
-                    <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
-                      Étape 2
+                    <div className="w-full lg:w-64 bg-black/40 rounded-2xl border border-primary-red/30 p-6 text-center">
+                      <p className="text-sm uppercase tracking-widest text-muted-foreground mb-2">{step.kpi.label}</p>
+                      <p className="text-4xl font-black text-primary-red mb-1">{step.kpi.value}</p>
+                      <p className="text-muted-foreground mb-6">{step.kpi.detail}</p>
+                      <Button
+                        variant="ghost"
+                        className="w-full border border-white/10 hover:border-primary-red"
+                        onClick={() => setActiveTimelineStep(step)}
+                      >
+                        Voir les preuves
+                        <ChevronRight className="ml-2 h-4 w-4" />
+                      </Button>
                     </div>
-                    <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
-                      Le piège
-                    </h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                      Une fois à Istanbul, ils vous isolent et vous placent sous pression. Les conditions changent, les prix explosent, et vous êtes pris au piège, loin de chez vous et vulnérable.
-                    </p>
-                    <button onClick={() => setIsEtape2ModalOpen(true)} className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30">
-                      Cliquer pour voir les détails
-                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                    </button>
                   </div>
-                </div>
-              </div>
-              {/* Cercle élégant avec numérotation */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-10">
-                <div className="relative">
-                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/20 rounded-full animate-ping" style={{ animationDelay: '0.1s' }} />
-                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/10 rounded-full animate-pulse" style={{ animationDelay: '0.1s' }} />
-                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary-red to-red-600 rounded-full border-4 border-background flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
-                    <span className="text-2xl font-black text-white">2</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Étape 3 - Gauche */}
-            <div className="relative mb-24 lg:mb-32 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                <div className="lg:text-right lg:pr-16">
-                  <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
-                    <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
-                      Étape 3
-                    </div>
-                    <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
-                      L'impasse
-                    </h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                      Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...
-                    </p>
-                    <button onClick={() => setIsEtape3ModalOpen(true)} className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30">
-                      Cliquer pour voir les détails
-                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                    </button>
-                  </div>
-                </div>
-                <div className="hidden lg:block" />
-              </div>
-              {/* Cercle élégant avec numérotation */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-10">
-                <div className="relative">
-                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/20 rounded-full animate-ping" style={{ animationDelay: '0.2s' }} />
-                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/10 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary-red to-red-600 rounded-full border-4 border-background flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
-                    <span className="text-2xl font-black text-white">3</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Étape 4 - Droite */}
-            <div className="relative animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                <div className="hidden lg:block" />
-                <div className="lg:pl-16">
-                  <div className="glass-card p-8 rounded-2xl border border-primary-red/20 hover:border-primary-red/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)] group">
-                    <div className="inline-flex items-center bg-gradient-to-r from-primary-red to-red-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
-                      Étape 4
-                    </div>
-                    <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary-red transition-colors duration-300">
-                      La vérité 
-                    </h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                      Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.
-                    </p>
-                    <button onClick={() => setIsEtape4ModalOpen(true)} className="inline-flex items-center text-primary-red hover:text-white hover:bg-primary-red px-4 py-2 rounded-lg transition-all duration-300 font-medium group/btn border border-primary-red/30">
-                      Cliquer pour voir les détails
-                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-              {/* Cercle élégant avec numérotation */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-10">
-                <div className="relative">
-                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/20 rounded-full animate-ping" style={{ animationDelay: '0.3s' }} />
-                  <div className="absolute inset-0 w-16 h-16 bg-primary-red/10 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }} />
-                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary-red to-red-600 rounded-full border-4 border-background flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
-                    <span className="text-2xl font-black text-white">4</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -778,7 +858,6 @@ const Index = () => {
 
           {/* Container principal */}
           <div className="glass-card rounded-2xl p-8 lg:p-12 border border-primary-red/20 shadow-2xl">
-            {/* Bloc d'avertissement rouge */}
             <div className="bg-[#7A1212] rounded-xl p-6 mb-8 border border-primary-red/30">
               <div className="flex items-start gap-4">
                 <Shield className="h-6 w-6 text-primary-red flex-shrink-0 mt-1" />
@@ -788,22 +867,60 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Zone de saisie */}
+            <div className="mb-8">
+              <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4">Qui témoigne ?</p>
+              <div className="grid gap-3 md:grid-cols-3">
+                {testimonySegments.map(segment => (
+                  <button
+                    key={segment.id}
+                    onClick={() => setTestimonySegment(segment.id)}
+                    className={`text-left p-4 rounded-xl border transition-all ${testimonySegment === segment.id ? "border-primary-red bg-primary-red/10" : "border-white/10 hover:border-primary-red/40"}`}
+                  >
+                    <p className="font-semibold text-white">{segment.label}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{segment.description}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="mb-8">
               <label htmlFor="testimony" className="block text-foreground font-semibold mb-3 text-lg">
                 Votre témoignage
               </label>
-              <textarea id="testimony" value={testimony} onChange={e => setTestimony(e.target.value)} placeholder="Partagez votre histoire… (Tous les témoignages sont entièrement anonymes)" className="w-full min-h-[250px] bg-[#0E0E0E] border-2 border-primary-red/30 rounded-xl p-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary-red focus:ring-2 focus:ring-primary-red/20 transition-all duration-300 resize-y" />
+              <textarea
+                id="testimony"
+                value={testimony}
+                onChange={e => setTestimony(e.target.value)}
+                placeholder="Partagez votre histoire… (Tous les témoignages sont entièrement anonymes)"
+                className="w-full min-h-[250px] bg-[#0E0E0E] border-2 border-primary-red/30 rounded-xl p-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary-red focus:ring-2 focus:ring-primary-red/20 transition-all duration-300 resize-y"
+              />
             </div>
 
-            {/* Bloc de consentement avec checkbox */}
+            <div className="mb-8">
+              <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4">Canal de dépôt</p>
+              <div className="grid gap-3 md:grid-cols-3">
+                {testimonyChannels.map(channel => (
+                  <button
+                    key={channel.id}
+                    onClick={() => setTestimonyChannel(channel.id)}
+                    className={`p-4 rounded-xl border text-left transition-all ${testimonyChannel === channel.id ? "border-primary-red bg-primary-red/10" : "border-white/10 hover:border-primary-red/40"}`}
+                  >
+                    <p className="font-semibold text-white">{channel.label}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{channel.detail}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="bg-[#0E0E0E] rounded-xl p-6 mb-8 border border-primary-red/30">
               <div className="flex items-start gap-4">
                 <button onClick={() => setConsentChecked(!consentChecked)} className="flex-shrink-0 mt-0.5">
                   <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${consentChecked ? "bg-primary-red border-primary-red" : "border-primary-red/50 hover:border-primary-red"}`}>
-                    {consentChecked && <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {consentChecked && (
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>}
+                      </svg>
+                    )}
                   </div>
                 </button>
                 <div>
@@ -817,11 +934,35 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Bouton d'envoi */}
-            <button onClick={handleSubmitTestimony} disabled={!testimony.trim() || !consentChecked} className="w-full bg-primary-red hover:bg-[#C41E1E] text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-primary-red/30 hover:-translate-y-0.5">
-              <Lock className="h-5 w-5" />
-              Envoyer anonymement
+            {encryptionReceipt && (
+              <div className="mb-6 rounded-xl border border-primary-red/40 bg-black/40 p-4 text-sm text-muted-foreground">
+                <p className="font-semibold text-white mb-1 flex items-center gap-2">
+                  <KeyRound className="h-4 w-4 text-primary-red" />
+                  Accusé de réception sécurisé
+                </p>
+                <p>Code de suivi : <span className="font-mono text-white">{encryptionReceipt}</span></p>
+              </div>
+            )}
+
+            <button
+              onClick={handleSubmitTestimony}
+              disabled={!testimony.trim() || !consentChecked || isSubmittingTestimony}
+              className="w-full bg-primary-red hover:bg-[#C41E1E] text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-primary-red/30 hover:-translate-y-0.5"
+            >
+              {isSubmittingTestimony ? <Loader2 className="h-5 w-5 animate-spin" /> : <Lock className="h-5 w-5" />}
+              {isSubmittingTestimony ? "Chiffrement en cours..." : "Envoyer anonymement"}
             </button>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-2 text-sm text-muted-foreground">
+              <div className="flex items-start gap-3">
+                <Fingerprint className="h-5 w-5 text-primary-red mt-0.5" />
+                <p>Aucune donnée biométrique ou IP n'est stockée. Suppression automatique sous 90 jours.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <KeyRound className="h-5 w-5 text-primary-red mt-0.5" />
+                <p>Chaque dépôt génère un reçu chiffré que vous pouvez partager à votre avocat.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1075,374 +1216,58 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Modal Étape 1 */}
-      <Dialog open={isEtape1ModalOpen} onOpenChange={setIsEtape1ModalOpen}>
+      <Dialog open={!!activeTimelineStep} onOpenChange={(open) => setActiveTimelineStep(open ? activeTimelineStep : null)}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
           <DialogHeader className="relative">
             <div className="flex items-center gap-4 mb-4">
               <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
-                Étape 1
+                {activeTimelineStep?.label}
               </div>
-              <DialogTitle className="text-3xl font-bold">L'appât commercial</DialogTitle>
+              <DialogTitle className="text-3xl font-bold">{activeTimelineStep?.title}</DialogTitle>
             </div>
-            <button onClick={() => setIsEtape1ModalOpen(false)} className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors">
+            <button onClick={() => setActiveTimelineStep(null)} className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="Fermer la modale">
               <X className="h-5 w-5" />
             </button>
           </DialogHeader>
 
-          <div className="mt-6">
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
-            </p>
-
-            {/* Détails de l'étape */}
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="h-6 w-6 text-primary-red" />
-                <h3 className="text-2xl font-bold">Détails de l'étape</h3>
+          {activeTimelineStep && (
+            <div className="space-y-8">
+              <p className="text-lg text-muted-foreground leading-relaxed">{activeTimelineStep.description}</p>
+              <div>
+                <h4 className="text-xl font-bold mb-4">Points clés</h4>
+                <ul className="space-y-3">
+                  {activeTimelineStep.highlights.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-muted-foreground">
+                      <span className="mt-1 h-2 w-2 rounded-full bg-primary-red" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Publicités agressives sur les réseaux sociaux Instagram, Facebook
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Promesses de prix 60-70% moins chers avec des 'garanties' attractives (Hôtel 5 étoiles, transfert gratuit etc)
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Communication ultra-réactive et rassurante via WhatsApp et réseaux sociaux
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Partenariats avec des influenceurs ou stars internationales pour promouvoir la clinique
-                  </span>
-                </li>
-              </ul>
-            </div>
 
-            {/* Sources et preuves */}
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="h-6 w-6 text-primary-red" />
-                <h3 className="text-2xl font-bold">Sources et preuves</h3>
-              </div>
-              <div className="space-y-4">
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold mb-2">Témoignage patient #12</h4>
-                      <p className="text-muted-foreground">Devis initial de 3500€ pour 20 facettes et couronnes</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold">Capture écran Facebook, Instagram, site web</h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold">Conversation WhatsApp</h4>
-                      <p className="text-muted-foreground">Échanges avant le départ</p>
-                    </div>
-                  </div>
+              <div>
+                <h4 className="text-xl font-bold mb-4">Sources et preuves</h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {activeTimelineStep.evidence.map((evidence) => {
+                    const Icon = evidenceIconMap[evidence.type];
+                    return (
+                      <div key={evidence.label} className="bg-black/40 border border-white/10 rounded-xl p-5 flex items-start gap-3">
+                        <Icon className="h-5 w-5 text-primary-red" aria-hidden="true" />
+                        <div>
+                          <p className="font-semibold">{evidence.label}</p>
+                          <p className="text-sm text-muted-foreground">Dossier horodaté et signé</p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </DialogContent>
       </Dialog>
 
-      {/* Modal Étape 2 */}
-      <Dialog open={isEtape2ModalOpen} onOpenChange={setIsEtape2ModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
-          <DialogHeader className="relative">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
-                Étape 2
-              </div>
-              <DialogTitle className="text-3xl font-bold">Le piège</DialogTitle>
-            </div>
-            <button onClick={() => setIsEtape2ModalOpen(false)} className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors">
-              <X className="h-5 w-5" />
-            </button>
-          </DialogHeader>
-
-          <div className="mt-6">
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Une fois sur place, vous vous retrouvez pris au piège, entièrement dépendants de la clinique, qui exploite cette position de force pour accélérer les procédures. Les consentements sont signés dans la précipitation, sous pression psychologique et logistique. Refuser devient impensable, au risque de perdre les sommes versées et le séjour déjà engagé.
-            </p>
-
-            {/* Détails de l'étape */}
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="h-6 w-6 text-primary-red" />
-                <h3 className="text-2xl font-bold">Détails de l'étape</h3>
-              </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Examen initial bâclé, expédié en moins de dix minutes
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Traitement prévu avant le départ modifié sur place, au profit de soins beaucoup plus coûteux et invasifs, sans justification médicale réelle ni transparente
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Multiplication des actes : meulage, dévitalisations, couronnes, non prévus
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Inflation des prix : facture finale 2 à 3 fois supérieure au devis
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Isolation du patient : pression pour payer rapidement
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Sources et preuves */}
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="h-6 w-6 text-primary-red" />
-                <h3 className="text-2xl font-bold">Sources et preuves</h3>
-              </div>
-              <div className="space-y-4">
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold mb-2">Factures comparées</h4>
-                      <p className="text-muted-foreground">Documents avant/après traitement</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold">Export de conversations WhatsApp</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Modal Étape 3 */}
-      <Dialog open={isEtape3ModalOpen} onOpenChange={setIsEtape3ModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
-          <DialogHeader className="relative">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
-                Étape 3
-              </div>
-              <DialogTitle className="text-3xl font-bold">L'impasse</DialogTitle>
-            </div>
-            <button onClick={() => setIsEtape3ModalOpen(false)} className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors">
-              <X className="h-5 w-5" />
-            </button>
-          </DialogHeader>
-
-          <div className="mt-6">
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...
-            </p>
-
-            {/* Détails de l'étape */}
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="h-6 w-6 text-primary-red" />
-                <h3 className="text-2xl font-bold">Détails de l'étape</h3>
-              </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Complications post-opératoires graves : douleurs chroniques, pulpite
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Absence totale de suivi médical après le retour en Europe
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Impossibilité de joindre la clinique ou réponses évasives ; isolement
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Refus de prise en charge des complications
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Coûts de réparation en Europe dépassant largement les économies initiales
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Sources et preuves */}
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="h-6 w-6 text-primary-red" />
-                <h3 className="text-2xl font-bold">Sources et preuves</h3>
-              </div>
-              <div className="space-y-4">
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold mb-2">Rapports et examens médicaux</h4>
-                      <p className="text-muted-foreground">Dentistes français 2025</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold">Témoignage patient</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Modal Étape 4 */}
-      <Dialog open={isEtape4ModalOpen} onOpenChange={setIsEtape4ModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
-          <DialogHeader className="relative">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
-                Étape 4
-              </div>
-              <DialogTitle className="text-3xl font-bold">La vérité éclate</DialogTitle>
-            </div>
-            <button onClick={() => setIsEtape4ModalOpen(false)} className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors">
-              <X className="h-5 w-5" />
-            </button>
-          </DialogHeader>
-
-          <div className="mt-6">
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.
-            </p>
-
-            {/* Détails de l'étape */}
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="h-6 w-6 text-primary-red" />
-                <h3 className="text-2xl font-bold">Détails de l'étape</h3>
-              </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Création de groupes d'entraide et de témoignages de victimes
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Publication de preuves concrètes : factures, photos, rapports médicaux
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Médiatisation croissante de l'affaire dans les médias européens
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Plaintes déposées auprès des autorités compétentes
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Mobilisation pour alerter les futurs patients et prévenir de nouveaux cas
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary-red rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-lg text-muted-foreground">
-                    Demande d'enquête officielle sur les pratiques de la clinique
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Sources et preuves */}
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="h-6 w-6 text-primary-red" />
-                <h3 className="text-2xl font-bold">Sources et preuves</h3>
-              </div>
-              <div className="space-y-4">
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold mb-2">Groupe Facebook</h4>
-                      <p className="text-muted-foreground">Nombreux témoignages recensés</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-black/40 border border-white/10 rounded-lg p-6 hover:border-primary-red/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-primary-red mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="text-lg font-bold">Plainte en cours de dépôt</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>;
 };
+
 export default Index;
