@@ -422,26 +422,34 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Hero Section – Cinematic video-ready canvas */}
-      <section id="accueil" className="relative min-h-screen w-full overflow-hidden bg-black text-white">
-        <div className="relative w-full overflow-hidden">
-          {/* Video background */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover z-0"
-          >
-            <source src="/143668-784138097_medium.mp4" type="video/mp4" />
-          </video>
+     {/* Hero Section – Cinematic video-ready canvas */}
+<section id="accueil" className="relative min-h-screen w-full overflow-hidden bg-black text-white">
 
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-black/70 z-10"></div>
+  {/* === VIDEO BACKGROUND === */}
+  <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+      className="w-full h-full object-cover"
+    >
+      <source src="/143668-784138097_medium.mp4" type="video/mp4" />
+    </video>
+  </div>
 
-          {/* Hero content */}
-          <div className="relative z-20">
-            <div className="absolute inset-0">
+  {/* === DARK OVERLAY === */}
+  <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px] z-10"></div>
+
+  {/* === HERO CONTENT === */}
+  <div className="relative z-30">
+    {/* 👉 tout ton texte, tes boutons, ton layout vont ici */}
+  </div>
+
+</section>
+
+           <div className="absolute inset-0">
               <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
                 <div className="absolute inset-0 mix-blend-overlay opacity-20 bg-[url('/grain.png')]" aria-hidden />
