@@ -97,6 +97,21 @@ const Index = () => {
     }
   ];
 
+  const heroVideoSources = [
+    {
+      src: `${import.meta.env.BASE_URL}143668-784138097_medium.mp4`,
+      type: "video/mp4",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}143668-784138097_medium.mov`,
+      type: "video/quicktime",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}143668-784138097_medium.webm`,
+      type: "video/webm",
+    }
+  ];
+
   const testimonySegments = [
     {
       id: "victime",
@@ -421,9 +436,9 @@ const Index = () => {
               preload="auto"
               aria-hidden
             >
-              <source src="/143668-784138097_medium" type="video/mp4" />
-              <source src="/143668-784138097_medium.mp4" type="video/mp4" />
-              <source src="/143668-784138097_medium.webm" type="video/webm" />
+              {heroVideoSources.map(source => (
+                <source key={source.src} src={source.src} type={source.type} />
+              ))}
             </video>
             <div className="absolute inset-0 bg-black/60" />
             <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
