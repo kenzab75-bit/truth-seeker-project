@@ -414,13 +414,17 @@ const Index = () => {
           <div className="absolute inset-0 overflow-hidden">
             <video
               className="h-full w-full object-cover"
-              src="/143668-784138097_medium.mp4"
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
               aria-hidden
-            />
+            >
+              <source src="/143668-784138097_medium" type="video/mp4" />
+              <source src="/143668-784138097_medium.mp4" type="video/mp4" />
+              <source src="/143668-784138097_medium.webm" type="video/webm" />
+            </video>
             <div className="absolute inset-0 bg-black/60" />
             <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
             <div className="absolute inset-0 mix-blend-overlay opacity-20 bg-[url('/grain.png')]" aria-hidden />
