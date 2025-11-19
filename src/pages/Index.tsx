@@ -412,11 +412,17 @@ const Index = () => {
         {/* Background video placeholder ready for future <video> integration */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
-            {/* Placeholder vidéo – à remplacer par une balise <video> (muted, loop, autoPlay) */}
-            <div className="absolute inset-0">
-              {/* Example: <video className="h-full w-full object-cover" muted autoPlay loop playsInline /> */}
-            </div>
+            <video
+              className="h-full w-full object-cover"
+              src="/143668-784138097_medium.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
             <div className="absolute inset-0 mix-blend-overlay opacity-20 bg-[url('/grain.png')]" aria-hidden />
             <div className="absolute -top-20 left-1/2 w-[520px] h-[320px] -translate-x-1/2 rounded-full bg-red-600/20 blur-[140px]" aria-hidden />
           </div>
