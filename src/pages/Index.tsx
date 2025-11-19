@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2, Heart, FileCheck, Sparkles, Globe, Users, Megaphone, FileAudio, Image as ImageIcon, MessageCircle, Fingerprint, KeyRound } from "lucide-react";
+import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2, Heart, FileCheck, Sparkles, Globe, Users, Megaphone, Fingerprint, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
-import AlertBanner from "@/components/AlertBanner";
 import ContactForm from "@/components/ContactForm";
 import TestimonialCard from "@/components/TestimonialCard";
 import { testimonials } from "@/data/testimonials";
@@ -133,13 +132,6 @@ const Index = () => {
       detail: "Orientation vers un espace de fichiers à la demande.",
     }
   ];
-
-  const evidenceIconMap = {
-    audio: FileAudio,
-    pdf: FileText,
-    photo: ImageIcon,
-    message: MessageCircle,
-  } as const;
   const handleSubmitTestimony = async () => {
     if (!testimony.trim() || !consentChecked) {
       toast({
@@ -304,7 +296,7 @@ const Index = () => {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-[250ms] [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px" aria-label="S'informer">
+                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-300 [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px" aria-label="S'informer">
                       S'informer
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -415,73 +407,109 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Hero Section Ultra Premium */}
-      <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32" style={{
-      background: `
-            radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
-            linear-gradient(135deg, hsl(var(--darker-bg)) 0%, hsl(var(--dark-bg)) 100%)
-          `
-    }}>
-        {/* Alert Banner */}
-        <AlertBanner />
-        
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-background/85 to-black/90 z-[1]" />
-
-        {/* Particles */}
-        <div className="absolute inset-0 overflow-hidden z-[1]">
-          {[...Array(9)].map((_, i) => <div key={i} className="particle absolute w-0.5 h-0.5 bg-primary-red/60 rounded-full" style={{
-          left: `${(i + 1) * 10}%`,
-          animationDelay: `${i * 2}s`
-        }} />)}
+      {/* Hero Section – Cinematic video-ready canvas */}
+      <section id="accueil" className="relative min-h-screen w-full overflow-hidden bg-black text-white">
+        {/* Background video placeholder ready for future <video> integration */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 overflow-hidden">
+            <video
+              className="h-full w-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden
+            >
+              <source src="/143668-784138097_medium" type="video/mp4" />
+              <source src="/143668-784138097_medium.mp4" type="video/mp4" />
+              <source src="/143668-784138097_medium.webm" type="video/webm" />
+            </video>
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
+            <div className="absolute inset-0 mix-blend-overlay opacity-20 bg-[url('/grain.png')]" aria-hidden />
+            <div className="absolute -top-20 left-1/2 w-[520px] h-[320px] -translate-x-1/2 rounded-full bg-red-600/20 blur-[140px]" aria-hidden />
+          </div>
+        </div>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-primary-red/15 blur-[160px]" aria-hidden />
+          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary-red/10 blur-[180px]" aria-hidden />
         </div>
 
-        <div className="relative z-[2] max-w-7xl mx-auto px-6 lg:px-8 text-center pt-20">
-          {/* Alert Icon - Animation progressive */}
-          <div className="flex justify-center mb-12 opacity-0 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
-            <div className="relative">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary-red/40 rounded-full animate-ping" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-primary-red/30 rounded-full animate-pulse" />
-              <div className="relative z-10 p-6 bg-gradient-to-br from-primary-red to-dark-red rounded-full pulse-glow floating">
-                <AlertTriangle className="h-16 w-16 text-white" />
+        <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 pt-32 md:pt-40 pb-24">
+          <div className="relative">
+            <div className="absolute left-0 top-0 inline-flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-white/70">
+              <span className="absolute -left-10 -top-6 w-24 h-24 rounded-full bg-red-500/20 blur-3xl" aria-hidden />
+              <div className="relative inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur">
+                <span className="pointer-events-none absolute inset-0 rounded-full opacity-30 mix-blend-screen bg-[url('/grain.png')]" aria-hidden />
+                <Scale className="relative h-4 w-4 text-primary-red" aria-hidden="true" />
+                <span className="relative font-semibold">LemaClinic Truth</span>
+              </div>
+            </div>
+
+            <div className="pt-16 md:pt-20">
+              <div className="inline-flex items-center gap-3 rounded-full border border-red-500/20 bg-red-500/10 px-5 py-2 text-sm text-white/85">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400">
+                  <AlertTriangle className="h-3.5 w-3.5 animate-pulse" aria-hidden="true" />
+                </div>
+                <span className="font-semibold tracking-wide text-red-200/90">ALERTE</span>
+                <span className="text-white/80">Révélations documentées sur les pratiques de la Lema Dental Clinic à Istanbul.</span>
+              </div>
+
+              <div className="mt-8 space-y-6 text-left">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight font-display text-white">LemaClinic Truth</h1>
+                <p className="text-xl sm:text-2xl text-red-500/80">La vérité éclaire toujours.</p>
+                <p className="text-lg text-white/80 max-w-2xl">
+                  Je suis une victime de la Lema Dental Clinic à Istanbul. Ce site rassemble des témoignages vérifiés et des éléments documentés pour protéger les patients, alerter les autorités et éviter que d’autres ne subissent les mêmes dérives.
+                </p>
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center gap-4">
+                <Button
+                  onClick={() => scrollToSection("histoire")}
+                  className="group rounded-full px-8 py-3 text-base font-medium bg-gradient-to-r from-red-500 via-red-500 to-red-600 text-white shadow-[0_0_25px_rgba(248,113,113,0.25)] hover:shadow-[0_0_35px_rgba(248,113,113,0.4)] hover:-translate-y-0.5 transition-all"
+                >
+                  <span className="flex items-center gap-2">
+                    Découvrir la vérité
+                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:rotate-6" />
+                  </span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => scrollToSection("contact")}
+                  className="rounded-full px-8 py-3 text-base font-medium border border-white/20 bg-transparent text-white/80 hover:text-white hover:bg-white/5 hover:border-white/40 backdrop-blur-sm transition-all"
+                >
+                  Soutenir les victimes
+                </Button>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Main Title - Animation progressive */}
-          <h1 className="text-6xl lg:text-8xl xl:text-9xl font-black mb-6 leading-none font-display opacity-0 animate-scale-in" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
-            <span className="text-gradient block">LemaClinic</span>
-            <span className="text-red-gradient block">Truth</span>
-          </h1>
-
-          {/* Slogan - Animation progressive */}
-          <p className="text-3xl lg:text-4xl xl:text-5xl mb-6 font-light text-primary-red font-display opacity-0 animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
-            La vérité éclaire toujours
-          </p>
-
-          {/* Sous-titre accrocheur - Animation progressive */}
-          <div className="max-w-5xl mx-auto mb-4 opacity-0 animate-fade-in" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
-            <p className="text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight text-foreground mb-3">
-              Des témoignages concordants. Une clinique mise en cause.
-            </p>
-            <p className="text-lg lg:text-xl xl:text-2xl text-muted-foreground leading-relaxed">
-              Découvrez comment <span className="text-primary-red font-semibold">Lema Dental Clinic</span> est mise en cause par des patient·es qui décrivent des pratiques contestées.
+      {/* Section 2 – Parcours dédiés */}
+      <section className="relative bg-neutral-950 border-t border-white/5" aria-label="Segments prioritaires">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(248,113,113,0.05),transparent_60%)] opacity-90" aria-hidden />
+        <div className="relative max-w-6xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-primary-red/70">Parcours guidés</p>
+            <h2 className="mt-4 text-3xl lg:text-4xl font-semibold text-white">Choisissez le cadre qui correspond à votre rôle</h2>
+            <p className="mt-4 text-white/70">
+              Le collectif consolide des signalements réels : diagnostics modifiés, devis opaques et pressions psychologiques. Nous ne publions que des éléments sourcés et disponibles dans notre dossier.
             </p>
           </div>
 
-          {/* Segmentation dynamique */}
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {heroSegments.map(segment => {
               const Icon = segment.icon;
               return (
-                <div key={segment.id} className="glass-card rounded-2xl p-6 border border-white/10 hover:border-primary-red/40 transition-all duration-300">
+                <div key={segment.id} className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur">
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs uppercase tracking-widest text-primary-red font-semibold">{segment.badge}</span>
                     <Icon className="h-6 w-6 text-primary-red" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-2">{segment.title}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">{segment.description}</p>
+                  <p className="text-white/70 mb-6 leading-relaxed">{segment.description}</p>
                   <Button
                     onClick={() => scrollToSection(segment.target)}
                     variant="secondary"
@@ -498,79 +526,19 @@ const Index = () => {
             })}
           </div>
 
-          {/* Synthèse rapide & CTA */}
-          <div className="mt-12 flex flex-col gap-10">
-            <div className="flex flex-col items-center gap-6 text-center">
-              <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl">
-                Le collectif consolide des signalements réels : diagnostics modifiés, devis opaques et pressions psychologiques. Nous ne publions que des éléments sourcés et disponibles dans notre dossier.
-              </p>
-              <div className="grid gap-4 md:grid-cols-3 w-full">
-                {["Alertes médicales documentées", "Veille juridique en cours", "Accompagnement psychologique bénévole"].map((item) => (
-                  <div key={item} className="glass-card rounded-2xl px-6 py-5 text-left border border-white/10">
-                    <p className="text-sm uppercase tracking-widest text-primary-red mb-1">Synthèse</p>
-                    <p className="text-base text-white font-semibold">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
-              <Button
-                onClick={() => scrollToSection("histoire")}
-                className="relative px-10 py-6 text-xl font-black rounded-2xl text-white group h-auto overflow-hidden bg-gradient-to-r from-primary-red via-red-600 to-primary-red bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-2xl shadow-primary-red/50 hover:shadow-primary-red/70 border-2 border-primary-red/30"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-                <span className="relative z-10 flex items-center justify-center gap-3">
-                  <Shield className="h-6 w-6 transition-transform group-hover:scale-110 group-hover:rotate-6" />
-                  Découvrir la vérité
-                </span>
-              </Button>
-
-              <Button
-                variant="outline"
-                onClick={() => scrollToSection("contact")}
-                className="relative px-10 py-6 text-lg font-bold rounded-2xl min-w-[280px] h-auto transition-all duration-300 group border-2 border-white/40 hover:border-primary-red bg-black/40 backdrop-blur-sm hover:bg-primary-red/10 text-white"
-              >
-                <span className="flex items-center justify-center gap-3">
-                  <Heart className="h-5 w-5" />
-                  Soutenir les victimes
-                </span>
-              </Button>
-            </div>
-          </div>
-
-          {/* Value props */}
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
             {heroValueProps.map(prop => {
               const Icon = prop.icon;
               return (
-                <div key={prop.title} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10">
-                  <Icon className="h-5 w-5 text-primary-red" aria-hidden="true" />
+                <div key={prop.title} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-3 backdrop-blur">
+                  <Icon className="h-5 w-5 text-primary-red/80" aria-hidden="true" />
                   <div>
                     <p className="text-sm font-semibold text-white">{prop.title}</p>
-                    <p className="text-xs text-muted-foreground">{prop.description}</p>
+                    <p className="text-xs text-white/70">{prop.description}</p>
                   </div>
                 </div>
               );
             })}
-          </div>
-
-          {/* Badge de confiance */}
-          <div className="mt-6 flex justify-center gap-4 flex-wrap">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
-              <ShieldCheck className="h-4 w-4 text-green-500" />
-              <span className="text-sm text-muted-foreground">Témoignages modérés</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
-              <Lock className="h-4 w-4 text-blue-500" />
-              <span className="text-sm text-muted-foreground">Procédure anonymisée</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] animate-bounce-slow">
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse" />
           </div>
         </div>
       </section>
@@ -679,82 +647,66 @@ const Index = () => {
       {/* Elegant Section Divider */}
       <div className="section-divider"></div>
 
-      {/* Story Section - Une mécanique bien rodée */}
+      {/* Timeline Section */}
       <section id="victimes" className="py-section bg-gradient-to-br from-black via-background to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-red/5 via-transparent to-primary-red/5" />
-        
+
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-black mb-4 font-display">
-              <span className="text-foreground block">Une mécanique</span>
-              <span className="text-red-gradient block">parfaitement orchestrée</span>
-            </h2>
-            <div className="w-32 h-1 bg-gradient-to-r from-primary-red to-primary rounded-full mx-auto mb-8" />
-            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Comprenez les tendances qui ressortent des témoignages : promesses séduisantes, paperasse complexe et pressions émotionnelles.
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <p className="text-2xl lg:text-3xl text-white/90 leading-relaxed font-semibold">
+              Découvrez comment un système bien rodé transforme la confiance des patients en instrument de profit.
             </p>
           </div>
 
-          {/* Timeline data-driven */}
-          <div className="max-w-6xl mx-auto space-y-12">
-            {timelineSteps.map((step, index) => {
-              const isEven = index % 2 === 1;
-              return (
-                <article
-                  key={step.id}
-                  className={`glass-card rounded-3xl p-10 border border-white/5 hover:border-primary-red/40 transition-all duration-500 ${isEven ? "lg:flex-row-reverse" : ""}`}
-                >
-                  <div className="flex flex-col lg:flex-row gap-8 items-start">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 text-primary-red text-sm uppercase tracking-[0.3em] mb-3">
-                        <span>{step.label}</span>
-                        <span className="inline-flex h-2 w-2 rounded-full bg-primary-red" />
-                        <span>#{(index + 1).toString().padStart(2, "0")}</span>
-                      </div>
-                      <h3 className="text-3xl lg:text-4xl font-black text-white mb-4">{step.title}</h3>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-6">{step.description}</p>
-                      <ul className="space-y-3 mb-6">
-                        {step.highlights.map(highlight => (
-                          <li key={highlight} className="flex items-start gap-3 text-muted-foreground">
-                            <span className="mt-1 h-2 w-2 rounded-full bg-primary-red" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="flex flex-wrap gap-3">
-                        {step.evidence.map(evidence => {
-                          const Icon = evidenceIconMap[evidence.type];
-                          return (
-                            <button
-                              key={evidence.label}
-                              className="px-4 py-2 rounded-full border border-white/10 text-sm text-white/80 hover:border-primary-red/60 hover:text-white transition-all duration-200 flex items-center gap-2"
-                              onClick={() => setActiveTimelineStep(step)}
-                            >
-                              <Icon className="h-4 w-4 text-primary-red" aria-hidden="true" />
-                              {evidence.label}
-                            </button>
-                          );
-                        })}
+          <div className="relative max-w-6xl mx-auto">
+            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-primary-red/60 to-transparent" aria-hidden="true" />
+
+            <div className="space-y-16">
+              {timelineSteps.map((step, index) => {
+                const isEven = index % 2 === 1;
+                return (
+                  <article
+                    key={step.id}
+                    className={`relative flex flex-col lg:flex-row items-center gap-10 ${isEven ? "lg:flex-row-reverse" : ""}`}
+                  >
+                    <div className="flex-1 w-full">
+                      <div className="glass-card rounded-3xl p-8 lg:p-10 bg-gradient-to-br from-black/80 via-[#160202] to-black/80 border border-primary-red/20 shadow-[0_20px_60px_-20px_rgba(255,0,0,0.4)]">
+                        <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.3em] uppercase text-primary-red mb-4">
+                          <span className="h-2 w-2 rounded-full bg-primary-red" />
+                          <span>{step.stepNumber}</span>
+                        </div>
+                        <h3 className="text-3xl lg:text-4xl font-black text-white mb-4">{step.cardTitle}</h3>
+                        <p className="text-lg text-white/80 leading-relaxed mb-6">{step.cardDescription}</p>
+                        <Button
+                          className="px-6 py-4 rounded-2xl bg-gradient-to-r from-primary-red via-[#ff2d2d] to-primary border-none text-white font-semibold shadow-lg shadow-primary-red/40 hover:shadow-primary-red/60"
+                          onClick={() => setActiveTimelineStep(step)}
+                        >
+                          Cliquer pour voir les détails
+                          <ChevronRight className="ml-2 h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
-                    <div className="w-full lg:w-64 bg-black/40 rounded-2xl border border-primary-red/30 p-6 text-center">
-                      <p className="text-sm uppercase tracking-widest text-muted-foreground mb-2">{step.kpi.label}</p>
-                      <p className="text-4xl font-black text-primary-red mb-1">{step.kpi.value}</p>
-                      <p className="text-muted-foreground mb-6">{step.kpi.detail}</p>
-                      <Button
-                        variant="ghost"
-                        className="w-full border border-white/10 hover:border-primary-red"
-                        onClick={() => setActiveTimelineStep(step)}
-                      >
-                        Voir les preuves
-                        <ChevronRight className="ml-2 h-4 w-4" />
-                      </Button>
+
+                    <div className="relative flex flex-col items-center" aria-hidden="true">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-primary-red/30 blur-2xl rounded-full animate-pulse" />
+                        <div className="relative h-16 w-16 rounded-full bg-gradient-to-b from-[#ff4d4d] to-primary-red border border-white/20 flex items-center justify-center text-2xl font-black text-white shadow-[0_10px_30px_rgba(255,0,0,0.6)]">
+                          {index + 1}
+                        </div>
+                      </div>
+                      {index !== timelineSteps.length - 1 && (
+                        <div className="hidden lg:block w-px flex-1 bg-gradient-to-b from-primary-red/60 to-transparent mt-6" />
+                      )}
                     </div>
-                  </div>
-                </article>
-              );
-            })}
+                  </article>
+                );
+              })}
+            </div>
           </div>
+
+          <p className="text-center text-sm text-white/60 mt-20">
+            Si un passage n’est pas clair, demande-moi quelle version est la bonne.
+          </p>
         </div>
       </section>
 
@@ -1222,14 +1174,13 @@ const Index = () => {
       </footer>
 
       <Dialog open={!!activeTimelineStep} onOpenChange={(open) => setActiveTimelineStep(open ? activeTimelineStep : null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0e0e0e] border-2 border-primary-red/30 text-foreground">
-          <DialogHeader className="relative">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="inline-flex items-center bg-primary-red text-white px-4 py-2 rounded-full text-sm font-bold">
-                {activeTimelineStep?.label}
-              </div>
-              <DialogTitle className="text-3xl font-bold">{activeTimelineStep?.title}</DialogTitle>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0b0b0b] border border-primary-red/40 text-foreground">
+          <DialogHeader className="relative pb-6">
+            <div className="inline-flex items-center gap-2 bg-primary-red/20 text-primary-red px-4 py-2 rounded-full text-sm font-semibold tracking-[0.3em] uppercase">
+              <span className="h-2 w-2 rounded-full bg-primary-red" />
+              <span>{activeTimelineStep?.stepNumber}</span>
             </div>
+            <DialogTitle className="text-4xl font-black mt-4 text-white">{activeTimelineStep?.modalTitle}</DialogTitle>
             <button onClick={() => setActiveTimelineStep(null)} className="absolute right-0 top-0 p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="Fermer la modale">
               <X className="h-5 w-5" />
             </button>
@@ -1237,12 +1188,13 @@ const Index = () => {
 
           {activeTimelineStep && (
             <div className="space-y-8">
-              <p className="text-lg text-muted-foreground leading-relaxed">{activeTimelineStep.description}</p>
-              <div>
-                <h4 className="text-xl font-bold mb-4">Points clés</h4>
+              <p className="text-lg text-white/80 leading-relaxed">{activeTimelineStep.modalDescription}</p>
+
+              <div className="bg-black/40 border border-white/10 rounded-2xl p-6">
+                <h4 className="text-2xl font-bold text-white mb-4">Détails de l’étape</h4>
                 <ul className="space-y-3">
-                  {activeTimelineStep.highlights.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-muted-foreground">
+                  {activeTimelineStep.details.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-white/80">
                       <span className="mt-1 h-2 w-2 rounded-full bg-primary-red" />
                       <span>{item}</span>
                     </li>
@@ -1250,21 +1202,17 @@ const Index = () => {
                 </ul>
               </div>
 
-              <div>
-                <h4 className="text-xl font-bold mb-4">Sources et preuves</h4>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {activeTimelineStep.evidence.map((evidence) => {
-                    const Icon = evidenceIconMap[evidence.type];
-                    return (
-                      <div key={evidence.label} className="bg-black/40 border border-white/10 rounded-xl p-5 flex items-start gap-3">
-                        <Icon className="h-5 w-5 text-primary-red" aria-hidden="true" />
-                        <div>
-                          <p className="font-semibold">{evidence.label}</p>
-                          <p className="text-sm text-muted-foreground">Dossier horodaté et signé</p>
-                        </div>
-                      </div>
-                    );
-                  })}
+              <div className="bg-black/40 border border-white/10 rounded-2xl p-6">
+                <h4 className="text-2xl font-bold text-white mb-4">Sources et preuves</h4>
+                <div className="space-y-4">
+                  {activeTimelineStep.sources.map((source) => (
+                    <div key={source.label} className="p-4 rounded-xl border border-white/10 bg-black/60">
+                      <p className="font-semibold text-white">{source.label}</p>
+                      {source.description && (
+                        <p className="text-sm text-white/70 mt-1">{source.description}</p>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
