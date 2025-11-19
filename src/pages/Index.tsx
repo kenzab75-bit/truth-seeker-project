@@ -407,84 +407,76 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Hero Section – Immersive video-ready canvas */}
-      <section id="accueil" className="relative min-h-screen overflow-hidden bg-black text-white">
-        {/* Placeholder vidéo background - à remplacer par la future balise <video> */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-95" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(248,113,113,0.35),transparent_65%)] blur-3xl" aria-hidden />
-          <div
-            className="absolute inset-0 opacity-25 mix-blend-screen"
-            style={{
-              backgroundImage: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"160\" height=\"160\" viewBox=\"0 0 160 160\" fill=\"none\"><rect width=\"1\" height=\"1\" fill=\"rgba(255,255,255,0.08)\"/></svg>')",
-            }}
-            aria-hidden
-          />
+      {/* Hero Section – Cinematic video-ready canvas */}
+      <section id="accueil" className="relative min-h-screen w-full overflow-hidden bg-black text-white">
+        {/* Background video placeholder ready for future <video> integration */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 overflow-hidden">
+            <video
+              className="h-full w-full object-cover"
+              src="/143668-784138097_medium.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
+            <div className="absolute inset-0 mix-blend-overlay opacity-20 bg-[url('/grain.png')]" aria-hidden />
+            <div className="absolute -top-20 left-1/2 w-[520px] h-[320px] -translate-x-1/2 rounded-full bg-red-600/20 blur-[140px]" aria-hidden />
+          </div>
         </div>
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -left-10 top-24 h-48 w-48 rounded-full bg-primary-red/30 blur-[120px]" aria-hidden />
-          <div className="absolute right-0 bottom-0 h-60 w-60 rounded-full bg-primary-red/20 blur-[140px]" aria-hidden />
+          <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-primary-red/15 blur-[160px]" aria-hidden />
+          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary-red/10 blur-[180px]" aria-hidden />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 py-28 md:py-32 lg:py-40">
-          <div className="space-y-8 text-left">
-            <div className="inline-flex items-center gap-4">
-              <div className="relative">
-                <span className="absolute inset-0 rounded-full blur-[48px] bg-primary-red/40" aria-hidden />
-                <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/5 backdrop-blur">
-                  <Scale className="h-5 w-5 text-primary-red" aria-hidden="true" />
+        <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 pt-32 md:pt-40 pb-24">
+          <div className="relative">
+            <div className="absolute left-0 top-0 inline-flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-white/70">
+              <span className="absolute -left-10 -top-6 w-24 h-24 rounded-full bg-red-500/20 blur-3xl" aria-hidden />
+              <div className="relative inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur">
+                <span className="pointer-events-none absolute inset-0 rounded-full opacity-30 mix-blend-screen bg-[url('/grain.png')]" aria-hidden />
+                <Scale className="relative h-4 w-4 text-primary-red" aria-hidden="true" />
+                <span className="relative font-semibold">LemaClinic Truth</span>
+              </div>
+            </div>
+
+            <div className="pt-16 md:pt-20">
+              <div className="inline-flex items-center gap-3 rounded-full border border-red-500/20 bg-red-500/10 px-5 py-2 text-sm text-white/85">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400">
+                  <AlertTriangle className="h-3.5 w-3.5 animate-pulse" aria-hidden="true" />
                 </div>
+                <span className="font-semibold tracking-wide text-red-200/90">ALERTE</span>
+                <span className="text-white/80">Révélations documentées sur les pratiques de la Lema Dental Clinic à Istanbul.</span>
               </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/60">LemaClinic Truth</p>
-                <p className="text-sm text-white/70">Contre-enquête citoyenne & protection des patients</p>
+
+              <div className="mt-8 space-y-6 text-left">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight font-display text-white">LemaClinic Truth</h1>
+                <p className="text-xl sm:text-2xl text-red-500/80">La vérité éclaire toujours.</p>
+                <p className="text-lg text-white/80 max-w-2xl">
+                  Je suis une victime de la Lema Dental Clinic à Istanbul. Ce site rassemble des témoignages vérifiés et des éléments documentés pour protéger les patients, alerter les autorités et éviter que d’autres ne subissent les mêmes dérives.
+                </p>
               </div>
-            </div>
 
-            <div className="inline-flex w-full sm:w-auto items-center gap-3 rounded-full border border-red-500/20 bg-red-500/10 px-5 py-2 text-sm text-white/80">
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400">
-                <AlertTriangle className="h-3.5 w-3.5 animate-pulse" aria-hidden="true" />
-              </div>
-              <span className="font-semibold tracking-wide text-red-200/90">ALERTE</span>
-              <span className="text-white/80">Révélations documentées sur les pratiques de la Lema Dental Clinic à Istanbul.</span>
-            </div>
-
-            <div className="space-y-6">
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight font-display text-white">LemaClinic Truth</h1>
-              <p className="text-xl lg:text-2xl font-semibold text-red-400/80">La vérité éclaire toujours.</p>
-              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/50">Des témoignages concordants. Une clinique mise en cause.</p>
-              <p className="text-lg text-white/80 max-w-2xl">
-                Je suis une victime de la Lema Dental Clinic à Istanbul. Ce site rassemble des témoignages vérifiés et des éléments documentés pour protéger les patients, alerter les autorités et éviter que d’autres ne subissent les mêmes dérives.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Button
-                onClick={() => scrollToSection("histoire")}
-                className="group rounded-full px-8 py-3 text-base font-semibold bg-gradient-to-r from-red-500 via-red-500 to-red-600 text-white shadow-[0_0_25px_rgba(248,113,113,0.25)] hover:shadow-[0_0_35px_rgba(248,113,113,0.35)] hover:-translate-y-0.5 transition-all"
-              >
-                <span className="flex items-center gap-2">
-                  Découvrir la vérité
-                  <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:rotate-6" />
-                </span>
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => scrollToSection("contact")}
-                className="rounded-full px-8 py-3 text-base font-semibold border border-white/20 bg-transparent text-white/80 hover:text-white hover:bg-white/5 hover:border-white/40 backdrop-blur-sm transition-all"
-              >
-                Soutenir les victimes
-              </Button>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80">
-                <ShieldCheck className="h-4 w-4 text-green-400" aria-hidden="true" />
-                Témoignages modérés et vérifiés
-              </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80">
-                <Lock className="h-4 w-4 text-blue-300" aria-hidden="true" />
-                Procédure anonymisée et sécurisée
+              <div className="mt-10 flex flex-wrap items-center gap-4">
+                <Button
+                  onClick={() => scrollToSection("histoire")}
+                  className="group rounded-full px-8 py-3 text-base font-medium bg-gradient-to-r from-red-500 via-red-500 to-red-600 text-white shadow-[0_0_25px_rgba(248,113,113,0.25)] hover:shadow-[0_0_35px_rgba(248,113,113,0.4)] hover:-translate-y-0.5 transition-all"
+                >
+                  <span className="flex items-center gap-2">
+                    Découvrir la vérité
+                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:rotate-6" />
+                  </span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => scrollToSection("contact")}
+                  className="rounded-full px-8 py-3 text-base font-medium border border-white/20 bg-transparent text-white/80 hover:text-white hover:bg-white/5 hover:border-white/40 backdrop-blur-sm transition-all"
+                >
+                  Soutenir les victimes
+                </Button>
               </div>
             </div>
           </div>
@@ -492,8 +484,8 @@ const Index = () => {
       </section>
 
       {/* Section 2 – Parcours dédiés */}
-      <section className="relative bg-[#050505] border-t border-white/5" aria-label="Segments prioritaires">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(248,113,113,0.08),transparent_60%)] opacity-80" aria-hidden />
+      <section className="relative bg-neutral-950 border-t border-white/5" aria-label="Segments prioritaires">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(248,113,113,0.05),transparent_60%)] opacity-90" aria-hidden />
         <div className="relative max-w-6xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-primary-red/70">Parcours guidés</p>
@@ -507,13 +499,13 @@ const Index = () => {
             {heroSegments.map(segment => {
               const Icon = segment.icon;
               return (
-                <div key={segment.id} className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-6 shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
+                <div key={segment.id} className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur">
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs uppercase tracking-widest text-primary-red font-semibold">{segment.badge}</span>
                     <Icon className="h-6 w-6 text-primary-red" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-2">{segment.title}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">{segment.description}</p>
+                  <p className="text-white/70 mb-6 leading-relaxed">{segment.description}</p>
                   <Button
                     onClick={() => scrollToSection(segment.target)}
                     variant="secondary"
@@ -534,11 +526,11 @@ const Index = () => {
             {heroValueProps.map(prop => {
               const Icon = prop.icon;
               return (
-                <div key={prop.title} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                  <Icon className="h-5 w-5 text-primary-red" aria-hidden="true" />
+                <div key={prop.title} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-3 backdrop-blur">
+                  <Icon className="h-5 w-5 text-primary-red/80" aria-hidden="true" />
                   <div>
                     <p className="text-sm font-semibold text-white">{prop.title}</p>
-                    <p className="text-xs text-muted-foreground">{prop.description}</p>
+                    <p className="text-xs text-white/70">{prop.description}</p>
                   </div>
                 </div>
               );
