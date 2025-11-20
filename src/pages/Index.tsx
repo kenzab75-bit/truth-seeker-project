@@ -105,6 +105,21 @@ const Index = () => {
     }
   ];
 
+  const heroVideoSources = [
+    {
+      src: `${import.meta.env.BASE_URL}143668-784138097_medium.mp4`,
+      type: "video/mp4",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}143668-784138097_medium.mov`,
+      type: "video/quicktime",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}143668-784138097_medium.webm`,
+      type: "video/webm",
+    }
+  ];
+
   const testimonySegments = [
     {
       id: "victime",
