@@ -28,6 +28,7 @@ const Index = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
+  const [hasHeroVideoError, setHasHeroVideoError] = useState(false);
   const {
     toast
   } = useToast();
@@ -59,6 +60,8 @@ const Index = () => {
       `${import.meta.env.BASE_URL}143668-784138097_medium.mp4`,
     ])
   );
+
+  const heroVideoFallback = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
 
   const heroSegments = [
     {
@@ -213,6 +216,22 @@ const Index = () => {
 
     attemptPlay();
   }, []);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    const handleError = () => {
+      if (hasHeroVideoError) return;
+      setHasHeroVideoError(true);
+      video.src = heroVideoFallback;
+      video.load();
+      video.play().catch(error => console.warn("Hero fallback video play prevented:", error));
+    };
+
+    video.addEventListener("error", handleError);
+    return () => video.removeEventListener("error", handleError);
+  }, [hasHeroVideoError, heroVideoFallback]);
 
   const handleLoadMore = () => {
     setIsLoadingMore(true);
