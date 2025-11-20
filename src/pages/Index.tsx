@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp, Lock, ShieldCheck, ChevronDown, Menu, Mail, Loader2, Heart, FileCheck, Sparkles, Globe, Users, Megaphone, Fingerprint, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import { testimonials } from "@/data/testimonials";
 import { timelineSteps, type TimelineStep } from "@/data/timelineSteps";
 import { supabase } from "@/integrations/supabase/client";
 const Index = () => {
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [activeTimelineStep, setActiveTimelineStep] = useState<TimelineStep | null>(null);
   const [activeFilter, setActiveFilter] = useState("Tous");
@@ -51,6 +52,13 @@ const Index = () => {
       });
     }
   };
+
+  const heroVideoSources = Array.from(
+    new Set([
+      "/143668-784138097_medium.mp4",
+      `${import.meta.env.BASE_URL}143668-784138097_medium.mp4`,
+    ])
+  );
 
   const heroSegments = [
     {
@@ -191,6 +199,20 @@ const Index = () => {
       setIsSubmittingTestimony(false);
     }
   };
+
+  useEffect(() => {
+    if (!heroVideoRef.current) return;
+
+    const attemptPlay = async () => {
+      try {
+        await heroVideoRef.current?.play();
+      } catch (error) {
+        console.warn("Hero video autoplay prevented:", error);
+      }
+    };
+
+    attemptPlay();
+  }, []);
 
   const handleLoadMore = () => {
     setIsLoadingMore(true);
@@ -422,117 +444,93 @@ const Index = () => {
         </div>
       </header>
 
-     {/* === HERO SECTION – CINEMATIC VIDEO CANVAS === */}
-<section
-  id="accueil"
-  className="relative min-h-screen w-full overflow-hidden bg-black text-white"
->
+      {/* Hero Section – Cinematic video-ready canvas */}
+      <section id="accueil" className="relative min-h-screen w-full overflow-hidden bg-black text-white">
+        <div className="relative w-full overflow-hidden">
+          {/* Video background */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            ref={heroVideoRef}
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          >
+            {heroVideoSources.map(source => (
+              <source key={source} src={source} type="video/mp4" />
+            ))}
+          </video>
 
-  {/* === VIDEO BACKGROUND === */}
-  <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload="auto"
-      className="w-full h-full object-cover"
-    >
-      <source src="/143668-784138097_medium.mp4" type="video/mp4" />
-    </video>
-  </div>
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/70 z-10"></div>
 
-  {/* === DARKENING OVERLAY === */}
-  <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px] z-10"></div>
+          {/* Hero content */}
+          <div className="relative z-20">
+            <div className="absolute inset-0">
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
+                <div className="absolute inset-0 mix-blend-overlay opacity-20 bg-[url('/grain.png')]" aria-hidden />
+                <div className="absolute -top-20 left-1/2 w-[520px] h-[320px] -translate-x-1/2 rounded-full bg-red-600/20 blur-[140px]" aria-hidden />
+              </div>
+            </div>
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-primary-red/15 blur-[160px]" aria-hidden />
+              <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary-red/10 blur-[180px]" aria-hidden />
+            </div>
 
-  {/* === FX LAYERS (grain, gradients, glows) === */}
-  <div className="absolute inset-0 z-20 pointer-events-none">
-    {/* Gradient vertical */}
-    <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-black via-neutral-950 to-black opacity-90" />
-    
-    {/* Grain */}
-    <div className="absolute inset-0 mix-blend-overlay opacity-20 bg-[url('/grain.png')]" aria-hidden />
+            <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 pt-32 md:pt-40 pb-24">
+              <div className="relative">
+                <div className="absolute left-0 top-0 inline-flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-white/70">
+                  <span className="absolute -left-10 -top-6 w-24 h-24 rounded-full bg-red-500/20 blur-3xl" aria-hidden />
+                  <div className="relative inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur">
+                    <span className="pointer-events-none absolute inset-0 rounded-full opacity-30 mix-blend-screen bg-[url('/grain.png')]" aria-hidden />
+                    <Scale className="relative h-4 w-4 text-primary-red" aria-hidden="true" />
+                    <span className="relative font-semibold">LemaClinic Truth</span>
+                  </div>
+                </div>
 
-    {/* Red glow center-top */}
-    <div className="absolute -top-20 left-1/2 w-[520px] h-[320px] -translate-x-1/2 rounded-full bg-red-600/20 blur-[140px]" aria-hidden />
-  </div>
+                <div className="pt-16 md:pt-20">
+                  <div className="inline-flex items-center gap-3 rounded-full border border-red-500/20 bg-red-500/10 px-5 py-2 text-sm text-white/85">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400">
+                      <AlertTriangle className="h-3.5 w-3.5 animate-pulse" aria-hidden="true" />
+                    </div>
+                    <span className="font-semibold tracking-wide text-red-200/90">ALERTE</span>
+                    <span className="text-white/80">Révélations documentées sur les pratiques de la Lema Dental Clinic à Istanbul.</span>
+                  </div>
 
-  {/* === GLOW ORBS === */}
-  <div className="absolute inset-0 z-20 pointer-events-none">
-    <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-primary-red/15 blur-[160px]" aria-hidden />
-    <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary-red/10 blur-[180px]" aria-hidden />
-  </div>
+                  <div className="mt-8 space-y-6 text-left">
+                    <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight font-display text-white">LemaClinic Truth</h1>
+                    <p className="text-xl sm:text-2xl text-red-500/80">La vérité éclaire toujours.</p>
+                    <p className="text-lg text-white/80 max-w-2xl">
+                      Je suis une victime de la Lema Dental Clinic à Istanbul. Ce site rassemble des témoignages vérifiés et des éléments documentés pour protéger les patients, alerter les autorités et éviter que d’autres ne subissent les mêmes dérives.
+                    </p>
+                  </div>
 
-  {/* === HERO CONTENT === */}
-  <div className="relative z-30 max-w-5xl mx-auto px-6 lg:px-8 pt-32 md:pt-40 pb-24">
-
-    {/* === HEADER BADGE === */}
-    <div className="relative">
-      <div className="absolute left-0 top-0 inline-flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-white/70">
-        <span className="absolute -left-10 -top-6 w-24 h-24 rounded-full bg-red-500/20 blur-3xl" aria-hidden />
-
-        <div className="relative inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur">
-          <span className="pointer-events-none absolute inset-0 rounded-full opacity-30 mix-blend-screen bg-[url('/grain.png')]" aria-hidden />
-          <Scale className="relative h-4 w-4 text-primary-red" aria-hidden="true" />
-          <span className="relative font-semibold">LemaClinic Truth</span>
-        </div>
-      </div>
-
-      {/* === ALERT STRIP === */}
-      <div className="pt-16 md:pt-20">
-        <div className="inline-flex items-center gap-3 rounded-full border border-red-500/20 bg-red-500/10 px-5 py-2 text-sm text-white/85">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400">
-            <AlertTriangle className="h-3.5 w-3.5 animate-pulse" aria-hidden="true" />
+                  <div className="mt-10 flex flex-wrap items-center gap-4">
+                    <Button
+                      onClick={() => scrollToSection("histoire")}
+                      className="group rounded-full px-8 py-3 text-base font-medium bg-gradient-to-r from-red-500 via-red-500 to-red-600 text-white shadow-[0_0_25px_rgba(248,113,113,0.25)] hover:shadow-[0_0_35px_rgba(248,113,113,0.4)] hover:-translate-y-0.5 transition-all"
+                    >
+                      <span className="flex items-center gap-2">
+                        Découvrir la vérité
+                        <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:rotate-6" />
+                      </span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection("contact")}
+                      className="rounded-full px-8 py-3 text-base font-medium border border-white/20 bg-transparent text-white/80 hover:text-white hover:bg-white/5 hover:border-white/40 backdrop-blur-sm transition-all"
+                    >
+                      Soutenir les victimes
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <span className="font-semibold tracking-wide text-red-200/90">ALERTE</span>
-          <span className="text-white/80">
-            Révélations documentées sur les pratiques de la Lema Dental Clinic à Istanbul.
-          </span>
         </div>
-
-        {/* === TITLES + DESCRIPTION === */}
-        <div className="mt-8 space-y-6 text-left">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight font-display text-white">
-            LemaClinic Truth
-          </h1>
-
-          <p className="text-xl sm:text-2xl text-red-500/80">La vérité éclaire toujours.</p>
-
-          <p className="text-lg text-white/80 max-w-2xl">
-            Je suis une victime de la Lema Dental Clinic à Istanbul. Ce site rassemble des témoignages vérifiés
-            et des éléments documentés pour protéger les patients, alerter les autorités et éviter que d’autres
-            ne subissent les mêmes dérives.
-          </p>
-        </div>
-
-        {/* === CTA BUTTONS === */}
-        <div className="mt-10 flex flex-wrap items-center gap-4">
-
-          <Button
-            onClick={() => scrollToSection("histoire")}
-            className="group rounded-full px-8 py-3 text-base font-medium bg-gradient-to-r from-red-500 via-red-500 to-red-600 text-white shadow-[0_0_25px_rgba(248,113,113,0.25)] hover:shadow-[0_0_35px_rgba(248,113,113,0.4)] hover:-translate-y-0.5 transition-all"
-          >
-            <span className="flex items-center gap-2">
-              Découvrir la vérité
-              <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:rotate-6" />
-            </span>
-          </Button>
-
-          <Button
-            variant="ghost"
-            onClick={() => scrollToSection("contact")}
-            className="rounded-full px-8 py-3 text-base font-medium border border-white/20 bg-transparent text-white/80 hover:text-white hover:bg-white/5 hover:border-white/40 backdrop-blur-sm transition-all"
-          >
-            Soutenir les victimes
-          </Button>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-</section>
+      </section>
 
       {/* Section 2 – Parcours dédiés */}
       <section className="relative bg-neutral-950 border-t border-white/5" aria-label="Segments prioritaires">
