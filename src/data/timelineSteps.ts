@@ -1,104 +1,100 @@
 export type TimelineStep = {
   id: string;
-  label: string;
-  title: string;
-  description: string;
-  highlights: string[];
-  evidence: {
-    type: "audio" | "pdf" | "photo" | "message";
+  stepNumber: string;
+  cardTitle: string;
+  cardDescription: string;
+  modalTitle: string;
+  modalDescription: string;
+  details: string[];
+  sources: {
     label: string;
-    url?: string;
+    description?: string;
   }[];
-  kpi: {
-    label: string;
-    value: string;
-    detail: string;
-  };
 };
 
 export const timelineSteps: TimelineStep[] = [
   {
-    id: "etape-1",
-    label: "Phase 1",
-    title: "Approche médicale détournée",
-    description:
-      "Selon plusieurs témoignages reçus, la prise de contact médicale sert parfois à instaurer une relation d'emprise qui dépasse la simple information clinique.",
-    highlights: [
-      "Multiplication des rendez-vous non justifiés rapportés par les patients",
-      "Promesses d'améliorations spectaculaires sans documents médicaux complets",
-      "Collecte insistante de documents personnels sensibles",
+    id: "appat",
+    stepNumber: "Étape 1",
+    cardTitle: "L'appât",
+    cardDescription:
+      'Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "Haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.',
+    modalTitle: "L'appât commercial",
+    modalDescription:
+      'Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins "Haut de gamme", tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.',
+    details: [
+      "Publicités agressives sur les réseaux sociaux Instagram, Facebook",
+      'Promesses de prix 60-70% moins chers avec des "garanties" attractives (Hôtel 5 étoiles, transfert gratuit etc)',
+      "Communication ultra-réactive et rassurante via WhatsApp et proposition de devis immédiat",
+      "Collaboration avec des influenceurs et stars internationales pour promouvoir la clinique",
     ],
-    evidence: [
-      { type: "audio", label: "Extraits anonymisés d'entretiens" },
-      { type: "pdf", label: "Consentements contestés" },
+    sources: [
+      { label: "Témoignage patient #12", description: "Facture initiale de 3500€ pour 28 soins prothétiques" },
+      { label: "Capture écran Facebook, Instagram, site web" },
+      { label: "Conversation WhatsApp" },
     ],
-    kpi: {
-      label: "Type de signalement",
-      value: "Approches médicales insistantes",
-      detail: "Synthèse de dossiers transmis au collectif",
-    },
   },
   {
-    id: "etape-2",
-    label: "Phase 2",
-    title: "Piégeage administratif",
-    description:
-      "Des patient·es décrivent un enchaînement de documents administratifs difficiles à contester une fois signés, parfois présentés dans l'urgence.",
-    highlights: [
-      "Signatures obtenues dans un contexte de stress ou de traitement",
-      "Utilisation litigieuse de devis ou d'ordonnances",
-      "Mises en garde sur la couverture sociale rapportées par des témoins",
+    id: "piege",
+    stepNumber: "Étape 2",
+    cardTitle: "Le piège",
+    cardDescription:
+      "Une fois à Istanbul, ils vous isolent et vous placent sous pression. Les conditions changent, les prix explosent, et vous êtes pris au piège, loin de chez vous et vulnérable.",
+    modalTitle: "Le piège",
+    modalDescription:
+      "Une fois sur place, vous vous retrouvez pris au piège, entièrement dépendants de la clinique, qui exploite cette position de force pour accélérer les procédures. Les consentements sont modifiés à la volée, les devis gonflés, sous pression psychologique et logistique. Refuser devient impensable, au risque de compromettre vos ressources et le séjour déjà engagé.",
+    details: [
+      "Examen initial bâclé, expédié en moins de dix minutes",
+      "Traitement invasif prévu et adapté modifié sur place, au profit de soins beaucoup plus coûteux, souvent sans anesthésie",
+      "Multiplication des actes : meulage, dévitalisations, couronnes, nouveaux devis",
+      "Inflation des prix : facture finale 2 à 3 fois supérieure au devis",
+      "Menaces et pression : paiement en espèces, pression pour payer rapidement",
     ],
-    evidence: [
-      { type: "photo", label: "Copies de documents fournis" },
-      { type: "message", label: "Échanges écrits anonymisés" },
+    sources: [
+      { label: "Factures comparées", description: "Devis initial/ordre ajoutés traitement" },
+      { label: "Export de conversations WhatsApp" },
     ],
-    kpi: {
-      label: "Tendance observée",
-      value: "Dossiers administratifs opaques",
-      detail: "Alertes récurrentes sur les devis et factures",
-    },
   },
   {
-    id: "etape-3",
-    label: "Phase 3",
-    title: "Isolement & pression psychologique",
-    description:
-      "Plusieurs victimes disent avoir été coupées de leurs repères habituels, avec un discours alarmiste ou culpabilisant lorsque des doutes sont exprimés.",
-    highlights: [
-      "Contrôle des communications avec les proches rapporté par certaines victimes",
-      "Menaces verbales autour d'éventuelles procédures",
-      "Discours culpabilisants décrits dans les signalements",
+    id: "impasse",
+    stepNumber: "Étape 3",
+    cardTitle: "L'impasse",
+    cardDescription:
+      "Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...",
+    modalTitle: "L'impasse",
+    modalDescription:
+      "Une fois entre les mains du chirurgien, vous découvrez des pratiques expéditives où le profit prime sur la santé, sans le moindre scrupule à bafouer le code de déontologie médicale au nom de l'argent. Vous ne contrôlez plus rien...",
+    details: [
+      "Complications post-opératoires graves : douleurs chroniques, pulpite",
+      "Absence totale de suivi médical réel et retour en Europe",
+      "Prothèses ratées et implants mal posés nécessitant de grosses révisions",
+      "Refus de prise en charge des complications",
+      "Coûts de réparation en Europe dépassant largement les économies initiales",
     ],
-    evidence: [
-      { type: "audio", label: "Messages vocaux transmis" },
-      { type: "pdf", label: "Notes d'accompagnement psychologique" },
+    sources: [
+      { label: "Rapports et examens médicaux", description: "Dentistes français 2023" },
+      { label: "Témoignage patient" },
     ],
-    kpi: {
-      label: "Impact humain",
-      value: "Pression psychologique rapportée",
-      detail: "Accompagnement en cours avec nos partenaires",
-    },
   },
   {
-    id: "etape-4",
-    label: "Phase 4",
-    title: "Riposte & reconstruction",
-    description:
-      "Le collectif centralise les preuves existantes, mobilise des juristes volontaires et prépare des dossiers pour les autorités et médias.",
-    highlights: [
-      "Orientation vers des avocat·es et médecins neutres",
-      "Partage sécurisé de dossiers existants",
-      "Préparation d'alertes destinées aux autorités et médias",
+    id: "verite",
+    stepNumber: "Étape 4",
+    cardTitle: "La vérité",
+    cardDescription:
+      "Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.",
+    modalTitle: "La vérité éclate",
+    modalDescription:
+      "Faire émerger la vérité par la justice. Parce que le silence protège les fautes, et que seule la vérité libère.",
+    details: [
+      "Création de groupes d'entraide et de témoignages de victimes",
+      "Publication de preuves concrètes : factures, photos, rapports médicaux",
+      "Médiatisation croissante de l'affaire par les médias européens",
+      "Mobilisation pour ouvrir des plaintes pénales et prévenir de nouveaux cas",
+      "Demande d'enquête officielle sur les pratiques de la clinique",
     ],
-    evidence: [
-      { type: "pdf", label: "Dossiers consolidés" },
-      { type: "message", label: "Canal du collectif" },
+    sources: [
+      { label: "Groupe Facebook", description: "Nombreux témoignages recensés" },
+      { label: "Plainte en cours de dépôt" },
     ],
-    kpi: {
-      label: "Action du collectif",
-      value: "Accompagnement en cours",
-      detail: "Mises à jour partagées avec les témoins volontaires",
-    },
   },
 ];
