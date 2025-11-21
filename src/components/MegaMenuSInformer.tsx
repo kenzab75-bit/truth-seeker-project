@@ -1,10 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { AlertTriangle, ChevronDown, FileText, Quote, ShieldCheck } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  FileText,
+  Info,
+  Scale,
+  ChevronDown,
+} from "lucide-react";
 
 interface MegaMenuSInformerProps {
   scrollToSection: (id: string) => void;
 }
+
+const navItems = [
+  {
+    title: "Leurs méthodes",
+    description:
+      "Un parcours étudié pour vous faire céder à leurs offres au détriment de la santé.",
+    icon: AlertTriangle,
+    action: { type: "scroll", id: "victimes" },
+  },
+  {
+    title: "Témoignages",
+    description: "Les victimes racontent leur parcours.",
+    icon: FileText,
+    action: { type: "scroll", id: "temoignages" },
+  },
+  {
+    title: "Connaitre vos droits",
+    description:
+      "Même à l'étranger les patients ont des droits. Les connaître aide à éviter les pièges juridiques.",
+    icon: Scale,
+    action: { type: "scroll", id: "contact" },
+  },
+  {
+    title: "Vos questions fréquentes",
+    description: "Réponses claires aux interrogations les plus courantes.",
+    icon: Info,
+    action: { type: "link", to: "/informer/questions-victimes" },
+  },
+];
 
 const MegaMenuSInformer = ({ scrollToSection }: MegaMenuSInformerProps) => {
   const [open, setOpen] = useState(false);
@@ -34,8 +70,10 @@ const MegaMenuSInformer = ({ scrollToSection }: MegaMenuSInformerProps) => {
     };
   }, []);
 
-  const handleNavigate = (id: string) => {
-    scrollToSection(id);
+  const handleNavigate = (action: (typeof navItems)[number]["action"]) => {
+    if (action.type === "scroll") {
+      scrollToSection(action.id);
+    }
     setOpen(false);
   };
 
@@ -45,126 +83,121 @@ const MegaMenuSInformer = ({ scrollToSection }: MegaMenuSInformerProps) => {
         type="button"
         onClick={() => setOpen(prev => !prev)}
         aria-expanded={open}
-        className="group inline-flex items-center gap-2 text-[#E0E0E0] font-medium px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.35)]"
+        className="group inline-flex items-center gap-2 text-[#F5F5F5] font-semibold px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.35)]"
       >
         S'informer
         <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180 -translate-y-px" : ""}`} />
       </button>
 
       <div
-        className={`absolute right-0 mt-3 w-[min(94vw,940px)] max-w-5xl origin-top-right transition-all duration-300 ease-out ${open ? "opacity-100 scale-100 translate-y-0" : "pointer-events-none opacity-0 scale-95 -translate-y-2"}`}
+        className={`absolute right-0 mt-3 w-[min(96vw,1040px)] max-w-5xl origin-top-right transition-all duration-300 ease-out ${
+          open ? "opacity-100 scale-100 translate-y-0" : "pointer-events-none opacity-0 scale-95 -translate-y-3"
+        }`}
       >
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-black via-[#0c0202] to-[#150000] shadow-2xl backdrop-blur-xl">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(255,255,255,0.08),transparent_35%),radial-gradient(circle_at_90%_10%,rgba(255,77,77,0.12),transparent_40%)] pointer-events-none" />
-          <div className="p-6 lg:p-8 relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-            {/* Colonne de navigation */}
-            <div className="lg:col-span-5 space-y-5">
-              <div className="flex items-center gap-3 text-sm uppercase tracking-[0.2em] text-red-300/80">
-                <ShieldCheck className="h-4 w-4 text-red-300" />
-                <span>Orientation</span>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl p-4 lg:p-5 shadow-inner shadow-black/30">
-                <p className="text-xs uppercase tracking-[0.18em] text-red-200/70 mb-3">Droits &amp; information</p>
-                <div className="space-y-1.5">
-                  <button
-                    onClick={() => handleNavigate("victimes")}
-                    className="w-full text-left flex items-center justify-between px-3 py-2 rounded-lg text-sm text-white hover:bg-white/10 transition-colors duration-200"
-                  >
-                    <span>Leurs méthodes</span>
-                    <AlertTriangle className="h-4 w-4 text-red-300" />
-                  </button>
-                  {[
-                    "L'appat",
-                    "Le piège",
-                    "L'impasse",
-                    "La vérité",
-                  ].map(item => (
+        <div className="relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-white/[0.97] shadow-2xl shadow-black/20 backdrop-blur-xl">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.6),transparent_40%),radial-gradient(circle_at_80%_0%,rgba(214,32,32,0.12),transparent_45%)]" />
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 p-6 lg:p-10">
+            {/* Carte principale gauche */}
+            <div className="lg:col-span-5">
+              <div className="relative overflow-hidden rounded-2xl border border-white/30 bg-gradient-to-br from-[#7c0f1d] via-[#3a0b12] to-[#15070b] text-white shadow-xl shadow-black/25">
+                <div className="absolute inset-0 opacity-60 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.08),transparent_45%),radial-gradient(circle_at_80%_80%,rgba(0,0,0,0.35),transparent_45%)]" />
+                <div className="absolute right-4 top-6 h-24 w-24 rounded-xl bg-gradient-to-br from-red-700/70 to-red-900/80 blur-3xl" />
+                <div className="relative p-6 lg:p-8 flex flex-col gap-6">
+                  <div className="flex items-center gap-3">
+                    <div className="h-11 w-11 rounded-xl bg-white/10 border border-white/30 flex items-center justify-center shadow-lg shadow-red-900/40">
+                      <AlertTriangle className="h-5 w-5 text-red-100" />
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.14em] text-red-100/80">Guide alerte</p>
+                      <h3 className="text-2xl font-semibold leading-tight">Comprendre les dérives de Lema Clinic à Istanbul</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-red-50/90 leading-relaxed">
+                    Guide complet basé sur des preuves réelles.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3">
                     <button
-                      key={item}
-                      onClick={() => handleNavigate("victimes")}
-                      className="w-full text-left px-3 py-2 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors duration-200"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white text-red-900 font-semibold text-sm shadow-lg shadow-black/20 transition-transform duration-200 hover:-translate-y-0.5"
                     >
-                      {item}
+                      Télécharger le guide
+                      <ArrowRight className="h-4 w-4" />
                     </button>
-                  ))}
+                    <div className="flex items-center gap-2 text-red-100/80 text-sm">
+                      <Info className="h-4 w-4" />
+                      PDF sécurisé, 15 pages
+                    </div>
+                  </div>
+                  <div className="relative overflow-hidden rounded-xl border border-white/20 bg-gradient-to-br from-[#5b0f15]/70 via-[#3a0b12]/80 to-[#0f0609]/80 min-h-[120px] flex items-center justify-between px-5 py-4">
+                    <div className="space-y-1 text-sm text-red-50/90">
+                      <p className="font-semibold text-red-100">Alerte Istanbul</p>
+                      <p>Comprendre les tactiques commerciales et juridiques.</p>
+                    </div>
+                    <div className="h-16 w-16 rounded-lg bg-white/15 border border-white/20 flex items-center justify-center">
+                      <AlertTriangle className="h-7 w-7 text-red-100" />
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <button
-                  onClick={() => handleNavigate("temoignages")}
-                  className="group w-full flex items-center justify-between px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-left text-white hover:border-red-300/50 hover:bg-red-500/10 transition-all duration-200"
-                >
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.14em] text-red-200/70">Témoignages</p>
-                    <p className="text-sm font-semibold">La force du collectif</p>
-                  </div>
-                  <Quote className="h-5 w-5 text-red-200 opacity-80 group-hover:scale-110 transition-transform" />
-                </button>
-
-                <Link
-                  to="/informer/questions-victimes"
-                  className="group w-full flex items-center justify-between px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-left text-white hover:border-red-300/50 hover:bg-red-500/10 transition-all duration-200"
-                  onClick={() => setOpen(false)}
-                >
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.14em] text-red-200/70">Questions</p>
-                    <p className="text-sm font-semibold">Les questions importantes</p>
-                  </div>
-                  <FileText className="h-5 w-5 text-red-200 opacity-80 group-hover:scale-110 transition-transform" />
-                </Link>
-              </div>
-
-              <button
-                onClick={() => handleNavigate("contact")}
-                className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-left text-white hover:border-red-300/50 hover:bg-red-500/10 transition-all duration-200"
-              >
-                <div>
-                  <p className="text-xs uppercase tracking-[0.14em] text-red-200/70">Vos droits</p>
-                  <p className="text-sm font-semibold">Parler à une personne de confiance</p>
-                </div>
-                <ChevronDown className="h-5 w-5 text-red-200 rotate-[-90deg]" />
-              </button>
             </div>
 
-            {/* Blocs visuels */}
-            <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-              <div className="relative overflow-hidden rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-900 via-[#2d0000] to-black p-5 shadow-[0_20px_40px_rgba(0,0,0,0.55)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.08),transparent_45%)]" />
-                <div className="relative space-y-4 text-white">
-                  <div className="h-28 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-red-200 text-sm font-semibold">
-                    Image d'alerte
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-xs uppercase tracking-[0.16em] text-red-200/80">Bloc A</p>
-                    <h3 className="text-xl font-bold">Comprendre les dérives des cliniques à Istanbul</h3>
-                    <p className="text-sm text-red-100/90">Guide complet basé sur des preuves réelles.</p>
-                  </div>
-                  <button
-                    className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-semibold text-red-100 hover:bg-white/15 transition-colors duration-200"
-                  >
-                    Télécharger le guide
-                  </button>
+            {/* Navigation droite */}
+            <div className="lg:col-span-7 flex flex-col gap-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-neutral-500 uppercase tracking-[0.18em]">Orientation</p>
+                  <h4 className="text-2xl font-bold text-neutral-900 mt-2">Tout savoir avant de vous engager</h4>
+                  <p className="text-sm text-neutral-600 mt-1">Ressources vérifiées, ton clair, actions immédiates.</p>
+                </div>
+                <div className="hidden md:flex h-12 w-12 rounded-full bg-gradient-to-br from-red-500/20 to-red-800/30 border border-red-200/60 text-red-700 items-center justify-center">
+                  <Scale className="h-5 w-5" />
                 </div>
               </div>
 
-              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0b0e1c] via-black to-black p-5 shadow-[0_20px_40px_rgba(0,0,0,0.55)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.05),transparent_40%),radial-gradient(circle_at_20%_80%,rgba(255,255,255,0.04),transparent_40%)]" />
-                <div className="relative space-y-4 text-white">
-                  <div className="h-28 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-red-100 text-sm font-semibold">
-                    Image d'expertise
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-xs uppercase tracking-[0.16em] text-red-200/80">Bloc B</p>
-                    <h3 className="text-xl font-bold">Comment constituer vos preuves ?</h3>
-                    <p className="text-sm text-red-100/90">Méthodologie validée pour éviter les pièges juridiques.</p>
-                  </div>
-                  <button
-                    className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-semibold text-red-100 hover:bg-white/15 transition-colors duration-200"
-                  >
-                    Voir la méthode
-                  </button>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {navItems.map(item => {
+                  const Icon = item.icon;
+                  const content = (
+                    <div className="group relative h-full overflow-hidden rounded-xl border border-neutral-200/70 bg-white/70 backdrop-blur-sm px-5 py-4 shadow-sm shadow-black/5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/15">
+                      <div className="absolute inset-x-0 bottom-0 h-1 opacity-0 bg-gradient-to-r from-red-500/60 via-red-600/70 to-red-800/70 transition-opacity duration-200 group-hover:opacity-100" />
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-neutral-100 to-neutral-200 border border-neutral-200 shadow-inner">
+                          <Icon className="h-5 w-5 text-red-700" />
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <h5 className="text-base font-semibold text-neutral-900">{item.title}</h5>
+                          </div>
+                          <p className="text-sm leading-relaxed text-neutral-600">{item.description}</p>
+                          <span className="inline-flex items-center gap-2 text-sm font-semibold text-red-700">Explorer <ArrowRight className="h-4 w-4" /></span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+
+                  if (item.action.type === "link") {
+                    return (
+                      <Link
+                        key={item.title}
+                        to={item.action.to}
+                        onClick={() => setOpen(false)}
+                        className="h-full"
+                      >
+                        {content}
+                      </Link>
+                    );
+                  }
+
+                  return (
+                    <button
+                      key={item.title}
+                      type="button"
+                      onClick={() => handleNavigate(item.action)}
+                      className="text-left h-full"
+                    >
+                      {content}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
