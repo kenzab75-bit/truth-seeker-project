@@ -34,6 +34,11 @@ npm i
 
 # Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
+
+# Step 5: Open the local preview and test the S'informer mega-menu.
+# The Vite dev server prints the URL (typically http://localhost:5173).
+# In the header, click "S'informer" to open the premium mega-menu and verify
+# navigation links, CTAs, and animations.
 ```
 
 **Edit a file directly in GitHub**
