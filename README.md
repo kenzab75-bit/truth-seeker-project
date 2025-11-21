@@ -30,10 +30,26 @@ git clone <YOUR_GIT_URL>
 cd <YOUR_PROJECT_NAME>
 
 # Step 3: Install the necessary dependencies.
-npm i
+# Use Node.js 18+ (20+ recommended). If in doubt, reinstall dependencies cleanly:
+#   rm -rf node_modules package-lock.json && npm install
+npm install
 
 # Step 4: Start the development server with auto-reloading and an instant preview.
+# Add --host if you want to access the site from another device on your network.
 npm run dev
+# or
+npm run dev -- --host
+
+# Step 5: Open the local preview and test the S'informer mega-menu.
+# The Vite dev server prints the URL (typically http://localhost:5173).
+# In the header, click "S'informer" to open the premium mega-menu and verify
+# navigation links, CTAs, and animations.
+
+# If the page does not load:
+# - Ensure the dev server is running without errors in the terminal.
+# - Confirm the printed URL/port and that no firewall/VPN blocks it.
+# - Stop any other process already using the port (e.g., lsof -i :5173), or
+#   rerun with a custom port: npm run dev -- --host --port 5174.
 ```
 
 **Edit a file directly in GitHub**

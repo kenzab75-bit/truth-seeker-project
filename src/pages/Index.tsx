@@ -4,7 +4,6 @@ import { Scale, Shield, FileText, AlertTriangle, X, ChevronRight, Quote, ArrowUp
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
 import ContactForm from "@/components/ContactForm";
@@ -12,6 +11,7 @@ import TestimonialCard from "@/components/TestimonialCard";
 import { testimonials } from "@/data/testimonials";
 import { timelineSteps, type TimelineStep } from "@/data/timelineSteps";
 import { supabase } from "@/integrations/supabase/client";
+import MegaMenuSInformer from "@/components/MegaMenuSInformer";
 const Index = () => {
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -53,15 +53,6 @@ const Index = () => {
       });
     }
   };
-
-  const heroVideoSources = Array.from(
-    new Set([
-      "/143668-784138097_medium.mp4",
-      `${import.meta.env.BASE_URL}143668-784138097_medium.mp4`,
-    ])
-  );
-
-  const heroVideoFallback = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
 
   const heroSegments = [
     {
@@ -122,6 +113,8 @@ const Index = () => {
       type: "video/webm",
     }
   ];
+
+  const heroVideoFallback = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
 
   const testimonySegments = [
     {
@@ -349,43 +342,7 @@ const Index = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A51616] transition-all duration-300 group-hover:w-full" />
               </button>
               
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent text-[#E0E0E0] hover:text-[#A51616] hover:bg-transparent font-medium transition-all duration-300 data-[state=open]:text-[#701010] data-[state=open]:bg-[#701010]/20 data-[active]:bg-transparent focus:bg-transparent group [&>svg]:transition-transform [&>svg]:duration-300 [&>svg]:ease-in-out data-[state=open]:[&>svg]:rotate-180 data-[state=open]:[&>svg]:-translate-y-px" aria-label="S'informer">
-                      S'informer
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-1 p-3 bg-gradient-to-br from-black via-[#0a0000] to-[#1a0000] backdrop-blur-[6px] border border-white/5 rounded-xl shadow-[inset_0_1px_2px_rgba(0,0,0,0.3),0_10px_40px_rgba(0,0,0,0.5)]">
-                        <li>
-                          <NavigationMenuLink asChild>
-                            <button onClick={() => scrollToSection('victimes')} className="w-full flex items-center gap-3 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
-                              <AlertTriangle className="h-4 w-4 opacity-70" />
-                              Leurs méthodes
-                            </button>
-                          </NavigationMenuLink>
-                        </li>
-                        <li>
-                          <NavigationMenuLink asChild>
-                            <button onClick={() => scrollToSection('temoignages')} className="w-full flex items-center gap-3 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616] text-left">
-                              <Quote className="h-4 w-4 opacity-70" />
-                              Témoignages
-                            </button>
-                          </NavigationMenuLink>
-                        </li>
-                        <li>
-                          <NavigationMenuLink asChild>
-                            <Link to="/informer/questions-victimes" className="flex items-center gap-3 select-none rounded-lg px-4 py-3 text-sm font-medium text-[#E0E0E0] no-underline outline-none transition-all duration-200 hover:bg-[#181818] hover:text-[#A51616]">
-                              <FileText className="h-4 w-4 opacity-70" />
-                              Vos questions importantes
-                            </Link>
-                          </NavigationMenuLink>
-                        </li>
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
+              <MegaMenuSInformer scrollToSection={scrollToSection} />
               <button
                 onClick={() => scrollToSection('contact')}
                 className="relative text-[#E0E0E0] hover:text-[#A51616] font-medium transition-all duration-300 group"
