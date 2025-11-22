@@ -434,7 +434,7 @@ const Index = () => {
             className="absolute inset-0 w-full h-full object-cover z-0"
           >
             {heroVideoSources.map(source => (
-              <source key={source} src={source} type="video/mp4" />
+              <source key={source.src} src={source.src} type={source.type} />
             ))}
           </video>
 
